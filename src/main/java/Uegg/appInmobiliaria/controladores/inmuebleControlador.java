@@ -47,6 +47,7 @@ public class inmuebleControlador {
         } catch (MyException ex) {
             
             modelo.put("error", ex.getMessage());
+            modelo.addAttribute("tipos", Tipo.values());
             return "inmuebleForm.html";
         }
 
