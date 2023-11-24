@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -64,14 +65,14 @@
 
     
 
-    <form class="formCrearInmueble" action="#" method="post">
+    <form class="formCrearInmueble" action="/inmueble/creado" method="POST">
       <div class="row1">
         <label for="tipo-inmueble">Tipo de Inmueble:</label>
-        <select id="tipo-inmueble" name="tipo-inmueble">
-          <option value="casa">Casa</option>
-          <option value="departamento">Departamento</option>
-          <option value="lote">Lote</option>
-          <option value="local">Local</option>
+        <select id="tipo-inmueble" name="tipo">
+          <option value="CASA">Casa</option>
+          <option value="DEPARTAMENTO">Departamento</option>
+          <option value="LOTE">Lote</option>
+          <option value="LOCAL">Local</option>
         </select>
 
         <label for="ubicacion">Ubicación:</label>
@@ -113,21 +114,41 @@
         <input
           type="number"
           id="precio"
-          name="precio"
-          placeholder="Ingrese el precio"
+          name="precioVenta"
+          placeholder="Ingrese el precio de venta"
+          
+        />
+        <label for="precio">$</label>
+        <input
+          type="number"
+          id="precio"
+          name="precioAlquiler"
+          placeholder="Ingrese el precio de alquiler"
           
         />
         <label class="venta">
-          <input type="radio" name="tipo-oferta" value="venta" />
+          <input type="radio" name="tipoOferta" value="venta" />
           Venta
         </label>
         <label class="alquiler">
-          <input type="radio" name="tipo-oferta" value="alquiler" />
+          <input type="radio" name="tipoOferta" value="alquiler" />
           Alquiler
         </label>
 
-        <button class="button-79" role="button">Crear Inmueble</button>
+        
       </div>
+      <button type="submit">Crear Inmueble</button>
+
+      <div th:if="${error != null}" class="mensajeError" >
+        <h5>Error</h5>
+        <p th:text="${error}"></p>
+    </div>
+
+    <div th:if="${exito != null}" class="mensajeExito">
+        <h5>Exito</h5>
+        <p th:text="${exito}"></p>
+    </div>
+    
     </form>
 
     
