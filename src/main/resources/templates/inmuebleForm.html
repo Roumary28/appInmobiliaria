@@ -1,145 +1,149 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="./inmuebleForm.css" />
-  </head>
-  <body>
-    <h2>Formulario Inicio</h2>
-    <form class="formInicio" action="#" method="get">
-      <div class="row1">
-        <label for="operacion">Operación:</label>
-        <select id="tipo-operacion" name="tipo-operacion">
-          <option value="alquiler">Alquiler</option>
-          <option value="alquiler-temporario">Alquiler Temporario</option>
-          <option value="venta">Venta</option>
-        </select>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <link rel="stylesheet" href="./inmuebleForm.css" />
+        <link rel="stylesheet" href="./style.css">
+    </head>
+    <body>
 
-        <label for="inmueble">Inmueble:</label>
-        <select id="tipo-inmueble" name="tipo-inmueble">
-          <option value="casas">Casas</option>
-          <option value="departamentos">Departamentos</option>
-          <option value="lotes">Lotes</option>
-          <option value="locales">Locales</option>
-        </select>
 
-        <input
-          type="text"
-          class="ubicacion"
-          id="ubicacion"
-          name="ubicacion"
-          placeholder="Ingrese la ubicación"
-        />
-      </div>
-      <div class="row2">
-        <div class="columna1">
-          <input type="checkbox" id="inmobiliaria" name="inmobiliaria" />
-          <label for="inmobiliaria">Inmobiliaria</label>
-          <input type="checkbox" id="dueno" name="dueno" />
-          <label for="dueno">Dueño</label>
+        <div class="fondo">
+            <div class="fondo d-flex justify-content-center align-items-center flex-column">
+                <h1 style="font-size: 350%; left: -30px; margin-left: 500px">
+                    Mr. House
+                </h1>
+                <p style="font-size: 150%; color: black; font-weight: 700; margin-left: 500px;">
+                    A un click de la propiedad que buscas
+                </p>
+            </div>
         </div>
 
-        <div class="columna2">
-          <button class="button-79" role="button">Buscar</button>
-        </div>
-      </div>
-    </form>
 
-    <h2>Formulario de Creación de Inmueble</h2>
+        <form class="formInicio" action="#" method="get">
+            <div class="row1">
+                <label for="operacion">Operación:</label>
+                <select id="tipo-operacion" name="tipo-operacion">
+                    <option value="alquiler">Alquiler</option>
+                    <option value="alquiler-temporario">Alquiler Temporario</option>
+                    <option value="venta">Venta</option>
+                </select>
 
-    <form class="formCrearInmueble" action="/inmueble/creado" method="POST">
-      <div class="row1">
-        <label for="tipo-inmueble">Tipo de Inmueble:</label>
-        <select id="tipo-inmueble" name="tipo">
-          <option value="CASA">Casa</option>
-          <option value="DEPARTAMENTO">Departamento</option>
-          <option value="LOTE">Lote</option>
-          <option value="LOCAL">Local</option>
-        </select>
+                <label for="inmueble">Inmueble:</label>
+                <select id="tipo-inmueble" name="tipo-inmueble">
+                    <option value="casas">Casas</option>
+                    <option value="departamentos">Departamentos</option>
+                    <option value="lotes">Lotes</option>
+                    <option value="locales">Locales</option>
+                </select>
 
-        <label for="ubicacion">Ubicación:</label>
-        <input
-          type="text"
-          id="ubicacion"
-          name="ubicacion"
-          placeholder="Ingrese la ubicación"
-        />
-      </div>
-      <div class="row2">
-        <label for="superficie">Superficie:</label>
-        <input
-          type="number"
-          id="superficie"
-          name="superficie"
-          placeholder="Tamaño de la superficie"
-        />
+                <input
+                    type="text"
+                    class="ubicacion"
+                    id="ubicacion"
+                    name="ubicacion"
+                    placeholder="Ingrese la ubicación"
+                    />
+            </div>
+            <div class="row2">
+                <div class="columna1">
+                    <input type="checkbox" id="inmobiliaria" name="inmobiliaria" />
+                    <label for="inmobiliaria">Inmobiliaria</label>
+                    <input type="checkbox" id="dueno" name="dueno" />
+                    <label for="dueno">Dueño</label>
+                </div>
 
-        <label for="ambientes">Ambientes:</label>
-        <input
-          type="number"
-          id="ambientes"
-          name="ambientes"
-          placeholder="Cantidad de ambientes"
-        />
-      </div>
-
-      <div class="row3">
-        <textarea
-          id="descripcion"
-          name="descripcion"
-          placeholder="Ingrese la descripción"
-        ></textarea>
-      </div>
-
-      <div class="row4">
-        <label for="precio">$</label>
-        <input
-          type="number"
-          id="precio"
-          name="precioVenta"
-          placeholder="Ingrese el precio de venta"
-          
-        />
-        <label for="precio">$</label>
-        <input
-          type="number"
-          id="precio"
-          name="precioAlquiler"
-          placeholder="Ingrese el precio de alquiler"
-          
-        />
-        <label class="venta">
-          <input type="radio" name="tipoOferta" value="venta" />
-          Venta
-        </label>
-        <label class="alquiler">
-          <input type="radio" name="tipoOferta" value="alquiler" />
-          Alquiler
-        </label>
-
-        
-      </div>
-      <button type="submit">Crear Inmueble</button>
-
-      <div th:if="${error != null}" class="mensajeError" >
-        <h5>Error</h5>
-        <p th:text="${error}"></p>
-    </div>
-
-    <div th:if="${exito != null}" class="mensajeExito">
-        <h5>Exito</h5>
-        <p th:text="${exito}"></p>
-    </div>
-    
-    </form>
-
-    
+                <div class="columna2">
+                    <button class="button-79" role="button">Buscar</button>
+                </div>
+            </div>
+        </form>
 
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-  </body>
+
+        <form class="formCrearInmueble" action="/inmueble/creado" method="POST">
+            <div class="row1">
+                <label for="tipo">Tipo:</label>
+                <select id="tipo" name="tipo">
+                    <option th:each="tipo : ${tipos}" th:value="${tipo}" th:text="${tipo}"></option>
+                </select>
+
+                <label for="ubicacion">Ubicación:</label>
+                <input
+                    type="text"
+                    id="ubicacion"
+                    name="ubicacion"
+                    placeholder="Ingrese la ubicación"
+                    />
+            </div>
+            <div class="row2">
+                <label for="superficie">Superficie:</label>
+                <input
+                    type="number"
+                    id="superficie"
+                    name="superficie"
+                    placeholder="Tamaño de la superficie"
+                    />
+
+                <label for="ambientes">Ambientes:</label>
+                <input
+                    type="number"
+                    id="ambientes"
+                    name="ambientes"
+                    placeholder="Cantidad de ambientes"
+                    />
+            </div>
+
+            <div class="row3">
+                <textarea
+                    id="descripcion"
+                    name="descripcion"
+                    placeholder="Ingrese la descripción"
+                    ></textarea>
+            </div>
+
+            <div class="row4">
+
+                <label class="venta">
+                    <input type="radio" name="tipoOferta" value="venta" />
+                    Venta
+                </label>
+                <label class="alquiler">
+                    <input type="radio" name="tipoOferta" value="alquiler" />
+                    Alquiler
+                </label>
+
+                <label for="precio">$</label>
+                <input
+                    type="number"
+                    id="precio"
+                    name="precio"
+                    placeholder="Ingrese el precio"
+                    />
+
+
+            </div>
+            <button type="submit">Crear Inmueble</button>
+
+            <div th:if="${error != null}" class="mensajeError" >
+                <h5>Error</h5>
+                <p th:text="${error}"></p>
+            </div>
+
+            <div th:if="${exito != null}" class="mensajeExito">
+                <h5>Exito</h5>
+                <p th:text="${exito}"></p>
+            </div>
+
+        </form>
+
+
+
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    </body>
 </html>
