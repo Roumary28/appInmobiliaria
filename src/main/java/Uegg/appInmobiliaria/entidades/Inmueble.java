@@ -3,6 +3,8 @@ package Uegg.appInmobiliaria.entidades;
 import Uegg.appInmobiliaria.enums.Tipo;
 import java.util.Date;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
@@ -16,8 +18,10 @@ public class Inmueble {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
-
+    
+    @Enumerated(EnumType.STRING)
     private Tipo tipo;
+    
     private String ubicacion;
     private Double superficie;
     private Integer ambientes;
