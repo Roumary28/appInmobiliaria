@@ -1,143 +1,142 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="./static/style.css">
-    <style>
-        .nav-item.dropdown:hover .nav-link,
-        .nav-item.dropdown:hover .dropdown-menu {
-            background-color: #168AAD;
-        }
-    </style>
-</head>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@500&family=Montserrat&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="/css/style.css">
+    </head>
 
 
-<body>
-    <nav th:include="./fragment/navbar.html"></nav>
-    <div class="fondo text-center">
-        <h1 style="font-size: 350%;">
-            Mr. House
-        </h1>
-        <p style="font-size: 150%; color: black; font-weight: 700;">
-            A un click de la propiedad que buscas
-        </p>
-    </div>
-
-    <div class="container mt-5">
-        <form class="formInicio" action="#" method="get" >
-            <div class="row">
-                <div class="col-md-4">
-                    <label for="operacion">Operación:</label>
-                    <select class="form-select" id="tipo-operacion" name="tipo-operacion">
-                        <option value="alquiler">Alquiler</option>
-                        <option value="alquiler-temporario">Alquiler Temporario</option>
-                        <option value="venta">Venta</option>
-                    </select>
-                </div>
-                <div class="col-md-4">
-                    <label for="inmueble">Inmueble:</label>
-                    <select class="form-select" id="tipo-inmueble" name="tipo-inmueble">
-                        <option value="casas">Casas</option>
-                        <option value="departamentos">Departamentos</option>
-                        <option value="lotes">Lotes</option>
-                        <option value="locales">Locales</option>
-                    </select>
-                </div>
-                <div class="col-md-4">
-                    <label for="ubicacion">Ubicación:</label>
-                    <input type="text" class="form-control" id="ubicacion" name="ubicacion"
-                        placeholder="Ingrese la ubicación" />
-                </div>
+    <body>
+        
+        <nav th:include="./fragment/navbar.html"></nav>
+        
+        <div class="fondo text-center">
+            <div class="tituloSlogan">
+                <h1 style="font-size: 350%;">
+                    <strong>Mr. House</strong>
+                </h1>
+                <p style="font-size: 150%; color: black; font-weight: 700;">
+                    A un click de la propiedad que buscas
+                </p>
             </div>
-            <div class="row mt-3">
-                <div class="col-md-6">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="inmobiliaria" name="inmobiliaria" />
-                        <label class="form-check-label" for="inmobiliaria">Inmobiliaria</label>
+        </div>
+
+        <div class="container mt-5">
+            <form class="formInicio" action="#" method="get" >
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="operacion">Operación:</label>
+                        <select class="form-select" id="tipo-operacion" name="tipo-operacion">
+                            <option value="alquiler">Alquiler</option>
+                            <option value="alquiler-temporario">Alquiler Temporario</option>
+                            <option value="venta">Venta</option>
+                        </select>
                     </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="dueno" name="dueno" />
-                        <label class="form-check-label" for="dueno">Dueño</label>
+                    <div class="col-md-4">
+                        <label for="inmueble">Inmueble:</label>
+                        <select class="form-select" id="tipo-inmueble" name="tipo-inmueble">
+                            <option value="casas">Casas</option>
+                            <option value="departamentos">Departamentos</option>
+                            <option value="lotes">Lotes</option>
+                            <option value="locales">Locales</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="ubicacion">Ubicación:</label>
+                        <input type="text" class="form-control" id="ubicacion" name="ubicacion"
+                               placeholder="Ingrese la ubicación" />
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <button class="btn btn-primary" role="button" style="background-color: #168AAD;">Buscar</button>
-                </div>
-            </div>
-        </form>
-
-        <form class="formCrearInmueble mt-5" action="/inmueble/creado" method="POST">
-            <div class="row mb-3">
-                <div class="col-md-6">
-                    <label for="tipo" class="form-label">Tipo:</label>
-                    <select class="form-select" id="tipo" name="tipo">
-                        <option th:each="tipo : ${tipos}" th:value="${tipo}" th:text="${tipo}"></option>
-                    </select>
-                </div>
-                <div class="col-md-6">
-                    <label for="ubicacion" class="form-label">Ubicación:</label>
-                    <input type="text" class="form-control" id="ubicacion" name="ubicacion"
-                        placeholder="Ingrese la ubicación" />
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-md-6">
-                    <label for="superficie" class="form-label">Superficie:</label>
-                    <input type="number" class="form-control" id="superficie" name="superficie"
-                        placeholder="Tamaño de la superficie" />
-                </div>
-                <div class="col-md-6">
-                    <label for="ambientes" class="form-label">Ambientes:</label>
-                    <input type="number" class="form-control" id="ambientes" name="ambientes"
-                        placeholder="Cantidad de ambientes" />
-                </div>
-            </div>
-            <div class="mb-3">
-                <label for="descripcion" class="form-label">Descripción:</label>
-                <textarea class="form-control" id="descripcion" name="descripcion"
-                    placeholder="Ingrese la descripción"></textarea>
-            </div>
-            <div class="row mb-3">
-                <div class="col-md-6">
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="tipoOferta" value="venta" id="venta">
-                        <label class="form-check-label" for="venta">Venta</label>
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="inmobiliaria" name="inmobiliaria" />
+                            <label class="form-check-label" for="inmobiliaria">Inmobiliaria</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="dueno" name="dueno" />
+                            <label class="form-check-label" for="dueno">Dueño</label>
+                        </div>
                     </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="tipoOferta" value="alquiler" id="alquiler">
-                        <label class="form-check-label" for="alquiler">Alquiler</label>
+                    <div class="col-md-6">
+                        <button class="btn btn-primary" role="button" style="background-color: #168AAD;">Buscar</button>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <label for="precio" class="form-label">Precio:</label>
-                    <input type="number" class="form-control" id="precio" name="precio" placeholder="Ingrese el precio" />
+            </form>
+
+            <form class="formCrearInmueble mt-5" action="/inmueble/creado" method="POST">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="tipo" class="form-label">Tipo:</label>
+                        <select class="form-select" id="tipo" name="tipo">
+                            <option th:each="tipo : ${tipos}" th:value="${tipo}" th:text="${tipo}"></option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="ubicacion" class="form-label">Ubicación:</label>
+                        <input type="text" class="form-control" id="ubicacion" name="ubicacion"
+                               placeholder="Ingrese la ubicación" />
+                    </div>
                 </div>
-            </div>
-            <div class="text-center">
-                <button type="submit" class="btn btn-primary" style="background-color: #168AAD;">Crear Inmueble</button>
-            </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="superficie" class="form-label">Superficie:</label>
+                        <input type="number" class="form-control" id="superficie" name="superficie"
+                               placeholder="Tamaño de la superficie" />
+                    </div>
+                    <div class="col-md-6">
+                        <label for="ambientes" class="form-label">Ambientes:</label>
+                        <input type="number" class="form-control" id="ambientes" name="ambientes"
+                               placeholder="Cantidad de ambientes" />
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="descripcion" class="form-label">Descripción:</label>
+                    <textarea class="form-control" id="descripcion" name="descripcion"
+                              placeholder="Ingrese la descripción"></textarea>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="tipoOferta" value="venta" id="venta">
+                            <label class="form-check-label" for="venta">Venta</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="tipoOferta" value="alquiler" id="alquiler">
+                            <label class="form-check-label" for="alquiler">Alquiler</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="precio" class="form-label">Precio:</label>
+                        <input type="number" class="form-control" id="precio" name="precio" placeholder="Ingrese el precio" />
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary" style="background-color: #168AAD;">Crear Inmueble</button>
+                </div>
 
-            <div th:if="${error != null}" class="mensajeError mt-3">
-                <h5>Error</h5>
-                <p th:text="${error}"></p>
-            </div>
+                <div th:if="${error != null}" class="mensajeError mt-3">
+                    <h5>Error</h5>
+                    <p th:text="${error}"></p>
+                </div>
 
-            <div th:if="${exito != null}" class="mensajeExito mt-3">
-                <h5>Éxito</h5>
-                <p th:text="${exito}"></p>
-            </div>
-        </form>
-    </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
-    
-</body>
+                <div th:if="${exito != null}" class="mensajeExito mt-3">
+                    <h5>Éxito</h5>
+                    <p th:text="${exito}"></p>
+                </div>
+            </form>
+        </div>
+        
+        <div id="footer" th:include="./fragment/footer.html"></div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    </body>
 
 
 </html>
