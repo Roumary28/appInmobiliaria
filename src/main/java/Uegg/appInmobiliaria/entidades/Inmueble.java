@@ -15,7 +15,7 @@ public class Inmueble {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    private long id;
+    private String id;
 
     private Tipo tipo;
     private String ubicacion;
@@ -34,11 +34,11 @@ public class Inmueble {
     public Inmueble() {
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

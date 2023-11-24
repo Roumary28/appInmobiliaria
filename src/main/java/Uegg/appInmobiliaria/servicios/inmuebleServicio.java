@@ -151,18 +151,8 @@ public class inmuebleServicio {
 
             throw new MyException("El tipo de oferta no puede ser nulo");
 
-        } else {
+        } 
 
-            if (tipoOferta.equals("ALQUILER") && precioAlquiler == null) {
-                throw new MyException("El precio del alquiler no puede ser nulo");
-            } else {
-
-                if (precioVenta == null) {
-                    throw new MyException("El precio de venta no puede ser nulo");
-                }
-            }
-
-        }
     }
 
 }

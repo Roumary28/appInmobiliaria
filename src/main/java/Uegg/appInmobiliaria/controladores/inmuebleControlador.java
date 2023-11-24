@@ -25,8 +25,8 @@ public class inmuebleControlador {
     }
 
     @PostMapping("/creado")
-    public String creado(@RequestParam Tipo tipo, @RequestParam String ubicacion, @RequestParam Double superficie, @RequestParam Integer ambientes,
-            @RequestParam String descripcion, @RequestParam Double precioVenta, @RequestParam Double precioAlquiler, @RequestParam String tipoOferta, ModelMap modelo) {
+    public String creado(@RequestParam Tipo tipo, @RequestParam String ubicacion, @RequestParam (required = false) Double superficie, @RequestParam (required = false) Integer ambientes,
+            @RequestParam String descripcion, @RequestParam (required = false) Double precioVenta, @RequestParam (required = false) Double  precioAlquiler, @RequestParam (required = false) String tipoOferta, ModelMap modelo) {
 
         try {
 
