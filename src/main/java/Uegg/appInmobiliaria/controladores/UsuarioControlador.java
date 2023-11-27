@@ -21,13 +21,13 @@ public class UsuarioControlador {
 
     @Autowired
     private UsuarioServicio usuarioServicio;
-    
+
     @GetMapping("/crear")
-     public String crear(){
-         
+    public String crear() {
+
         return "usuario_form.html";
     }
-     
+
     @PostMapping("/creado")
     public String creado(
             @RequestParam String nombre,
@@ -42,9 +42,10 @@ public class UsuarioControlador {
             @RequestParam String pass2,
             @RequestParam(required = false) String opcion,
             ModelMap modelo
-    ) throws MyException{
+    ) throws MyException {
         try {
-            usuarioServicio.crear(nombre, apellido, dni, idTributario, email, pass, pass2, opcion);
+
+            usuarioServicio.crear(nombre, apellido, dni, idTributario, direccion, ubicacion, telefono, email, pass, pass2, opcion);
             modelo.put("exito", "usuario registrado con exito");
             return "login.html";
         } catch (MyException e) {
@@ -61,24 +62,21 @@ public class UsuarioControlador {
             modelo.put("pass2", pass2);
             modelo.put("opcion", opcion);
             return "redirect:../usuario_form.html";
-            
+
         }
-        
+
     }
-    
-   @GetMapping("/lista") //localhost:8080/libro/lista
+
+    @GetMapping("/lista") 
     public String lista(ModelMap modelo) {
         List<Usuario> usuarios = usuarioServicio.listar();
         modelo.put("usuarios", usuarios);
         return "usuario_list.html";
     }
-    
+
     @GetMapping("/modificar/{id}")
-    public String modificar(){
+    public String modificar() {
         return "usuario_modificar.html";
     }
-    
-    
-    
-   
+
 }
