@@ -16,9 +16,10 @@ public interface InmuebleRepositorio extends JpaRepository<Inmueble, Long>{
     @Query("SELECT l FROM Inmueble l WHERE l.tipo = :tipo")
     public List<Inmueble> buscarPorTipo(@Param("tipo") Tipo tipo);
     
-     @Query("SELECT l FROM Inmueble l WHERE l.ambientes = :ambientes")
+    @Query("SELECT l FROM Inmueble l WHERE l.ambientes = :ambientes")
     public List<Inmueble> buscarPorAmbientes(@Param("ambientes") Integer ambientes);
+
+}
 
     
     
-}
