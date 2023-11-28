@@ -42,7 +42,7 @@ public class inmuebleServicio {
     }
 
     @Transactional
-    public void modificarInmueble(Long id, Tipo tipo, String ubicacion, Double superficie, Integer ambientes, String descripcion, Double precioVenta, Double precioAlquiler,
+    public void modificarInmueble(String id, Tipo tipo, String ubicacion, Double superficie, Integer ambientes, String descripcion, Double precioVenta, Double precioAlquiler,
             String tipoOferta) throws MyException {
 
         validar(tipo, ubicacion, superficie, ambientes, descripcion, precioVenta, precioAlquiler, tipoOferta);
@@ -66,7 +66,7 @@ public class inmuebleServicio {
 
     }
 
-    public void NoDisponible(Long id) {
+    public void NoDisponible(String id) {
 
         Optional<Inmueble> respuesta = inmuebleRepositorio.findById(id);
 
@@ -80,7 +80,7 @@ public class inmuebleServicio {
 
     }
 
-    public void Disponible(Long id) {
+    public void Disponible(String id) {
 
         Optional<Inmueble> respuesta = inmuebleRepositorio.findById(id);
 
@@ -95,7 +95,7 @@ public class inmuebleServicio {
     }
 
     @Transactional
-    public void borrarInmueble(Long id) throws MyException {
+    public void borrarInmueble(String id) throws MyException {
 
         Optional<Inmueble> respuesta = inmuebleRepositorio.findById(id);
 
@@ -106,7 +106,7 @@ public class inmuebleServicio {
         }
     }
 
-    public Inmueble getOne(Long id) {
+    public Inmueble getOne(String id) {
         return inmuebleRepositorio.getOne(id);
     }
 
