@@ -23,9 +23,11 @@ public class UsuarioServicio {
     private UsuarioRepositorio usuarioRepo;
 
     @Transactional
-    public void crear(String nombre, String apellido, Long dni, Long idTributario, String direccion, String ubicacion, Integer telefono, 
-            String email, String pass, String pass2, String opcion) throws MyException {
+    public void crear(String nombre, String apellido, Long dni, Long idTributario, String direccion, String ubicacion, Integer telefono,
+                      String email, String pass, String pass2, String opcion) throws MyException {
         validar(nombre, apellido, dni, idTributario, email, pass, pass2);
+        
+        // Crear una instancia de Usuario
         Usuario usuario = new Usuario();
         usuario.setNombre(nombre);
         usuario.setApellido(apellido);
@@ -46,7 +48,8 @@ public class UsuarioServicio {
     public void modificarUsuario(String id, Imagen imagen, Integer telefono, Long idTributario, String direccion, String ubicacion) {
         Optional<Usuario> respuesta = usuarioRepo.findById(id);
         if (respuesta.isPresent()) {
-            Usuario usuario = new Usuario();
+            // Obtener la instancia existente
+            Usuario usuario = respuesta.get();
             usuario.setImagen(imagen);
             usuario.setTelefono(telefono);
             usuario.setIdTributario(idTributario);
@@ -61,7 +64,8 @@ public class UsuarioServicio {
     public void modificarRol(String id, String rol) {
         Optional<Usuario> respuesta = usuarioRepo.findById(id);
         if (respuesta.isPresent()) {
-            Usuario usuario = new Usuario();
+            // Obtener la instancia existente
+            Usuario usuario = respuesta.get();
             usuario.setRol(Rol.valueOf(rol));
             usuarioRepo.save(usuario);
         }
@@ -83,7 +87,8 @@ public class UsuarioServicio {
     public void baja(String id) {
         Optional<Usuario> respuesta = usuarioRepo.findById(id);
         if (respuesta.isPresent()) {
-            Usuario usuario = new Usuario();
+            // Obtener la instancia existente
+            Usuario usuario = respuesta.get();
             usuario.setActivo(false);
             usuarioRepo.save(usuario);
         }
@@ -93,7 +98,8 @@ public class UsuarioServicio {
     public void alta(String id) {
         Optional<Usuario> respuesta = usuarioRepo.findById(id);
         if (respuesta.isPresent()) {
-            Usuario usuario = new Usuario();
+            // Obtener la instancia existente
+            Usuario usuario = respuesta.get();
             usuario.setActivo(true);
             usuarioRepo.save(usuario);
         }
@@ -132,7 +138,7 @@ public class UsuarioServicio {
         }
     }
 
-    public Usuario getOne(String id) {
+     public Usuario getOne(String id) {
         return usuarioRepo.getOne(id);
     }
 }
