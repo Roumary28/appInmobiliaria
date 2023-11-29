@@ -22,10 +22,10 @@ public class UsuarioControlador {
     @Autowired
     private UsuarioServicio usuarioServicio;
 
-    @GetMapping("/crear")
-    public String crear() {
+    @GetMapping("/crearCliente")
+    public String crearCliente() {
 
-        return "usuario_form.html";
+        return "cliente_form.html";
     }
 
     @PostMapping("/creadoCliente")
@@ -56,8 +56,14 @@ public class UsuarioControlador {
             modelo.put("email", email);
             modelo.put("pass", pass);
             modelo.put("pass2", pass2);
-            return "redirect:../usuario_form.html";
+            return "redirect:../cliente_form.html";
         }
+    }
+    
+@GetMapping("/crearEnte")
+    public String crearEnte() {
+
+        return "Ente_form.html";
     }
 
     @PostMapping("/creadoEnte")
@@ -88,7 +94,7 @@ public class UsuarioControlador {
             modelo.put("email", email);
             modelo.put("pass", pass);
             modelo.put("pass2", pass2);
-            return "redirect:../usuario_form.html";
+            return "redirect:../ente_form.html";
         }
     }
 

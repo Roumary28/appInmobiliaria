@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <link rel="stylesheet" href="./registro.css" />
+    </head>
+    <body>
+        <div class="registro">
+            <form action="/usuario/creadoCliente" method="POST">
+                <h1>Registrarse:</h1>
+
+                <div class="input-container">
+                    <input type="text" id="email" name="email" />
+                    <label for="email">Email:</label>
+                </div>
+
+                <div class="input-container">
+                    <input type="password" id="password" name="pass"  />
+                    <label for="password">Contraseña:</label>
+                </div>
+
+                <div class="input-container">
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        name="pass2"
+
+                        />
+                    <label for="confirmPassword">Confirmar contraseña:</label>
+                </div>
+
+                <h4 class="titleDatos">Datos Personales</h4>
+
+                <div class="input-container">
+                    <input type="text" id="name" name="denominacion" />
+                    <label for="name">Nombre:</label>
+                </div>
+
+                <div class="input-container">
+                    <input type="text" id="name" name="direccion" />
+                    <label for="name">Direccion:</label>
+                </div>
+
+                <div class="input-container">
+                    <input type="number" id="name" name="codigoPostal"  />
+                    <label for="name">Codigo Postal:</label>
+                </div>
+
+
+                <!-- <div class="input-container">
+                  <input type="text" id="razonSocial" name="razonSocial" required />
+                  <label for="razonSocial">Razón social:</label>
+                </div> -->
+
+
+                <!-- <h4>Condición fiscal</h4>
+                <div class="selectTipoCondicionFiscal">
+                  <span name="tipoCondicionFiscal" id="tipoCondicionFiscalTexto"
+                    >Consumidor Final</span
+                  >
+                  <img
+                    src="./flecha.png"
+                    height="12px"
+                    width="fit-content"
+                    alt="Flecha"
+                  />
+                  
+                  <ul style="display: none" class="dropdown-content-cf">
+                    <li>Consumidor Final</li>
+                    <li>Monotributista</li>
+                    <li>Responsable Inscripto</li>
+                    <li>Exento</li>
+                  </ul>
+                </div> -->
+
+
+                <div class="input-container">
+                    <input type="number" id="dni" name="dni" />
+                    <label for="dni">DNI:</label>
+                </div>
+
+                <!-- <div class="input-container">
+                  <input type="text" id="cuit" name="cuit" required />
+                  <label for="cuit">CUIT:</label>
+                </div> -->
+
+                <div class="input-container">
+                    <input type="number" id="phone" name="telefono" />
+                    <label for="phone">Teléfono:</label>
+                </div>
+
+                <!-- <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="acepto_terminos" required />
+                    Acepto los términos y condiciones de uso.
+                  </label>
+                </div>
+        
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="acepto_privacidad" required />
+                    Acepto la política de privacidad.
+                  </label>
+                </div> -->
+
+                <div class="btnRegistrarme">
+                    <button type="submit" class="button-29" role="button">
+                        Registrarme
+                    </button>
+                </div>
+
+                <div th:if="${error != null}" class="mensajeError mt-3">
+                    <h5>Error</h5>
+                    <p th:text="${error}"></p>
+                </div>
+
+                <div th:if="${exito != null}" class="mensajeExito mt-3">
+                    <h5>Éxito</h5>
+                    <p th:text="${exito}"></p>
+                </div>
+                
+            </form>
+        </div>
+
+        <script src="./registro.js"></script>
+    </body>
+</html>
