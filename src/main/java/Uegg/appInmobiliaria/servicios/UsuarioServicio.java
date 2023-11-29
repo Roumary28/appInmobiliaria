@@ -11,6 +11,7 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -21,14 +22,18 @@ public class UsuarioServicio {
 
     @Autowired
     private UsuarioRepositorio usuarioRepo;
+    @Autowired
+    private ImagenServicio imagenServicio;
 
     @Transactional
-    public void crearCliente(String denominacion, Long dni, String direccion, Integer codigoPostal, Integer telefono,
+    public void crearCliente(MultipartFile archivo, String denominacion, Long dni, String direccion, Integer codigoPostal, Integer telefono,
             String email, String pass, String pass2) throws MyException {
         validarCliente(denominacion, dni, direccion, codigoPostal,  telefono, email,  pass, pass2);
 
         // Crear una instancia de Usuario
         Usuario usuario = new Usuario();
+        Imagen imagen = imagenServicio.guardar(archivo);
+        usuario.setImagen(imagen);
         usuario.setDenominacion(denominacion);
         usuario.setDni(dni);
         usuario.setDireccion(direccion);
@@ -43,12 +48,14 @@ public class UsuarioServicio {
     }
 
     @Transactional
-    public void crearEnte(String denominacion, Long cuit, String direccion, Integer codigoPostal, Integer telefono,
+    public void crearEnte(MultipartFile archivo, String denominacion, Long cuit, String direccion, Integer codigoPostal, Integer telefono,
             String email, String pass, String pass2) throws MyException {
         validarEnte(denominacion, cuit, direccion, codigoPostal,  telefono, email,  pass, pass2);
 
         // Crear una instancia de Usuario
         Usuario usuario = new Usuario();
+        Imagen imagen = imagenServicio.guardar(archivo);
+        usuario.setImagen(imagen);
         usuario.setDenominacion(denominacion);
         usuario.setCuit(cuit);
         usuario.setDireccion(direccion);
@@ -63,12 +70,18 @@ public class UsuarioServicio {
     }
 
     @Transactional
-    public void modificarUsuario(String id, Imagen imagen, Integer telefono, String direccion, Integer codigoPostal, String email, String pass, String pass2) {
+    public void modificarUsuario(
+            String id,
+            Integer telefono,
+            String direccion,
+            Integer codigoPostal,
+            String email,
+            String pass,
+            String pass2) {
         Optional<Usuario> respuesta = usuarioRepo.findById(id);
         if (respuesta.isPresent()) {
             // Obtener la instancia existente
             Usuario usuario = respuesta.get();
-            usuario.setImagen(imagen);
             usuario.setTelefono(telefono);
             usuario.setDireccion(direccion);
             usuario.setCodigoPostal(codigoPostal);

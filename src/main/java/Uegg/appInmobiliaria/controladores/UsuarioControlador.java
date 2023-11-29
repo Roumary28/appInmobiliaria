@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author Gimenez Victor
@@ -30,6 +32,7 @@ public class UsuarioControlador {
 
     @PostMapping("/creadoCliente")
     public String creadoCliente(
+            @RequestParam MultipartFile archivo,
             @RequestParam String denominacion,
             @RequestParam(required = false) Long dni,
             @RequestParam String direccion,
@@ -42,7 +45,7 @@ public class UsuarioControlador {
     ) throws MyException {
         try {
 
-            usuarioServicio.crearCliente(denominacion, dni, direccion, codigoPostal, telefono, email, pass, pass2);
+            usuarioServicio.crearCliente(archivo, denominacion, dni, direccion, codigoPostal, telefono, email, pass, pass2);
             modelo.put("exito", "usuario registrado con exito");
             return "login.html";
 
@@ -68,6 +71,7 @@ public class UsuarioControlador {
 
     @PostMapping("/creadoEnte")
     public String creadoEnte(
+            @RequestParam MultipartFile archivo,
             @RequestParam String denominacion,
             @RequestParam(required = false) Long cuit,
             @RequestParam String direccion,
@@ -80,7 +84,7 @@ public class UsuarioControlador {
     ) throws MyException {
         try {
 
-            usuarioServicio.crearEnte(denominacion, cuit, direccion, codigoPostal, telefono, email, pass, pass2);
+            usuarioServicio.crearEnte(archivo, denominacion, cuit, direccion, codigoPostal, telefono, email, pass, pass2);
             modelo.put("exito", "usuario registrado con exito");
             return "login.html";
 
@@ -104,10 +108,33 @@ public class UsuarioControlador {
         modelo.put("usuarios", usuarios);
         return "usuario_list.html";
     }
-
+    
     @GetMapping("/modificar/{id}")
-    public String modificar() {
+    public String modificar(@PathVariable String id){
+        
         return "usuario_modificar.html";
+    }
+
+    @PostMapping("/modificar/{id}")
+    public String modificar(
+            @PathVariable String id,
+            @RequestParam Integer telefono,
+            @RequestParam String direccion,
+            @RequestParam Integer codigoPostal,
+            @RequestParam String email,
+            @RequestParam String pass,
+            @RequestParam String pass2,
+            ModelMap modelo
+    ) {
+        try {
+            usuarioServicio.modificarUsuario(id, telefono, direccion, codigoPostal, email, pass, pass2);
+            modelo.put("exito", "Usuario actualizado correctamente!");
+            return "login.html";
+        } catch (Exception ex) {
+            modelo.put("error", ex.getMessage());
+            return "usuario_modificar.html";
+        }
+        
     }
 
 }
