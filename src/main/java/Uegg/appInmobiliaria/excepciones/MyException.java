@@ -1,4 +1,3 @@
-
 package Uegg.appInmobiliaria.excepciones;
 
 public class MyException extends Exception {

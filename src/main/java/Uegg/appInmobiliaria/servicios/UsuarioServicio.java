@@ -25,7 +25,7 @@ public class UsuarioServicio {
     @Transactional
     public void crearCliente(String denominacion, Long dni, String direccion, Integer codigoPostal, Integer telefono,
             String email, String pass, String pass2) throws MyException {
-        validarCliente(denominacion, dni, direccion, email, codigoPostal, telefono, pass, pass2);
+        validarCliente(denominacion, dni, direccion, codigoPostal,  telefono, email,  pass, pass2);
 
         // Crear una instancia de Usuario
         Usuario usuario = new Usuario();
@@ -45,7 +45,7 @@ public class UsuarioServicio {
     @Transactional
     public void crearEnte(String denominacion, Long cuit, String direccion, Integer codigoPostal, Integer telefono,
             String email, String pass, String pass2) throws MyException {
-        validarCliente(denominacion, cuit, direccion, email, codigoPostal, telefono, pass, pass2);
+        validarEnte(denominacion, cuit, direccion, codigoPostal,  telefono, email,  pass, pass2);
 
         // Crear una instancia de Usuario
         Usuario usuario = new Usuario();
@@ -97,7 +97,6 @@ public class UsuarioServicio {
         }
     }
     * */
-    
     public List<Usuario> listar() {
         return usuarioRepo.findAll();
     }
@@ -124,15 +123,19 @@ public class UsuarioServicio {
         }
     }
 
-    public void validarCliente(String denominacion, Long dni, String direccion, String email, Integer codigoPostal, Integer telefono, String pass, String pass2) throws MyException {
+    public void validarCliente(String denominacion, Long dni, String direccion, Integer codigoPostal, Integer telefono, String email, String pass, String pass2) throws MyException {
         if (denominacion.isEmpty() || denominacion == null) {
-            throw new MyException("El nombre no puede estar vacio");
+            throw new MyException("El nombre no puede ser nulo.");
         }
 
         if (dni == null) {
-            throw new MyException("El dni/cuit no puede estar vacio");
-        } else if (dni <= 1000000 || dni >= 100000000000L) {
-            throw new MyException("El dni no es valido");
+            throw new MyException("El DNI no puede ser nulo.");
+        } else if (dni <= 9999999 || dni >= 100000000L) {
+            throw new MyException("El DNI debe tener 8 digitos.");
+        }
+        
+        if (direccion.isEmpty() || direccion == null) {
+            throw new MyException("La dirección no puede ser nula.");
         }
 
         if (codigoPostal == null) {
@@ -143,16 +146,52 @@ public class UsuarioServicio {
             throw new MyException("El telefono no puede ser nulo.");
         }
 
-        if (direccion == null) {
+        if (email.isEmpty() || email == null) {
+            throw new MyException("El email no puede ser nulo.");
+        }
+
+        if (pass.isEmpty() || pass == null) {
+            throw new MyException("La contraseña no puede ser nula.");
+        } else if (pass.length() <= 5) {
+            throw new MyException("La contraseña debe tener al menos 6 digitos.");
+        }
+
+        if (!pass.equals(pass2)) {
+            throw new MyException("Las contraseñas deben ser iguales.");
+        }
+    }
+    
+     public void validarEnte(String denominacion, Long cuit, String direccion, Integer codigoPostal, Integer telefono, String email, String pass, String pass2) throws MyException {
+        if (denominacion.isEmpty() || denominacion == null) {
+            throw new MyException("La razón social no puede ser nula.");
+        }
+
+        if (cuit == null) {
+            throw new MyException("El CUIT no puede ser nulo.");
+        } else if (cuit <= 9999999999L || cuit >= 100000000000L) {
+            throw new MyException("El CUIT debe tener 11 digitos");
+        }
+        
+        if (direccion.isEmpty() || direccion == null) {
             throw new MyException("La dirección no puede ser nula.");
         }
 
-        if (email.isEmpty()) {
-            throw new MyException("El email no puede estar vacio");
+        if (codigoPostal == null) {
+            throw new MyException("El codigo postal no puede ser nulo.");
         }
 
-        if (pass.isEmpty() || pass.length() <= 5) {
-            throw new MyException("La contraseña no puede estar vacia y debe ser de mas de 5 digitos");
+        if (telefono == null) {
+            throw new MyException("El telefono no puede ser nulo.");
+        }
+
+        if (email.isEmpty() || email == null) {
+            throw new MyException("El email no puede ser nulo.");
+        }
+
+        if (pass.isEmpty() || pass == null) {
+            throw new MyException("La contraseña no puede ser nula.");
+        } else if (pass.length() <= 5) {
+            throw new MyException("La contraseña debe tener al menos 6 digitos");
         }
 
         if (!pass.equals(pass2)) {

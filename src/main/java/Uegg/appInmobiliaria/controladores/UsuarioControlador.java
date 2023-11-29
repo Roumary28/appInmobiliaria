@@ -31,10 +31,10 @@ public class UsuarioControlador {
     @PostMapping("/creadoCliente")
     public String creadoCliente(
             @RequestParam String denominacion,
-            @RequestParam Long dni,
-            @RequestParam Integer telefono,
-            @RequestParam Integer codigoPostal,
+            @RequestParam(required = false) Long dni,
             @RequestParam String direccion,
+            @RequestParam(required = false) Integer codigoPostal,
+            @RequestParam(required = false) Integer telefono,
             @RequestParam String email,
             @RequestParam String pass,
             @RequestParam String pass2,
@@ -50,29 +50,29 @@ public class UsuarioControlador {
             modelo.put("error", e.getMessage());
             modelo.put("denominacion", denominacion);
             modelo.put("dni", dni);
-            modelo.put("telefono", telefono);
             modelo.put("direccion", direccion);
             modelo.put("codigoPostal", codigoPostal);
+            modelo.put("telefono", telefono);
             modelo.put("email", email);
             modelo.put("pass", pass);
             modelo.put("pass2", pass2);
-            return "redirect:../cliente_form.html";
+            return "cliente_form.html";
         }
     }
-    
-@GetMapping("/crearEnte")
+
+    @GetMapping("/crearEnte")
     public String crearEnte() {
 
-        return "Ente_form.html";
+        return "ente_form.html";
     }
 
     @PostMapping("/creadoEnte")
     public String creadoEnte(
             @RequestParam String denominacion,
-            @RequestParam Long cuit,
-            @RequestParam Integer telefono,
-            @RequestParam Integer codigoPostal,
+            @RequestParam(required = false) Long cuit,
             @RequestParam String direccion,
+            @RequestParam(required = false) Integer codigoPostal,
+            @RequestParam(required = false) Integer telefono,
             @RequestParam String email,
             @RequestParam String pass,
             @RequestParam String pass2,
@@ -88,13 +88,13 @@ public class UsuarioControlador {
             modelo.put("error", e.getMessage());
             modelo.put("denominacion", denominacion);
             modelo.put("cuit", cuit);
-            modelo.put("telefono", telefono);
             modelo.put("direccion", direccion);
             modelo.put("codigoPostal", codigoPostal);
+            modelo.put("telefono", telefono);
             modelo.put("email", email);
             modelo.put("pass", pass);
             modelo.put("pass2", pass2);
-            return "redirect:../ente_form.html";
+            return "ente_form.html";
         }
     }
 

@@ -1,1 +1,1 @@
-{"elements":{},"attributes":{"integrity":{"context":"link"},"th:include":{"context":"nav"},"th:replace":{"context":"footer"},"th:each":{"context":"option"}}}
+{"elements":{},"attributes":{"th:if":{},"th:text":{},"integrity":{"context":"link"},"th:include":{"context":"nav"},"th:replace":{"context":"footer"},"th:each":{"context":"option"}}}

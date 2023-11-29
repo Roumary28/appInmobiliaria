@@ -9,7 +9,7 @@
     <body>
 
         <div class="registro">
-            <form action="/usuario/creadoCliente" method="POST">
+            <form action="/usuario/creadoEnte" method="POST">
 
                 <div th:if="${error != null}" class="mensajeError mt-3">
                     <h5>Error</h5>
@@ -23,16 +23,16 @@
 
                 <h1>Registrarse:</h1>
 
-                <h4 class="titleDatos">Datos Personales</h4>
+                <h4 class="titleDatos">Datos</h4>
 
                 <div class="input-container">
-                    <input type="text" id="name" name="denominacion"/>
-                    <label for="name">Nombre:</label>
+                    <input type="text" id="razonSocial" name="denominacion"/>
+                    <label for="razonSocial">Razón social:</label>
                 </div>
 
                 <div class="input-container">
-                    <input type="number" id="dni" name="dni"/>
-                    <label for="dni">DNI:</label>
+                    <input type="text" id="cuit" name="cuit"/>
+                    <label for="cuit">CUIT:</label>
                 </div>
 
                 <div class="input-container">
@@ -46,12 +46,12 @@
                 </div>
 
                 <div class="input-container">
-                    <input type="number" id="phone" name="telefono"/>
+                    <input type="number" id="phone" name="telefono" />
                     <label for="phone">Teléfono:</label>
                 </div>
 
                 <div class="input-container">
-                    <input type="text" id="email" name="email"/>
+                    <input type="text" id="email" name="email" />
                     <label for="email">Email:</label>
                 </div>
 
@@ -66,17 +66,17 @@
                 </div>
 
                 <!-- <div class="checkbox">
-                  <label>
-                    <input type="checkbox" name="acepto_terminos" required />
-                    Acepto los términos y condiciones de uso.
-                  </label>
+                    <label>
+                        <input type="checkbox" name="acepto_terminos" required />
+                        Acepto los términos y condiciones de uso.
+                    </label>
                 </div>
-        
+
                 <div class="checkbox">
-                  <label>
-                    <input type="checkbox" name="acepto_privacidad" required />
-                    Acepto la política de privacidad.
-                  </label>
+                    <label>
+                        <input type="checkbox" name="acepto_privacidad" required />
+                        Acepto la política de privacidad.
+                    </label>
                 </div> -->
 
                 <div class="btnRegistrarme">
