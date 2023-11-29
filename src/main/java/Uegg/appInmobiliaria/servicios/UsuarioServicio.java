@@ -23,38 +23,55 @@ public class UsuarioServicio {
     private UsuarioRepositorio usuarioRepo;
 
     @Transactional
-    public void crear(String nombre, String apellido, Long dni, Long idTributario, String direccion, String ubicacion, Integer telefono,
-                      String email, String pass, String pass2, String opcion) throws MyException {
-        validar(nombre, apellido, dni, idTributario, email, pass, pass2);
-        
+    public void crearCliente(String denominacion, Long dni, String direccion, Integer codigoPostal, Integer telefono,
+            String email, String pass, String pass2) throws MyException {
+        validarCliente(denominacion, dni, direccion, codigoPostal,  telefono, email,  pass, pass2);
+
         // Crear una instancia de Usuario
         Usuario usuario = new Usuario();
-        usuario.setNombre(nombre);
-        usuario.setApellido(apellido);
+        usuario.setDenominacion(denominacion);
         usuario.setDni(dni);
-        usuario.setIdTributario(idTributario);
-        usuario.setUbicacion(ubicacion);
         usuario.setDireccion(direccion);
+        usuario.setCodigoPostal(codigoPostal);
         usuario.setTelefono(telefono);
         usuario.setEmail(email);
         usuario.setPass(pass);
-        usuario.setRol(asignarRol(opcion));
+        usuario.setRol(Rol.CLIENTE);
         usuario.setFechaAlta(new Date());
         usuario.setActivo(true);
         usuarioRepo.save(usuario);
     }
 
     @Transactional
-    public void modificarUsuario(String id, Imagen imagen, Integer telefono, Long idTributario, String direccion, String ubicacion) {
+    public void crearEnte(String denominacion, Long cuit, String direccion, Integer codigoPostal, Integer telefono,
+            String email, String pass, String pass2) throws MyException {
+        validarEnte(denominacion, cuit, direccion, codigoPostal,  telefono, email,  pass, pass2);
+
+        // Crear una instancia de Usuario
+        Usuario usuario = new Usuario();
+        usuario.setDenominacion(denominacion);
+        usuario.setCuit(cuit);
+        usuario.setDireccion(direccion);
+        usuario.setCodigoPostal(codigoPostal);
+        usuario.setTelefono(telefono);
+        usuario.setEmail(email);
+        usuario.setPass(pass);
+        usuario.setRol(Rol.ENTE);
+        usuario.setFechaAlta(new Date());
+        usuario.setActivo(true);
+        usuarioRepo.save(usuario);
+    }
+
+    @Transactional
+    public void modificarUsuario(String id, Imagen imagen, Integer telefono, String direccion, Integer codigoPostal, String email, String pass, String pass2) {
         Optional<Usuario> respuesta = usuarioRepo.findById(id);
         if (respuesta.isPresent()) {
             // Obtener la instancia existente
             Usuario usuario = respuesta.get();
             usuario.setImagen(imagen);
             usuario.setTelefono(telefono);
-            usuario.setIdTributario(idTributario);
             usuario.setDireccion(direccion);
-            usuario.setUbicacion(ubicacion);
+            usuario.setCodigoPostal(codigoPostal);
 
             usuarioRepo.save(usuario);
         }
@@ -71,6 +88,7 @@ public class UsuarioServicio {
         }
     }
 
+    /*
     private Rol asignarRol(String opcion) {
         if (opcion.isEmpty()) {
             return Rol.CLIENTE;
@@ -78,7 +96,7 @@ public class UsuarioServicio {
             return Rol.ENTE;
         }
     }
-
+    * */
     public List<Usuario> listar() {
         return usuarioRepo.findAll();
     }
@@ -105,32 +123,75 @@ public class UsuarioServicio {
         }
     }
 
-    public void validar(String nombre, String apellido, Long dni, Long idTributario, String email, String pass, String pass2) throws MyException {
-        if (nombre.isEmpty() || nombre == null) {
-            throw new MyException("El nombre no puede estar vacio");
-        }
-
-        if (apellido.isEmpty() || apellido == null) {
-            throw new MyException("El campo apellido no puede estar vacio");
+    public void validarCliente(String denominacion, Long dni, String direccion, Integer codigoPostal, Integer telefono, String email, String pass, String pass2) throws MyException {
+        if (denominacion.isEmpty() || denominacion == null) {
+            throw new MyException("El nombre no puede ser nulo.");
         }
 
         if (dni == null) {
-
-            throw new MyException("El dni no puede estar vacio");
-        } else if (dni <= 0 || dni > 99999999) {
-            throw new MyException("El dni no es valido");
+            throw new MyException("El DNI no puede ser nulo.");
+        } else if (dni <= 9999999 || dni >= 100000000L) {
+            throw new MyException("El DNI debe tener 8 digitos.");
+        }
+        
+        if (direccion.isEmpty() || direccion == null) {
+            throw new MyException("La dirección no puede ser nula.");
         }
 
-        if (idTributario == null) {
-            throw new MyException("El cuil / cuit no puede ser nulo.");
+        if (codigoPostal == null) {
+            throw new MyException("El codigo postal no puede ser nulo.");
         }
 
-        if (email.isEmpty() ) {
-            throw new MyException("El email no puede estar vacio");
+        if (telefono == null) {
+            throw new MyException("El telefono no puede ser nulo.");
         }
 
-        if (pass.isEmpty() || pass.length() <= 5) {
-            throw new MyException("La contraseña no puede estar vacia y debe ser de mas de 5 digitos");
+        if (email.isEmpty() || email == null) {
+            throw new MyException("El email no puede ser nulo.");
+        }
+
+        if (pass.isEmpty() || pass == null) {
+            throw new MyException("La contraseña no puede ser nula.");
+        } else if (pass.length() <= 5) {
+            throw new MyException("La contraseña debe tener al menos 6 digitos.");
+        }
+
+        if (!pass.equals(pass2)) {
+            throw new MyException("Las contraseñas deben ser iguales.");
+        }
+    }
+    
+     public void validarEnte(String denominacion, Long cuit, String direccion, Integer codigoPostal, Integer telefono, String email, String pass, String pass2) throws MyException {
+        if (denominacion.isEmpty() || denominacion == null) {
+            throw new MyException("La razón social no puede ser nula.");
+        }
+
+        if (cuit == null) {
+            throw new MyException("El CUIT no puede ser nulo.");
+        } else if (cuit <= 9999999999L || cuit >= 100000000000L) {
+            throw new MyException("El CUIT debe tener 11 digitos");
+        }
+        
+        if (direccion.isEmpty() || direccion == null) {
+            throw new MyException("La dirección no puede ser nula.");
+        }
+
+        if (codigoPostal == null) {
+            throw new MyException("El codigo postal no puede ser nulo.");
+        }
+
+        if (telefono == null) {
+            throw new MyException("El telefono no puede ser nulo.");
+        }
+
+        if (email.isEmpty() || email == null) {
+            throw new MyException("El email no puede ser nulo.");
+        }
+
+        if (pass.isEmpty() || pass == null) {
+            throw new MyException("La contraseña no puede ser nula.");
+        } else if (pass.length() <= 5) {
+            throw new MyException("La contraseña debe tener al menos 6 digitos");
         }
 
         if (!pass.equals(pass2)) {
@@ -138,7 +199,7 @@ public class UsuarioServicio {
         }
     }
 
-     public Usuario getOne(String id) {
+    public Usuario getOne(String id) {
         return usuarioRepo.getOne(id);
     }
 }

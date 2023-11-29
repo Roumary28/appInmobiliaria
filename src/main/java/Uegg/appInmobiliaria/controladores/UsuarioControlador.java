@@ -22,52 +22,83 @@ public class UsuarioControlador {
     @Autowired
     private UsuarioServicio usuarioServicio;
 
-    @GetMapping("/crear")
-    public String crear() {
+    @GetMapping("/crearCliente")
+    public String crearCliente() {
 
-        return "usuario_form.html";
+        return "cliente_form.html";
     }
 
-    @PostMapping("/creado")
-    public String creado(
-            @RequestParam String nombre,
-            @RequestParam String apellido,
-            @RequestParam Long idTributario,
-            @RequestParam Long dni,
-            @RequestParam Integer telefono,
+    @PostMapping("/creadoCliente")
+    public String creadoCliente(
+            @RequestParam String denominacion,
+            @RequestParam(required = false) Long dni,
             @RequestParam String direccion,
-            @RequestParam String ubicacion,
+            @RequestParam(required = false) Integer codigoPostal,
+            @RequestParam(required = false) Integer telefono,
             @RequestParam String email,
             @RequestParam String pass,
             @RequestParam String pass2,
-            @RequestParam(required = false) String opcion,
             ModelMap modelo
     ) throws MyException {
         try {
 
-            usuarioServicio.crear(nombre, apellido, dni, idTributario, direccion, ubicacion, telefono, email, pass, pass2, opcion);
+            usuarioServicio.crearCliente(denominacion, dni, direccion, codigoPostal, telefono, email, pass, pass2);
             modelo.put("exito", "usuario registrado con exito");
             return "login.html";
+
         } catch (MyException e) {
             modelo.put("error", e.getMessage());
-            modelo.put("nombre", nombre);
-            modelo.put("apellido", apellido);
-            modelo.put("idTributario", idTributario);
+            modelo.put("denominacion", denominacion);
             modelo.put("dni", dni);
-            modelo.put("telefono", telefono);
             modelo.put("direccion", direccion);
-            modelo.put("ubicacion", ubicacion);
+            modelo.put("codigoPostal", codigoPostal);
+            modelo.put("telefono", telefono);
             modelo.put("email", email);
             modelo.put("pass", pass);
             modelo.put("pass2", pass2);
-            modelo.put("opcion", opcion);
-            return "redirect:../usuario_form.html";
-
+            return "cliente_form.html";
         }
-
     }
 
-    @GetMapping("/lista") 
+    @GetMapping("/crearEnte")
+    public String crearEnte() {
+
+        return "ente_form.html";
+    }
+
+    @PostMapping("/creadoEnte")
+    public String creadoEnte(
+            @RequestParam String denominacion,
+            @RequestParam(required = false) Long cuit,
+            @RequestParam String direccion,
+            @RequestParam(required = false) Integer codigoPostal,
+            @RequestParam(required = false) Integer telefono,
+            @RequestParam String email,
+            @RequestParam String pass,
+            @RequestParam String pass2,
+            ModelMap modelo
+    ) throws MyException {
+        try {
+
+            usuarioServicio.crearEnte(denominacion, cuit, direccion, codigoPostal, telefono, email, pass, pass2);
+            modelo.put("exito", "usuario registrado con exito");
+            return "login.html";
+
+        } catch (MyException e) {
+            modelo.put("error", e.getMessage());
+            modelo.put("denominacion", denominacion);
+            modelo.put("cuit", cuit);
+            modelo.put("direccion", direccion);
+            modelo.put("codigoPostal", codigoPostal);
+            modelo.put("telefono", telefono);
+            modelo.put("email", email);
+            modelo.put("pass", pass);
+            modelo.put("pass2", pass2);
+            return "ente_form.html";
+        }
+    }
+
+    @GetMapping("/lista")
     public String lista(ModelMap modelo) {
         List<Usuario> usuarios = usuarioServicio.listar();
         modelo.put("usuarios", usuarios);

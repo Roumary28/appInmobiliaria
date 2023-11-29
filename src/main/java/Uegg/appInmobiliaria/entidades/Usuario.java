@@ -8,7 +8,6 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
@@ -27,13 +26,12 @@ public class Usuario {
     private String id;
     @OneToOne
     private Imagen imagen;
-    private String nombre;
-    private String apellido;
-    private Long idTributario;
+    private String denominacion;
+    private Long cuit;
     private Long dni;
     private Integer telefono;
     private String direccion;
-    private String ubicacion;
+    private Integer codigoPostal;
     private String email;
     private String pass;
     @Enumerated(EnumType.STRING)
@@ -64,28 +62,20 @@ public class Usuario {
         this.imagen = imagen;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getDenominacion() {
+        return denominacion;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setDenominacion(String denominacion) {
+        this.denominacion = denominacion;
     }
 
-    public String getApellido() {
-        return apellido;
+    public Long getCuit() {
+        return cuit;
     }
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    public Long getIdTributario() {
-        return idTributario;
-    }
-
-    public void setIdTributario(Long idTributario) {
-        this.idTributario = idTributario;
+    public void setCuit(Long cuit) {
+        this.cuit = cuit;
     }
 
     public Long getDni() {
@@ -112,12 +102,12 @@ public class Usuario {
         this.direccion = direccion;
     }
 
-    public String getUbicacion() {
-        return ubicacion;
+    public Integer getCodigoPostal() {
+        return codigoPostal;
     }
 
-    public void setUbicacion(String ubicacion) {
-        this.ubicacion = ubicacion;
+    public void setCodigoPostal(Integer codigoPostal) {
+        this.codigoPostal = codigoPostal;
     }
 
     public String getEmail() {
@@ -152,6 +142,14 @@ public class Usuario {
         this.fechaAlta = fechaAlta;
     }
 
+    public List<Inmueble> getInmuebles() {
+        return inmuebles;
+    }
+
+    public void setInmuebles(List<Inmueble> inmuebles) {
+        this.inmuebles = inmuebles;
+    }
+
     public Boolean getActivo() {
         return activo;
     }
@@ -160,4 +158,5 @@ public class Usuario {
         this.activo = activo;
     }
 
+    
 }

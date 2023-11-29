@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <link rel="stylesheet" href="/css/cliente_form.css">
+    </head>
+    <body>
+
+        <div class="registro">
+            <form action="/usuario/creadoEnte" method="POST">
+
+                <div th:if="${error != null}" class="mensajeError mt-3">
+                    <h5>Error</h5>
+                    <p th:text="${error}"></p>
+                </div>
+
+                <div th:if="${exito != null}" class="mensajeExito mt-3">
+                    <h5>Éxito</h5>
+                    <p th:text="${exito}"></p>
+                </div>
+
+                <h1>Registrarse:</h1>
+
+                <h4 class="titleDatos">Datos</h4>
+
+                <div class="input-container">
+                    <input type="text" id="razonSocial" name="denominacion"/>
+                    <label for="razonSocial">Razón social:</label>
+                </div>
+
+                <div class="input-container">
+                    <input type="text" id="cuit" name="cuit"/>
+                    <label for="cuit">CUIT:</label>
+                </div>
+
+                <div class="input-container">
+                    <input type="text" id="name" name="direccion"/>
+                    <label for="name">Direccion:</label>
+                </div>
+
+                <div class="input-container">
+                    <input type="number" id="name" name="codigoPostal"/>
+                    <label for="name">Codigo Postal:</label>
+                </div>
+
+                <div class="input-container">
+                    <input type="number" id="phone" name="telefono" />
+                    <label for="phone">Teléfono:</label>
+                </div>
+
+                <div class="input-container">
+                    <input type="text" id="email" name="email" />
+                    <label for="email">Email:</label>
+                </div>
+
+                <div class="input-container">
+                    <input type="password" id="password" name="pass"/>
+                    <label for="password">Contraseña:</label>
+                </div>
+
+                <div class="input-container">
+                    <input type="password" id="confirmPassword" name="pass2"/>
+                    <label for="confirmPassword">Confirmar contraseña:</label>
+                </div>
+
+                <!-- <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="acepto_terminos" required />
+                        Acepto los términos y condiciones de uso.
+                    </label>
+                </div>
+
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="acepto_privacidad" required />
+                        Acepto la política de privacidad.
+                    </label>
+                </div> -->
+
+                <div class="btnRegistrarme">
+                    <button type="submit" class="button-29" role="button">
+                        Registrarme
+                    </button>
+                </div>
+
+            </form>
+        </div>
+
+        <script src="./registro.js"></script>
+    </body>
+</html>
