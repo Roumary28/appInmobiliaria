@@ -2,79 +2,127 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 
     <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>MrHouse</title>
+        <link rel="stylesheet" href="./css/main.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@500&family=Montserrat&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="/css/style.css">
     </head>
 
     <body>
-
+        <header th:replace="./fragment/header :: header"></header>
         <nav th:replace="./fragment/navbar :: nav"></nav>
 
-        <div class="fondo text-center">
-            <div class="tituloSlogan">
-                <h1 style="font-size: 350%;">
-                    <strong>Mr. House</strong>
-                </h1>
-                <p style="font-size: 150%; color: black; font-weight: 700;">
-                    A un click de la propiedad que buscas
-                </p>
+        <!-- SLIDER DE IMAGENES-->
+
+    <div id="carouselExample" class="carousel slide p-5">
+        <div class="carousel-inner">
+  
+          <div class="carousel-item active" data-bs-interval="1000">
+            <img src="./img/casa.jpg" class="d-block w-100" alt="slide1">
+          </div>
+  
+          <div class="carousel-item" data-bs-interval="3000">
+            <img src="./img/local.jpeg" class="d-block w-100" alt="slide2">
+          </div>
+  
+          <div class="carousel-item" data-bs-interval="3000">
+            <img src="./img/oficina.jpg" class="d-block w-100" alt="slide3">
+          </div>
+  
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+      
+      <!-- BUSCAR-->
+
+      <!-- INTRO-->
+  
+      <section class="w-50 mx-auto text-center pt-5" id="intro">
+        <h1 class="p-3 fs-2 border-top border-3">Haciendo realidad tus <span style="color: #99D98C;"> sueños de hogar </span>, un contrato a la vez</h1>
+        <p class="p-3 fs-4">Tu futuro, nuestra pasión: <span class="fw-bold" style="color: #1A759F;">MrHouse</span></p>
+      </section>
+  
+       <!-- SERVICIOS -->
+  
+       <section class="container-fluid">
+        <div class="row w-75 mx-auto my-5 servicio-fila">
+          <div class="col-lg-6 col-md-12 col-sm-12 d-flex  my-5 icono-wrap" >
+            <img src="./img/llaves.jpg" alt="desarrollo" width="180" height="160">
+            <div>
+              <h3 class="fs-5 mt-4 px-4 pb-1">Venta</h3>
+              <p class="px-4"> de casas, lotes, locales comerciales y oficinas</p>
             </div>
+          </div>
+  
+          <div class="col-lg-6 col-md-12 col-sm-12 d-flex  my-5 icono-wrap">
+            <img src="./img/alquiler.jpg" alt="desarrollo" width="180" height="160">
+            <div>
+              <h3 class="fs-5 mt-4 px-4 pb-1">Alquiler</h3>
+              <p class="px-4">de casas, locales comerciales y oficinas</p>
+            </div>
+          </div>
+  
         </div>
-
-        <div class="container mt-5">
-            <form class="formInicio" action="#" method="get" >
-                <div class="row">
-                    <div class="col-md-4">
-                        <label for="operacion">Operación:</label>
-                        <select class="form-select" id="tipo-operacion" name="tipo-operacion">
-                            <option value="alquiler">Alquiler</option>
-                            <option value="alquiler-temporario">Alquiler Temporario</option>
-                            <option value="venta">Venta</option>
-                        </select>
-                    </div>
-                    <div class="col-md-4">
-                        <label for="inmueble">Inmueble:</label>
-                        <select class="form-select" id="tipo-inmueble" name="tipo-inmueble">
-                            <option value="casas">Casas</option>
-                            <option value="departamentos">Departamentos</option>
-                            <option value="lotes">Lotes</option>
-                            <option value="locales">Locales</option>
-                        </select>
-                    </div>
-                    <div class="col-md-4">
-                        <label for="ubicacion">Ubicación:</label>
-                        <input type="text" class="form-control" id="ubicacion" name="ubicacion"
-                               placeholder="Ingrese la ubicación" />
-                    </div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-md-6">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="inmobiliaria" name="inmobiliaria" />
-                            <label class="form-check-label" for="inmobiliaria">Inmobiliaria</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="dueno" name="dueno" />
-                            <label class="form-check-label" for="dueno">Dueño</label>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <button class="btn btn-primary" role="button" style="background-color: #168AAD;">Buscar</button>
-                    </div>
-                </div>
-            </form>
-
+       </section>
+  
+       <!-- A CERCA DE NOSOTROS  -->
+  
+       <section>
+        <div class="w-75 m-auto text-center" id="equipo">
+          <h1 class="mb-5 fs-1">Sobre Nosotros<span style="color: #99D98C;"></span></h1>
+          <p class="fs-3">En MrHouse, no solo estamos en el negocio de alquileres y venta de propiedades; estamos en el negocio de hacer realidad tus sueños de hogar. Nuestra misión es conectar personas con los lugares donde pueden <span style="color:#52B69A;"> vivir experiencias inolvidables y construir recuerdos duraderos.</span></p>
         </div>
+        <div class="mt-5 text-center">
+          <img class="img-fluid" src="./img/nosotros.jpg" alt="equipo">
+        </div>
+  
+        <div id="local" class="border-top border-3">
+          <div class="mapa"></div>
+        
+          <div class="wrapper">
+            <h2>
+              Ubicados en Mendoza, Argentina
+            </h2>
+            <h2 class="mb-4" id="typewriter" style="color: #99D98C;"></h2>
+            <p class="fs-5 text-body">
+              En MrHouse, la elección de nuestra ubicación no fue una decisión fortuita, sino el resultado de una cuidadosa reflexión sobre lo que significa un hogar y cómo podemos brindar la mejor experiencia posible a nuestros clientes. Mendoza, con su encanto único y su vibrante comunidad, se destaca como la elección perfecta para nosotros.
+            </p>
+            <section class="d-flex" id="numeros-local">
+              <div>
+                <p class="fs-5" style="color: #99D98C;">248</p>
+                <p>Días de Sol</p>
+              </div>
+              <div>
+                <p class="fs-5" style="color: #99D98C;">100%</p>
+                <p>Aprobado</p>
+              </div>
+              <div>
+                <p class="fs-5" style="color: #99D98C;">24 °C</p>
+                <p>Temperatura</p>
+              </div>
+            </section>
+          </div>
+        </div>
+        
+       </section>
         
         <footer th:replace="./fragment/footer :: footer"></footer>
         
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+         <script src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script>
+        <script src="main.js"></script>
     </body>
 
 
