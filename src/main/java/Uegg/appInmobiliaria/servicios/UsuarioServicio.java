@@ -37,7 +37,7 @@ public class UsuarioServicio implements UserDetailsService{
     private ImagenServicio imagenServicio;
 
     @Transactional
-    public void crearCliente(MultipartFile archivo, String denominacion, Long dni, String direccion, Integer codigoPostal, Integer telefono,
+    public void crearCliente(MultipartFile archivo, String denominacion, Long dni, String direccion, Integer codigoPostal, Long telefono,
             String email, String pass, String pass2) throws MyException {
         validarCliente(denominacion, dni, direccion, codigoPostal,  telefono, email,  pass, pass2);
 
@@ -59,7 +59,7 @@ public class UsuarioServicio implements UserDetailsService{
     }
 
     @Transactional
-    public void crearEnte(MultipartFile archivo, String denominacion, Long cuit, String direccion, Integer codigoPostal, Integer telefono,
+    public void crearEnte(MultipartFile archivo, String denominacion, Long cuit, String direccion, Integer codigoPostal, Long telefono,
             String email, String pass, String pass2) throws MyException {
         validarEnte(denominacion, cuit, direccion, codigoPostal,  telefono, email,  pass, pass2);
 
@@ -83,7 +83,7 @@ public class UsuarioServicio implements UserDetailsService{
     @Transactional
     public void modificarUsuario(
             String id,
-            Integer telefono,
+            Long telefono,
             String direccion,
             Integer codigoPostal,
             String email,
@@ -147,7 +147,7 @@ public class UsuarioServicio implements UserDetailsService{
         }
     }
 
-    public void validarCliente(String denominacion, Long dni, String direccion, Integer codigoPostal, Integer telefono, String email, String pass, String pass2) throws MyException {
+    public void validarCliente(String denominacion, Long dni, String direccion, Integer codigoPostal, Long telefono, String email, String pass, String pass2) throws MyException {
         if (denominacion.isEmpty() || denominacion == null) {
             throw new MyException("El nombre no puede ser nulo.");
         }
@@ -185,7 +185,7 @@ public class UsuarioServicio implements UserDetailsService{
         }
     }
     
-     public void validarEnte(String denominacion, Long cuit, String direccion, Integer codigoPostal, Integer telefono, String email, String pass, String pass2) throws MyException {
+     public void validarEnte(String denominacion, Long cuit, String direccion, Integer codigoPostal, Long telefono, String email, String pass, String pass2) throws MyException {
         if (denominacion.isEmpty() || denominacion == null) {
             throw new MyException("La razón social no puede ser nula.");
         }

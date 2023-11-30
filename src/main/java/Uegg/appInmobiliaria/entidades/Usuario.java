@@ -31,7 +31,7 @@ public class Usuario {
     private String denominacion;
     private Long cuit;
     private Long dni;
-    private Integer telefono;
+    private Long telefono;
     private String direccion;
     private Integer codigoPostal;
     private String email;
@@ -88,11 +88,11 @@ public class Usuario {
         this.dni = dni;
     }
 
-    public Integer getTelefono() {
+    public Long getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(Integer telefono) {
+    public void setTelefono(Long telefono) {
         this.telefono = telefono;
     }
 
