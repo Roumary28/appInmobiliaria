@@ -1,3 +1,7 @@
+body{
+    font-family: 'League Spartan' , sans-serif;
+    overflow-x: hidden;
+}
 
 .nav-item.dropdown:hover .nav-link,
 .nav-item.dropdown:hover .dropdown-menu {
@@ -13,45 +17,10 @@ div#footer {
     color: #fff;
 }
 
-.fondo {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-image: url('../img/llave.jpg');
-    height: 400px;
-    background-repeat : no-repeat;
-    background-size: cover;
-    background-position: center;
-    box-sizing: border-box;
-}
-.tituloSlogan {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: fit-content;
-    margin: 0;
-    padding: 20px;
-    backdrop-filter: blur(5px);
-}
-
 h1 {
     color: black;
     font-size: 7px;
     font-family: 'League Spartan', sans-serif;
-}
-.formInicio {
-    background-color: #52B69A;
-    padding: 20px; 
-    border-radius: 10px; 
-}
-
-.formCrearInmueble {
-    background-color: #34A0A4;
-    padding: 20px;
-    
-    border-radius: 10px;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@500&family=Montserrat&display=swap');
@@ -59,12 +28,6 @@ h1 {
     color: #ffffff; /* Color del texto (blanco en este caso) */
     background-color: #1A759F !important; /* Color de fondo del botón (puedes cambiarlo según tus preferencias) */
     border-color: #1A759F !important; /* Color del borde del botón (puedes cambiarlo según tus preferencias) */
-}
-
-
-body{
-    font-family: 'League Spartan' , sans-serif;
-    overflow-x: hidden;
 }
 
 #menu a {
