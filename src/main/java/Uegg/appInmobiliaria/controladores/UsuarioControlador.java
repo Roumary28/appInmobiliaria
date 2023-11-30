@@ -32,7 +32,7 @@ public class UsuarioControlador {
 
     @PostMapping("/creadoCliente")
     public String creadoCliente(
-            @RequestParam MultipartFile archivo,
+            @RequestParam(required = false) MultipartFile archivo,
             @RequestParam String denominacion,
             @RequestParam(required = false) Long dni,
             @RequestParam String direccion,
@@ -71,7 +71,7 @@ public class UsuarioControlador {
 
     @PostMapping("/creadoEnte")
     public String creadoEnte(
-            @RequestParam MultipartFile archivo,
+            @RequestParam(required = false) MultipartFile archivo,
             @RequestParam String denominacion,
             @RequestParam(required = false) Long cuit,
             @RequestParam String direccion,

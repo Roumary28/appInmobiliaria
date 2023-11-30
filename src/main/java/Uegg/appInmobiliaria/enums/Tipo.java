@@ -1,8 +1,4 @@
-
 package Uegg.appInmobiliaria.enums;
-
-
-
 
 public enum Tipo {
     
