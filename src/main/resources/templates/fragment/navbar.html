@@ -20,22 +20,32 @@
               Alquilar
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Casa</a></li>
-              <li><a class="dropdown-item" href="#">Departamento</a></li>
-              <li><a class="dropdown-item" href="#">Oficina</a></li>
-              <li><a class="dropdown-item" href="#">Local</a></li>
+              <li><a class="dropdown-item" th:href="@{/lista/casaAlquilar}">Casa</a></li>
+              <li><a class="dropdown-item" th:href="@{/lista/departamentoAlquilar}">Departamento</a></li>
+              <li><a class="dropdown-item" th:href="@{/lista/localAlquilar}">Local</a></li>
+              <li><a class="dropdown-item" th:href="@{/lista/loteAlquilar}">Lote</a></li>
             </ul>
           </li>
 
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Vender
+              Comprar
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Casa</a></li>
-              <li><a class="dropdown-item" href="#">Departamento</a></li>
-              <li><a class="dropdown-item" href="#">Oficina</a></li>
-              <li><a class="dropdown-item" href="#">Local</a></li>
+              <li><a class="dropdown-item" th:href="@{/lista/casaCompra}">Casa</a></li>
+              <li><a class="dropdown-item" th:href="@{/lista/departamentoCompra}">Departamento</a></li>
+              <li><a class="dropdown-item" th:href="@{/lista/localCompra}">Local</a></li>
+              <li><a class="dropdown-item" th:href="@{/lista/loteCompra}">Lote</a></li>
+            </ul>
+          </li>
+          
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" th:if="${session.usuariosession != null}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Perfil
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" sec:authorize="hasRole ('ENTE')" th:href="@{/inmueble/crear}">Ofrecer propiedad</a></li>
+              <li><a class="dropdown-item" th:href="@{/logout}">Cerrar Sesión</a></li>
             </ul>
           </li>
 
@@ -46,10 +56,19 @@
 
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-              <button type="button" class="btn btn-outline-light text-white" style="background-color: #52B69A;">Registrarse</button>
+              
+               <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" th:if="${session.usuariosession == null}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Registrarse
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" th:href="@{/usuario/crearEnte}">Ente</a></li>
+              <li><a class="dropdown-item" th:href="@{/usuario/crearCliente}">Cliente</a></li>
+            </ul>
           </li>
+                   
           <li class="nav-item">
-              <a class="nav-link " href="#">Ingresar</a>
+              <a class="nav-link " th:if="${session.usuariosession == null}"  th:href="@{/login}">Ingresar</a>
           </li>
       </ul>
       </div>

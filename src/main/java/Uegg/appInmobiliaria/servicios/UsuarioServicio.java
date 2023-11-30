@@ -5,12 +5,23 @@ import Uegg.appInmobiliaria.entidades.Usuario;
 import Uegg.appInmobiliaria.enums.Rol;
 import Uegg.appInmobiliaria.excepciones.MyException;
 import Uegg.appInmobiliaria.repositorios.UsuarioRepositorio;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -18,7 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @author Gimenez Victor
  */
 @Service
-public class UsuarioServicio {
+public class UsuarioServicio implements UserDetailsService{
 
     @Autowired
     private UsuarioRepositorio usuarioRepo;
@@ -40,7 +51,7 @@ public class UsuarioServicio {
         usuario.setCodigoPostal(codigoPostal);
         usuario.setTelefono(telefono);
         usuario.setEmail(email);
-        usuario.setPass(pass);
+        usuario.setPass(new BCryptPasswordEncoder().encode(pass));
         usuario.setRol(Rol.CLIENTE);
         usuario.setFechaAlta(new Date());
         usuario.setActivo(true);
@@ -62,7 +73,7 @@ public class UsuarioServicio {
         usuario.setCodigoPostal(codigoPostal);
         usuario.setTelefono(telefono);
         usuario.setEmail(email);
-        usuario.setPass(pass);
+        usuario.setPass(new BCryptPasswordEncoder().encode(pass));
         usuario.setRol(Rol.ENTE);
         usuario.setFechaAlta(new Date());
         usuario.setActivo(true);
@@ -215,4 +226,30 @@ public class UsuarioServicio {
     public Usuario getOne(String id) {
         return usuarioRepo.getOne(id);
     }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Usuario usuario = usuarioRepo.buscarPorEmail(email);
+
+        if (usuario != null) {
+
+            List<GrantedAuthority> permisos = new ArrayList();
+
+            GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + usuario.getRol().toString());
+
+            permisos.add(p);
+            
+            ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+            
+            HttpSession session = attr.getRequest().getSession(true);
+            
+            session.setAttribute("usuariosession", usuario);
+            
+            return new User(usuario.getEmail(), usuario.getPass(), permisos);
+        } else {
+            return null;
+        }
+    }
 }
+
+
