@@ -3,93 +3,152 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <title>Registro Ente</title>
+       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@500&family=Montserrat&display=swap"
+            rel="stylesheet"
+            />
         <link rel="stylesheet" href="/css/registro_form.css">
     </head>
     <body>
+        
+         <div class="page-content">
+            <div class="form-v10-content">
+                <form
+                    class="form-detail"
+                    action="/usuario/creadoEnte"
+                    method="post"
+                    id="myform"
+                    >
+                    <div class="form-left">
+                        <h2>Datos Generales</h2>
 
-        <div class="registro">
-            <form action="/usuario/creadoEnte" method="POST">
+                        <div class="form-row">
+                            <input
+                                type="text"
+                                name="denominacion"
+                                id="denominacion"
+                                class="input-text"
+                                placeholder="Razón Social"
+                                />
+                        </div>
+                        <div class="form-row">
+                            <input
+                                type="number"
+                                name="cuit"
+                                id="cuit"
+                                class="input-text"
+                                placeholder="CUIT"
+                                />
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row form-row-1">
+                                <input
+                                    type="text"
+                                    name="direccion"
+                                    class="direccion"
+                                    id="direccion"
+                                    placeholder="Dirección"
+                                    />
+                            </div>
+                            <div class="form-row form-row-2">
+                                <input
+                                    type="number"
+                                    name="codigoPostal"
+                                    class="codigoPostal"
+                                    id="codigoPostal"
+                                    placeholder="Codigo Postal"
+                                    />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <input
+                                type="number"
+                                name="telefono"
+                                class="telefono"
+                                id="telefono"
+                                placeholder="Teléfono"
+                                />
+                        </div>
+                        <div class="form-row">
+                            <div th:if="${error != null}" class="form-mensajeError">
+                                <div class="">
+                                    <h5 class="">Error!</h5>
+                                    <p class="text-validacion" th:text="${error}"></p>
+                                </div>
+                            </div>
+                            <div th:if="${exito != null}" class="form-mensajeExito">
+                                <div class="">
+                                    <h5 class="">Exito!</h5>
+                                    <p class="text-validacion" th:text="${exito}"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-right">
+                        <h2>Tu cuenta</h2>
 
-                <div th:if="${error != null}" class="mensajeError mt-3">
-                    <h5>Error</h5>
-                    <p th:text="${error}"></p>
-                </div>
-
-                <div th:if="${exito != null}" class="mensajeExito mt-3">
-                    <h5>Éxito</h5>
-                    <p th:text="${exito}"></p>
-                </div>
-
-                <h1>Registrarse:</h1>
-
-                <h4 class="titleDatos">Datos</h4>
-
-                <div class="input-container">
-                    <input type="text" id="razonSocial" name="denominacion"/>
-                    <label for="razonSocial">Razón social:</label>
-                </div>
-
-                <div class="input-container">
-                    <input type="text" id="cuit" name="cuit"/>
-                    <label for="cuit">CUIT:</label>
-                </div>
-
-                <div class="input-container">
-                    <input type="text" id="name" name="direccion"/>
-                    <label for="name">Direccion:</label>
-                </div>
-
-                <div class="input-container">
-                    <input type="number" id="name" name="codigoPostal"/>
-                    <label for="name">Codigo Postal:</label>
-                </div>
-
-                <div class="input-container">
-                    <input type="number" id="phone" name="telefono" />
-                    <label for="phone">Teléfono:</label>
-                </div>
-
-                <div class="input-container">
-                    <input type="text" id="email" name="email" />
-                    <label for="email">Email:</label>
-                </div>
-
-                <div class="input-container">
-                    <input type="password" id="password" name="pass"/>
-                    <label for="password">Contraseña:</label>
-                </div>
-
-                <div class="input-container">
-                    <input type="password" id="confirmPassword" name="pass2"/>
-                    <label for="confirmPassword">Confirmar contraseña:</label>
-                </div>
-
-                <!-- <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="acepto_terminos" required />
-                        Acepto los términos y condiciones de uso.
-                    </label>
-                </div>
-
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="acepto_privacidad" required />
-                        Acepto la política de privacidad.
-                    </label>
-                </div> -->
-
-                <div class="btnRegistrarme">
-                    <button type="submit" class="button-29" role="button">
-                        Registrarme
-                    </button>
-                </div>
-
-            </form>
+                        <div class="form-row">
+                            <input
+                                type="email"
+                                name="email"
+                                class="email"
+                                id="email"
+                                placeholder="Email"
+                                />
+                        </div>
+                        <div class="form-row">
+                            <input
+                                type="password"
+                                name="pass"
+                                id="pass"
+                                class="input-text"
+                                placeholder="Contraseña"
+                                />
+                        </div>
+                        <div class="form-row">
+                            <input
+                                type="password"
+                                name="pass2"
+                                id="pass2"
+                                class="input-text"
+                                placeholder="Repetir Contraseña"
+                                />
+                        </div>
+                        <div class="form-checkbox">
+                            <label class="container">
+                                <p>
+                                    Acepto los
+                                    <a href="#" class="text">términos y condiciones</a> de uso.
+                                </p>
+                                <input type="checkbox" name="checkbox" required />
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row form-row-1">
+                                <input
+                                    type="submit"
+                                    name="register"
+                                    class="register"
+                                    value="Registrarse"
+                                    />
+                            </div>
+                            <div class="form-row form-row-2">
+                                <p class="form-redirect">
+                                    ¿Ya tienes cuenta?<br />
+                                    <a th:href="@{/login}" class="text-redirect">Inicia Sesión</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
         
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-        <script src="./registro.js"></script>
     </body>
 </html>

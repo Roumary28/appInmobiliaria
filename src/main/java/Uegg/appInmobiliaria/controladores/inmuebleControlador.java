@@ -4,6 +4,7 @@ import Uegg.appInmobiliaria.enums.Tipo;
 import Uegg.appInmobiliaria.excepciones.MyException;
 import Uegg.appInmobiliaria.servicios.inmuebleServicio;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +18,8 @@ public class inmuebleControlador {
 
     @Autowired
     private inmuebleServicio inmuebleServicio;
-
+    
+    @PreAuthorize("hasAnyRole('ROLE_ENTE', 'ROLE_ADMIN')")
     @GetMapping("/crear")
     public String crear(ModelMap modelo) {
         

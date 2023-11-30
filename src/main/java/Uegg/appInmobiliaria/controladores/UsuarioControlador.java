@@ -37,7 +37,7 @@ public class UsuarioControlador {
             @RequestParam(required = false) Long dni,
             @RequestParam String direccion,
             @RequestParam(required = false) Integer codigoPostal,
-            @RequestParam(required = false) Integer telefono,
+            @RequestParam(required = false) Long telefono,
             @RequestParam String email,
             @RequestParam String pass,
             @RequestParam String pass2,
@@ -46,7 +46,7 @@ public class UsuarioControlador {
         try {
 
             usuarioServicio.crearCliente(archivo, denominacion, dni, direccion, codigoPostal, telefono, email, pass, pass2);
-            modelo.put("exito", "usuario registrado con exito");
+            modelo.put("exito", "Usuario registrado con éxito");
             return "login.html";
 
         } catch (MyException e) {
@@ -76,7 +76,7 @@ public class UsuarioControlador {
             @RequestParam(required = false) Long cuit,
             @RequestParam String direccion,
             @RequestParam(required = false) Integer codigoPostal,
-            @RequestParam(required = false) Integer telefono,
+            @RequestParam(required = false) Long telefono,
             @RequestParam String email,
             @RequestParam String pass,
             @RequestParam String pass2,
@@ -85,7 +85,7 @@ public class UsuarioControlador {
         try {
 
             usuarioServicio.crearEnte(archivo, denominacion, cuit, direccion, codigoPostal, telefono, email, pass, pass2);
-            modelo.put("exito", "usuario registrado con exito");
+            modelo.put("exito", "Usuario registrado con éxito");
             return "login.html";
 
         } catch (MyException e) {
@@ -118,7 +118,7 @@ public class UsuarioControlador {
     @PostMapping("/modificar/{id}")
     public String modificar(
             @PathVariable String id,
-            @RequestParam Integer telefono,
+            @RequestParam Long telefono,
             @RequestParam String direccion,
             @RequestParam Integer codigoPostal,
             @RequestParam String email,
