@@ -8,53 +8,97 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@500&family=Montserrat&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="/css/style.css">
+        <link rel="stylesheet" href="/css/login.css">
     </head>
     <body>
 
-        <div class="container-fluid m-5 contenedor">
-            <div th:if="${error != null}" class="card text-white bg-danger mb-3 mensajeError" >
-                <div class="card-body">
-                    <h5 class="card-title">Error!</h5>
-                    <p class="card-text" th:text="${error}"></p>
-                </div>
-            </div>
-            <div th:if="${exito != null}" class="card text-white bg-success mb-3 mt-3 mensajeExito" >
-                <div class="card-body">
-                    <h5 class="card-title">Exito!</h5>
-                    <p class="card-text" th:text="${exito}"></p>
-                </div>
-            </div>
+        <div class="page-content">
+            <div class="form-v10-content">
+                <form
+                    class="form-detail"
+                    th:action="@{/logincheck}"
+                    method="post"
+                    id="myform"
+                    >
+                    <div class="form-left">
+                        <div class="container-left">
+                            <h2>Tu futuro, nuestra pasión...</h2>
+                            <div class="form-row" id="box-logo">
+                                <span class="fw-bold text-logo" id="typewriter"
+                                      >MrHouse</span
+                                >
+                            </div>
 
-            <form class="formulario" th:action="@{/logincheck}" method="POST">
-
-
-                <div class="form-group my-3">
-                    <h3 class="card-title">Accede a la Biblioteca!</h3>
-                </div>
-
-                <div class="form-group my-3">
-                    <input type="email" class="form-control" name="email" placeholder="EMAIL">
-                </div>
-
-                <div class="form-group my-3">
-                    <input type="password" class="form-control" name="pass" placeholder="CONTRASEÑA">
-                </div>
-
-
-                <button type="submit" class="btn btn-primary mt-3 botones">Ingresar!</button>
-            </form>
-
-
-            <section class=" text-center container">
-                <div class="row mt-3">
-                    <div class="divVolver">
-                        <a th:href="@{/}" class="btn btn-secondary my-2 botonVolver botones">Volver</a>
+                            <div class="form-row">
+                                <h2 class="text-slogan">
+                                    Haciendo realidad tus sueños de hogar, un contrato a la vez!
+                                </h2>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </section>
+
+                    <div class="form-right">
+                        <h2>Bienvenido de vuelta!</h2>
+                        <div class="form-row">
+                            <input
+                                type="email"
+                                name="email"
+                                class="email"
+                                id="email"
+                                placeholder="Email"
+                                />
+                        </div>
+                        <div class="form-row">
+                            <input
+                                type="password"
+                                name="pass"
+                                id="pass"
+                                class="input-text"
+                                placeholder="Contraseña"
+                                />
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row form-row-1">
+                                <input
+                                    type="submit"
+                                    name="login"
+                                    class="login"
+                                    value="Iniciar Sesión"
+                                    />
+                            </div>
+                            <div class="form-row form-row-2">
+                                <p class="form-redirect">
+                                    ¿No tienes cuenta?<br />
+                                    <a th:href="@{/usuario/crearCliente}" class="text-redirect"
+                                       >Registro Cliente</a
+                                    ><br />
+                                    <a th:href="@{/usuario/crearEnte}" class="text-redirect"
+                                       >Registro Ente</a
+                                    >
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div th:if="${error != null}" class="form-mensajeError">
+                                <div class="">
+                                    <h5 class="">Error!</h5>
+                                    <p class="text-validacion" th:text="${error}"></p>
+                                </div>
+                            </div>
+                            <div th:if="${exito != null}" class="form-mensajeExito">
+                                <div class="">
+                                    <h5 class="">Exito!</h5>
+                                    <p class="text-validacion" th:text="${exito}"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script>
+        <script src="/scripts/login.js"></script>
     </body>
 </html>
