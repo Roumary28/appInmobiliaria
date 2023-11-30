@@ -46,7 +46,7 @@ public class UsuarioControlador {
         try {
 
             usuarioServicio.crearCliente(archivo, denominacion, dni, direccion, codigoPostal, telefono, email, pass, pass2);
-            modelo.put("exito", "usuario registrado con exito");
+            modelo.put("exito", "Usuario registrado con éxito");
             return "login.html";
 
         } catch (MyException e) {
@@ -85,7 +85,7 @@ public class UsuarioControlador {
         try {
 
             usuarioServicio.crearEnte(archivo, denominacion, cuit, direccion, codigoPostal, telefono, email, pass, pass2);
-            modelo.put("exito", "usuario registrado con exito");
+            modelo.put("exito", "Usuario registrado con éxito");
             return "login.html";
 
         } catch (MyException e) {
