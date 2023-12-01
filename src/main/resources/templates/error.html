@@ -10,13 +10,13 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link rel="stylesheet" href="/css/style.css">
+        <link rel="stylesheet" href="/css/inmuebleList.css">
     </head>
 
     <body>
         <nav th:replace="/fragment/navbar :: nav">  </nav>
-
-        <header class="header">
-            <section class="contenedorMain">
+        <main>
+            <section class="contenedorMain" style="text-align: center;">
                 <div class="tituloBiblioteca">
                     <a class="navbar-brand" th:text="'Error ' + ${codigo}"></a>
                     <p class="tituloLibros" th:text="${mensaje}"></p>
@@ -30,7 +30,7 @@
                     </div>
                 </section>
                 <div class="container contenedorLibros">
-                    <p class="tituloLibros" th:if="${session.usuariosession != null}" th:text=" 'Hola de vuelta '+ ${session.usuariosession.denominacion} "></p>
+                    <p class="tituloLibros" th:if="${session.usuariosession != null}" th:text=" 'Usted a ingresado como '+ ${session.usuariosession.rol} "></p>
 
                 </div>
                 <div class="bg-circle-1 bg-circle"></div>
@@ -38,7 +38,7 @@
                 <div class="bg-circle-3 bg-circle"></div>
                 <div class="bg-circle-4 bg-circle"></div>
             </section>
-        </header>
+        </main>
 
 
         <footer th:replace="/fragment/footer :: footer">  </footer>
