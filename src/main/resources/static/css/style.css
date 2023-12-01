@@ -55,8 +55,7 @@ h1 {
     }
 
     .wrapper {
-        width: 90%;
-        margin: auto;
+        width: 90%;      
         padding-top: 50px;
     }
 }
@@ -67,6 +66,11 @@ h1 {
     #intro, #equipo {
         width: 90% !important;
     }
+
+    #carouselExampleInterval .carousel-item img {
+        height: auto;
+    }
+
 
     #equipo p {
         display: none;
@@ -99,7 +103,7 @@ h1 {
 
 #local {
     background-color: #f3f3f3;
-    padding-bottom: 300px;
+    padding-bottom: 65px;
     display: flex;
     justify-content: center;
 }
