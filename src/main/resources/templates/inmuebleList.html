@@ -9,6 +9,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link rel="stylesheet" href="/css/style.css">
+        <link rel="stylesheet" href="/css/inmuebleList.css">
     </head>
     <body>
         <nav th:replace="./fragment/navbar :: nav"></nav>
@@ -16,15 +17,17 @@
           <main>
             <div class="container">
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-
+                    
                     <div class="col" th:each="inmueble : ${inmuebles}">
                         <div class="card shadow-sm">
-                            
+                            <img class="card-img-top" src="/img/imagesUnavailable.png" alt="Imagen de la propiedad" width="100%" height="225">
                             <div class="card-body">
                                 <h3 th:text="${inmueble.ubicacion}"></h3>
                                 <p class="card-text" th:text="${inmueble.descripcion}"></p>
+                                <p class="card-text">Ambientes:</p>
                                 <p class="card-text" th:text="${inmueble.ambientes}"></p>
-                                <p class="card-text" th:text="${inmueble.superficie}"></p>
+                                <p class="card-text">Superficie:</p>
+                                <p class="card-text" th:text="${inmueble.superficie}"> m2</p>
                                 <p class="card-text" th:if="${inmueble.tipoOferta == 'alquiler'}" th:text="${inmueble.precioAlquiler}"></p>
                                 <p class="card-text" th:if="${inmueble.tipoOferta == 'venta'}" th:text="${inmueble.precioVenta}"></p>
                                 <div class="d-flex justify-content-between align-items-center">
