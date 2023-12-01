@@ -13,8 +13,8 @@ import org.springframework.stereotype.Repository;
 public interface InmuebleRepositorio extends JpaRepository<Inmueble, String>{
     
    
-    @Query("SELECT l FROM Inmueble l WHERE l.tipo = :tipo")
-    public List<Inmueble> buscarPorTipo(@Param("tipo") Tipo tipo);
+    @Query("SELECT l FROM Inmueble l WHERE l.tipo = :tipo AND l.tipoOferta = :tipoOferta")
+    public List<Inmueble> buscarPorTipo(@Param("tipo") Tipo tipo, @Param("tipoOferta") String tipoOferta);
     
     @Query("SELECT l FROM Inmueble l WHERE l.ambientes = :ambientes")
     public List<Inmueble> buscarPorAmbientes(@Param("ambientes") Integer ambientes);

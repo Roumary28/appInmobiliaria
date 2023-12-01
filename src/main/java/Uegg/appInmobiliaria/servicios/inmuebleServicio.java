@@ -116,9 +116,9 @@ public class inmuebleServicio {
     }
 
     // los siguientes 2 metodos son para probar los query del repositorio
-    public List<Inmueble> listarTipoInmueble(Tipo tipo) {
+    public List<Inmueble> listarTipoInmueble(Tipo tipo, String tipoOferta) {
 
-        List<Inmueble> tipoInmueble = inmuebleRepositorio.buscarPorTipo(tipo);
+        List<Inmueble> tipoInmueble = inmuebleRepositorio.buscarPorTipo(tipo, tipoOferta);
         return tipoInmueble;
     }
 
