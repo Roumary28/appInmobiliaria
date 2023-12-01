@@ -55,7 +55,7 @@ public class inmuebleControlador {
             return "inmuebleForm.html";
         }
 
-        return "index.html";
+        return "redirect:/";
         
     }
 
