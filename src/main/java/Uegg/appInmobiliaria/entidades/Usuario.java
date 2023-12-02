@@ -3,9 +3,11 @@ package Uegg.appInmobiliaria.entidades;
 import Uegg.appInmobiliaria.enums.Rol;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -18,9 +20,9 @@ import org.hibernate.annotations.GenericGenerator;
 /**
  * @author Gimenez Victor
  */
-
 @Entity
 public class Usuario {
+
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
@@ -40,8 +42,9 @@ public class Usuario {
     private Rol rol;
     @Temporal(TemporalType.DATE)
     private Date fechaAlta;
-    
-    @OneToMany
+
+    //@OneToMany
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usuarioEnte", cascade = CascadeType.ALL)
     private List<Inmueble> inmuebles;
     private Boolean activo;
 
@@ -160,5 +163,4 @@ public class Usuario {
         this.activo = activo;
     }
 
-    
 }
