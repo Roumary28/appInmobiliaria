@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -21,10 +22,10 @@ public class Inmueble {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
-    
+
     @Enumerated(EnumType.STRING)
     private Tipo tipo;
-    
+
     private String ubicacion;
     private Double superficie;
     private Integer ambientes;
@@ -33,18 +34,18 @@ public class Inmueble {
     private Double precioAlquiler;
     private Boolean disponibildad;
     private String tipoOferta;
-    
+
     @OneToOne
     @JoinColumn(name = "imagen_id")
     private Imagen imagen;
 
-    @ManyToOne
-    @JoinColumn(name = "usuario_ente")
+    //@ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ente_id")
     private Usuario usuarioEnte;
-    
+
     @Temporal(TemporalType.DATE)
     private Date fechaAlta;
-
 
     public Inmueble() {
     }
@@ -153,6 +154,4 @@ public class Inmueble {
         this.fechaAlta = fechaAlta;
     }
 
- 
-    
 }
