@@ -7,6 +7,9 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.hibernate.annotations.GenericGenerator;
@@ -30,7 +33,15 @@ public class Inmueble {
     private Double precioAlquiler;
     private Boolean disponibildad;
     private String tipoOferta;
+    
+    @OneToOne
+    @JoinColumn(name = "imagen_id")
+    private Imagen imagen;
 
+    @ManyToOne
+    @JoinColumn(name = "usuario_ente")
+    private Usuario usuarioEnte;
+    
     @Temporal(TemporalType.DATE)
     private Date fechaAlta;
 
@@ -116,6 +127,22 @@ public class Inmueble {
 
     public void setTipoOferta(String tipoOferta) {
         this.tipoOferta = tipoOferta;
+    }
+
+    public Imagen getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(Imagen imagen) {
+        this.imagen = imagen;
+    }
+
+    public Usuario getUsuarioEnte() {
+        return usuarioEnte;
+    }
+
+    public void setUsuarioEnte(Usuario usuarioEnte) {
+        this.usuarioEnte = usuarioEnte;
     }
 
     public Date getFechaAlta() {

@@ -1,5 +1,6 @@
 package Uegg.appInmobiliaria.servicios;
 
+import Uegg.appInmobiliaria.entidades.Imagen;
 import Uegg.appInmobiliaria.entidades.Inmueble;
 import Uegg.appInmobiliaria.enums.Tipo;
 import Uegg.appInmobiliaria.excepciones.MyException;
@@ -11,20 +12,24 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class inmuebleServicio {
 
     @Autowired
     private InmuebleRepositorio inmuebleRepositorio;
+    @Autowired
+    private ImagenServicio imagenServicio;
 
     @Transactional
-    public void crearInmueble(Tipo tipo, String ubicacion, Double superficie, Integer ambientes, String descripcion, Double precioVenta, Double precioAlquiler,
+    public void crearInmueble(MultipartFile archivo, Tipo tipo, String ubicacion, Double superficie, Integer ambientes, String descripcion, Double precioVenta, Double precioAlquiler,
             String tipoOferta) throws MyException {
 
         validar(tipo, ubicacion, superficie, ambientes, descripcion, precioVenta, precioAlquiler, tipoOferta);
 
         Inmueble inmueble = new Inmueble();
+        Imagen imagen = imagenServicio.guardar(archivo);
 
         inmueble.setTipo(tipo);
         inmueble.setUbicacion(ubicacion);
@@ -35,6 +40,7 @@ public class inmuebleServicio {
         inmueble.setPrecioAlquiler(precioAlquiler);
         inmueble.setDisponibildad(true);
         inmueble.setTipoOferta(tipoOferta);
+        inmueble.setImagen(imagen);
         inmueble.setFechaAlta(new Date());
         //    agregar   Ente
         inmuebleRepositorio.save(inmueble);
