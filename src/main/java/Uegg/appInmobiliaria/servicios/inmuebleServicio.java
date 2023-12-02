@@ -1,31 +1,43 @@
 package Uegg.appInmobiliaria.servicios;
 
+import Uegg.appInmobiliaria.entidades.Imagen;
 import Uegg.appInmobiliaria.entidades.Inmueble;
+import Uegg.appInmobiliaria.entidades.Usuario;
 import Uegg.appInmobiliaria.enums.Tipo;
 import Uegg.appInmobiliaria.excepciones.MyException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import Uegg.appInmobiliaria.repositorios.InmuebleRepositorio;
+import Uegg.appInmobiliaria.repositorios.UsuarioRepositorio;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class inmuebleServicio {
 
     @Autowired
     private InmuebleRepositorio inmuebleRepositorio;
+    @Autowired
+    private ImagenServicio imagenServicio;
+    @Autowired
+    private UsuarioRepositorio usuarioRepositorio;
 
     @Transactional
-    public void crearInmueble(Tipo tipo, String ubicacion, Double superficie, Integer ambientes, String descripcion, Double precioVenta, Double precioAlquiler,
+    public void crearInmueble(MultipartFile archivo,String idUsuarioEnte, Tipo tipo, String ubicacion, Double superficie, Integer ambientes, String descripcion, Double precioVenta, Double precioAlquiler,
             String tipoOferta) throws MyException {
 
         validar(tipo, ubicacion, superficie, ambientes, descripcion, precioVenta, precioAlquiler, tipoOferta);
 
         Inmueble inmueble = new Inmueble();
+        Imagen imagen = imagenServicio.guardar(archivo);
+        Optional<Usuario> respuesta = usuarioRepositorio.findById(idUsuarioEnte);
+        Usuario usuarioEnte = respuesta.get();
 
+        inmueble.setUsuarioEnte(usuarioEnte);
         inmueble.setTipo(tipo);
         inmueble.setUbicacion(ubicacion);
         inmueble.setSuperficie(superficie);
@@ -35,6 +47,7 @@ public class inmuebleServicio {
         inmueble.setPrecioAlquiler(precioAlquiler);
         inmueble.setDisponibildad(true);
         inmueble.setTipoOferta(tipoOferta);
+        inmueble.setImagen(imagen);
         inmueble.setFechaAlta(new Date());
         //    agregar   Ente
         inmuebleRepositorio.save(inmueble);

@@ -5,8 +5,12 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.hibernate.annotations.GenericGenerator;
@@ -18,10 +22,10 @@ public class Inmueble {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
-    
+
     @Enumerated(EnumType.STRING)
     private Tipo tipo;
-    
+
     private String ubicacion;
     private Double superficie;
     private Integer ambientes;
@@ -31,9 +35,17 @@ public class Inmueble {
     private Boolean disponibildad;
     private String tipoOferta;
 
+    @OneToOne
+    @JoinColumn(name = "imagen_id")
+    private Imagen imagen;
+
+    //@ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ente_id")
+    private Usuario usuarioEnte;
+
     @Temporal(TemporalType.DATE)
     private Date fechaAlta;
-
 
     public Inmueble() {
     }
@@ -118,6 +130,22 @@ public class Inmueble {
         this.tipoOferta = tipoOferta;
     }
 
+    public Imagen getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(Imagen imagen) {
+        this.imagen = imagen;
+    }
+
+    public Usuario getUsuarioEnte() {
+        return usuarioEnte;
+    }
+
+    public void setUsuarioEnte(Usuario usuarioEnte) {
+        this.usuarioEnte = usuarioEnte;
+    }
+
     public Date getFechaAlta() {
         return fechaAlta;
     }
@@ -126,6 +154,4 @@ public class Inmueble {
         this.fechaAlta = fechaAlta;
     }
 
- 
-    
 }
