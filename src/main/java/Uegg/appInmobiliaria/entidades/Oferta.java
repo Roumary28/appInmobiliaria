@@ -21,10 +21,13 @@ public class Oferta {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
     private Double montoOferta;
+    
     @ManyToOne
     private Inmueble inmueble;
+    
     @ManyToOne
     private Usuario usuarioCliente;
+    
     @Temporal(TemporalType.DATE)
     private Date fechaOferta;
     private Boolean vigente;
