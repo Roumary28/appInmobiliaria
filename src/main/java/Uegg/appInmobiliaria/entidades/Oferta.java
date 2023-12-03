@@ -29,15 +29,7 @@ public class Oferta {
 
     @ManyToOne
     private Usuario usuarioCliente;
-    private String usuarioEnte;
 
-    public String getUsuarioEnte() {
-        return usuarioEnte;
-    }
-
-    public void setUsuarioEnte(String usuarioEnte) {
-        this.usuarioEnte = usuarioEnte;
-    }
     @Temporal(TemporalType.DATE)
     private Date fechaOferta;
     private String estadoOferta;
