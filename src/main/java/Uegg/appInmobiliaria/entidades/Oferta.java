@@ -4,6 +4,7 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
@@ -21,15 +22,25 @@ public class Oferta {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
     private Double montoOferta;
-    
+
     @ManyToOne
+    @JoinColumn(name = "inmueble_id")
     private Inmueble inmueble;
-    
+
     @ManyToOne
     private Usuario usuarioCliente;
-    
+    private String usuarioEnte;
+
+    public String getUsuarioEnte() {
+        return usuarioEnte;
+    }
+
+    public void setUsuarioEnte(String usuarioEnte) {
+        this.usuarioEnte = usuarioEnte;
+    }
     @Temporal(TemporalType.DATE)
     private Date fechaOferta;
+    private String estadoOferta;
     private Boolean vigente;
 
     public Oferta() {
@@ -37,10 +48,6 @@ public class Oferta {
 
     public String getId() {
         return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public Double getMontoOferta() {
@@ -67,6 +74,14 @@ public class Oferta {
         this.fechaOferta = fechaOferta;
     }
 
+    public String getEstadoOferta() {
+        return estadoOferta;
+    }
+
+    public void setEstadoOferta(String estadoOferta) {
+        this.estadoOferta = estadoOferta;
+    }
+
     public Boolean getVigente() {
         return vigente;
     }
@@ -82,5 +97,5 @@ public class Oferta {
     public void setUsuarioCliente(Usuario usuarioCliente) {
         this.usuarioCliente = usuarioCliente;
     }
-    
+
 }
