@@ -2,6 +2,8 @@ package Uegg.appInmobiliaria.entidades;
 
 import Uegg.appInmobiliaria.enums.Tipo;
 import java.util.Date;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -10,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -40,10 +43,13 @@ public class Inmueble {
     private Imagen imagen;
 
     //@ManyToOne
+    //Revisar si es que va OneToOne
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ente_id")
     private Usuario usuarioEnte;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "inmueble", cascade = CascadeType.ALL)
+    private List<Oferta> ofertas;
     @Temporal(TemporalType.DATE)
     private Date fechaAlta;
 
