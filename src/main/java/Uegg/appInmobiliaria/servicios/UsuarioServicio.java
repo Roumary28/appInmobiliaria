@@ -174,6 +174,11 @@ public class UsuarioServicio implements UserDetailsService{
             throw new MyException("El email no puede ser nulo.");
         }
 
+        Usuario usuario = usuarioRepo.buscarPorEmail(email);
+        if (usuario.getEmail().equalsIgnoreCase(email) ) {
+            throw new MyException("El email ya fue registrado.");
+        }
+
         if (pass.isEmpty() || pass == null) {
             throw new MyException("La contraseña no puede ser nula.");
         } else if (pass.length() <= 5) {
@@ -183,6 +188,7 @@ public class UsuarioServicio implements UserDetailsService{
         if (!pass.equals(pass2)) {
             throw new MyException("Las contraseñas deben ser iguales.");
         }
+
     }
     
      public void validarEnte(String denominacion, Long cuit, String direccion, Integer codigoPostal, Long telefono, String email, String pass, String pass2) throws MyException {
@@ -210,6 +216,11 @@ public class UsuarioServicio implements UserDetailsService{
 
         if (email.isEmpty() || email == null) {
             throw new MyException("El email no puede ser nulo.");
+        }
+
+         Usuario usuario = usuarioRepo.buscarPorEmail(email);
+        if (usuario.getEmail().equalsIgnoreCase(email) ) {
+            throw new MyException("El email ya fue registrado.");
         }
 
         if (pass.isEmpty() || pass == null) {
