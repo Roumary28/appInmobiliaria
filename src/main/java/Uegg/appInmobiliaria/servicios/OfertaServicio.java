@@ -3,6 +3,7 @@ package Uegg.appInmobiliaria.servicios;
 import Uegg.appInmobiliaria.entidades.Inmueble;
 import Uegg.appInmobiliaria.entidades.Oferta;
 import Uegg.appInmobiliaria.entidades.Usuario;
+import Uegg.appInmobiliaria.excepciones.MyException;
 import Uegg.appInmobiliaria.repositorios.InmuebleRepositorio;
 import Uegg.appInmobiliaria.repositorios.OfertaRepositorio;
 import Uegg.appInmobiliaria.repositorios.UsuarioRepositorio;
@@ -27,7 +28,8 @@ public class OfertaServicio {
     private InmuebleRepositorio inmuebleRepositorio;
 
     @Transactional
-    public void crearOfertaCliente(Double monto, String idInmueble, String idCliente) {
+    public void crearOfertaCliente(Double monto, String idInmueble, String idCliente) throws MyException {
+        validar(monto);
         Inmueble inmueble = new Inmueble();
         Usuario usuario = new Usuario();
         Oferta oferta = new Oferta();
@@ -96,11 +98,17 @@ public class OfertaServicio {
     }
     
     @Transactional
-    public Oferta mejorOferta(){
-        return ofertaRepositorio.buscarOfertaMayor();
+    public Oferta mejorOferta(String id){
+        return ofertaRepositorio.buscarOfertaMayor(id);
     }
     
     public Oferta getOne(String idOferta) {
         return ofertaRepositorio.getOne(idOferta);
+    }
+    
+    public void validar(Double montoOferta) throws MyException{
+        if(montoOferta >= 0 || montoOferta == null){
+            throw new MyException("La oferta no puede ser vacia o  se rmenor a cero.");
+        }
     }
 }
