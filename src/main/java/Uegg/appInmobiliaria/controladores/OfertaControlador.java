@@ -2,12 +2,11 @@ package Uegg.appInmobiliaria.controladores;
 
 import Uegg.appInmobiliaria.entidades.Oferta;
 import Uegg.appInmobiliaria.excepciones.MyException;
-import Uegg.appInmobiliaria.repositorios.OfertaRepositorio;
 import Uegg.appInmobiliaria.servicios.OfertaServicio;
 import Uegg.appInmobiliaria.servicios.inmuebleServicio;
-import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,12 +24,15 @@ public class OfertaControlador {
 
     @Autowired
     private OfertaServicio ofertaServicio;
+    
 
+    @PreAuthorize("hasAnyRole('ROLE_CLIENTE')")
     @PostMapping("/hacer")
     public String hacerOferta() {
         return "oferta_form";
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_CLIENTE')")
     @GetMapping("/enviar")
     public String enviarOferta(
             @RequestParam Double montoOferta,
@@ -50,25 +52,27 @@ public class OfertaControlador {
             return "oferta_form.html";
         }
     }
-    
+
+    @PreAuthorize("hasAnyRole('ROLE_ENTE', 'ROLE_ADMIN')")
     @GetMapping("/inmueble/{idInmueble}")
     public String listarOfertasInmuebles(
             @PathVariable String idInmueble,
             ModelMap modelo
-    ){
+    ) {
         List<Oferta> ofertas = ofertaServicio.lsitarOfertasInmueble(idInmueble);
         Oferta oferta = ofertaServicio.mejorOferta(idInmueble);
-        modelo.addAttribute(oferta);
+        modelo.addAttribute("oferta", oferta);
         modelo.addAttribute("ofertas", ofertas);
         return "/oferta_inmueble_list.html";
     }
-    
+
+    @PreAuthorize("hasAnyRole('ROLE_CLIENTE', 'ROLE_ENTE', 'ROLE_ADMIN')")
     @GetMapping("/cliente/{idCliente}")
     public String listarOfertasClientes(
             @PathVariable String idCliente,
             ModelMap modelo
-    ){
-        List<Oferta> ofertas =ofertaServicio.listarOfertaCliente(idCliente);
+    ) {
+        List<Oferta> ofertas = ofertaServicio.listarOfertaCliente(idCliente);
         modelo.addAttribute("ofertas", ofertas);
         return "/oferta_cliente_list.html";
     }

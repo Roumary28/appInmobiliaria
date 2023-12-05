@@ -5,6 +5,7 @@ import Uegg.appInmobiliaria.excepciones.MyException;
 import Uegg.appInmobiliaria.servicios.UsuarioServicio;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -102,16 +103,17 @@ public class UsuarioControlador {
         }
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ENTE', 'ROLE_ADMIN')")
     @GetMapping("/lista")
     public String lista(ModelMap modelo) {
         List<Usuario> usuarios = usuarioServicio.listar();
         modelo.put("usuarios", usuarios);
         return "usuario_list.html";
     }
-    
+
     @GetMapping("/modificar/{id}")
-    public String modificar(@PathVariable String id){
-        
+    public String modificar(@PathVariable String id) {
+
         return "usuario_modificar.html";
     }
 
@@ -134,7 +136,7 @@ public class UsuarioControlador {
             modelo.put("error", ex.getMessage());
             return "usuario_modificar.html";
         }
-        
+
     }
 
 }
