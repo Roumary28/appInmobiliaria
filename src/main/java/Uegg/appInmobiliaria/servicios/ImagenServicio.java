@@ -33,40 +33,6 @@ public class ImagenServicio {
         }
         return null;
     }
-/**
-    public Imagen guardarImagenesInmueble(List<MultipartFile> archivos) throws MyException {
-
-        if (archivos != null) {
-            try {
-                for (MultipartFile archivo : archivos) {
-                    Imagen imagen = new Imagen();
-                    imagen.setMime(archivo.getContentType());
-                    imagen.setNombre(archivo.getName());
-                    imagen.setContenido(archivo.getBytes());
-                    return imagenRepo.save(imagen);
-                }
-
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-        return null;
-    }
-    */
-    public Imagen guardarImagenUsuario(MultipartFile archivo) throws MyException{
-        if (archivo != null) {
-            try {
-                Imagen imagen = new Imagen();
-                imagen.setMime(archivo.getContentType());
-                imagen.setNombre(archivo.getName());
-                imagen.setContenido(archivo.getBytes());
-                return imagenRepo.save(imagen);
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-        return null;
-    }
 
     public Imagen actualizar(MultipartFile archivo, String idImagen) throws MyException {
         if (archivo != null) {
