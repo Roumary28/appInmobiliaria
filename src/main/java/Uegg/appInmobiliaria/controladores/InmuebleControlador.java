@@ -3,7 +3,7 @@ package Uegg.appInmobiliaria.controladores;
 import Uegg.appInmobiliaria.entidades.Inmueble;
 import Uegg.appInmobiliaria.enums.Tipo;
 import Uegg.appInmobiliaria.excepciones.MyException;
-import Uegg.appInmobiliaria.servicios.inmuebleServicio;
+import Uegg.appInmobiliaria.servicios.InmuebleServicio;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,7 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class InmuebleControlador {
 
     @Autowired
-    private inmuebleServicio inmuebleServicio;
+    private InmuebleServicio inmuebleServicio;
 
     @PreAuthorize("hasAnyRole('ROLE_ENTE', 'ROLE_ADMIN')")
     @GetMapping("/crear")
