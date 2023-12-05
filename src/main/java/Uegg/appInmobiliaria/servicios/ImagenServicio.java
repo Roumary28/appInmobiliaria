@@ -4,6 +4,7 @@ import Uegg.appInmobiliaria.entidades.Imagen;
 import Uegg.appInmobiliaria.excepciones.MyException;
 import Uegg.appInmobiliaria.repositorios.ImagenRepositorio;
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,9 +33,43 @@ public class ImagenServicio {
         }
         return null;
     }
-    
-    public Imagen actualizar(MultipartFile archivo, String idImagen) throws MyException{
-         if (archivo != null) {
+/**
+    public Imagen guardarImagenesInmueble(List<MultipartFile> archivos) throws MyException {
+
+        if (archivos != null) {
+            try {
+                for (MultipartFile archivo : archivos) {
+                    Imagen imagen = new Imagen();
+                    imagen.setMime(archivo.getContentType());
+                    imagen.setNombre(archivo.getName());
+                    imagen.setContenido(archivo.getBytes());
+                    return imagenRepo.save(imagen);
+                }
+
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return null;
+    }
+    */
+    public Imagen guardarImagenUsuario(MultipartFile archivo) throws MyException{
+        if (archivo != null) {
+            try {
+                Imagen imagen = new Imagen();
+                imagen.setMime(archivo.getContentType());
+                imagen.setNombre(archivo.getName());
+                imagen.setContenido(archivo.getBytes());
+                return imagenRepo.save(imagen);
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return null;
+    }
+
+    public Imagen actualizar(MultipartFile archivo, String idImagen) throws MyException {
+        if (archivo != null) {
             try {
                 Imagen imagen = new Imagen();
                 if (idImagen != null) {

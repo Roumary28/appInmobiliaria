@@ -31,6 +31,7 @@
         class="formCrearInmueble fondo"
         action="/inmueble/creado"
         method="POST"
+        enctype="multipart/form-data"
       >
         <div class="col-1-general"></div>
         <div class="col-2-general">
@@ -120,6 +121,15 @@
                 id="precio"
                 name="precio"
                 placeholder="Ingrese el precio"
+              />
+            </div>
+                <div class="form-col2">
+              <label for="archivos" class="form-label">Inserte las imagenes</label>
+              <input
+                type="file"
+                class="form-control"
+                id="archivos"
+                name="archivos"
               />
             </div>
           </div>
