@@ -13,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.hibernate.annotations.GenericGenerator;
@@ -40,10 +39,15 @@ public class Inmueble {
 
     //@ManyToOne(cascade = CascadeType.ALL)
     //@JoinColumn(name = "inmueble")
-    @OneToOne
-    @JoinColumn(name = "imagen_id")
-    private Imagen imagen;
-
+    
+    //@OneToOne
+    //@JoinColumn(name = "imagen_id")
+   // private Imagen imagen;
+    
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "inmueble_id")
+    private List<Imagen> imagenes;
+    
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ente_id")
     private Usuario usuarioEnte;
@@ -136,13 +140,13 @@ public class Inmueble {
     public void setTipoOferta(String tipoOferta) {
         this.tipoOferta = tipoOferta;
     }
-
-    public Imagen getImagen() {
-        return imagen;
+    
+        public List<Imagen> getImagenes() {
+        return imagenes;
     }
 
-    public void setImagen(Imagen imagen) {
-        this.imagen = imagen;
+    public void setImagenes(List<Imagen> imagenes) {
+        this.imagenes = imagenes;
     }
 
     public Usuario getUsuarioEnte() {

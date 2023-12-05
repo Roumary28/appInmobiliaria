@@ -4,15 +4,11 @@ import Uegg.appInmobiliaria.entidades.Imagen;
 import Uegg.appInmobiliaria.excepciones.MyException;
 import Uegg.appInmobiliaria.repositorios.ImagenRepositorio;
 import java.io.IOException;
-import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-/**
- * @author Gimenez Victor
- */
 @Service
 public class ImagenServicio {
 
