@@ -2,7 +2,6 @@ package Uegg.appInmobiliaria.controladores;
 
 import Uegg.appInmobiliaria.entidades.Usuario;
 import Uegg.appInmobiliaria.servicios.UsuarioServicio;
-import Uegg.appInmobiliaria.servicios.inmuebleServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
