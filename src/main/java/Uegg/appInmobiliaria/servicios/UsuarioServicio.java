@@ -29,7 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @author Gimenez Victor
  */
 @Service
-public class UsuarioServicio implements UserDetailsService{
+public class UsuarioServicio implements UserDetailsService {
 
     @Autowired
     private UsuarioRepositorio usuarioRepo;
@@ -39,11 +39,11 @@ public class UsuarioServicio implements UserDetailsService{
     @Transactional
     public void crearCliente(MultipartFile archivo, String denominacion, Long dni, String direccion, Integer codigoPostal, Long telefono,
             String email, String pass, String pass2) throws MyException {
-        validarCliente(denominacion, dni, direccion, codigoPostal,  telefono, email,  pass, pass2);
+        validarCliente(denominacion, dni, direccion, codigoPostal, telefono, email, pass, pass2);
 
         // Crear una instancia de Usuario
         Usuario usuario = new Usuario();
-        Imagen imagen = imagenServicio.guardar(archivo);
+        Imagen imagen = imagenServicio.guardarImagenUsuario(archivo);
         usuario.setImagen(imagen);
         usuario.setDenominacion(denominacion);
         usuario.setDni(dni);
@@ -61,11 +61,11 @@ public class UsuarioServicio implements UserDetailsService{
     @Transactional
     public void crearEnte(MultipartFile archivo, String denominacion, Long cuit, String direccion, Integer codigoPostal, Long telefono,
             String email, String pass, String pass2) throws MyException {
-        validarEnte(denominacion, cuit, direccion, codigoPostal,  telefono, email,  pass, pass2);
+        validarEnte(denominacion, cuit, direccion, codigoPostal, telefono, email, pass, pass2);
 
         // Crear una instancia de Usuario
         Usuario usuario = new Usuario();
-        Imagen imagen = imagenServicio.guardar(archivo);
+        Imagen imagen = imagenServicio.guardarImagenUsuario(archivo);
         usuario.setImagen(imagen);
         usuario.setDenominacion(denominacion);
         usuario.setCuit(cuit);
@@ -157,7 +157,7 @@ public class UsuarioServicio implements UserDetailsService{
         } else if (dni <= 9999999 || dni >= 100000000L) {
             throw new MyException("El DNI debe tener 8 digitos.");
         }
-        
+
         if (direccion.isEmpty() || direccion == null) {
             throw new MyException("La dirección no puede ser nula.");
         }
@@ -172,6 +172,11 @@ public class UsuarioServicio implements UserDetailsService{
 
         if (email.isEmpty() || email == null) {
             throw new MyException("El email no puede ser nulo.");
+        } else if (email != null) {
+            Usuario usuario = usuarioRepo.buscarPorEmail(email);
+            if (usuario != null) {
+                throw new MyException("El email ya fue registrado.");
+            }
         }
 
         if (pass.isEmpty() || pass == null) {
@@ -183,9 +188,10 @@ public class UsuarioServicio implements UserDetailsService{
         if (!pass.equals(pass2)) {
             throw new MyException("Las contraseñas deben ser iguales.");
         }
+
     }
-    
-     public void validarEnte(String denominacion, Long cuit, String direccion, Integer codigoPostal, Long telefono, String email, String pass, String pass2) throws MyException {
+
+    public void validarEnte(String denominacion, Long cuit, String direccion, Integer codigoPostal, Long telefono, String email, String pass, String pass2) throws MyException {
         if (denominacion.isEmpty() || denominacion == null) {
             throw new MyException("La razón social no puede ser nula.");
         }
@@ -195,7 +201,7 @@ public class UsuarioServicio implements UserDetailsService{
         } else if (cuit <= 9999999999L || cuit >= 100000000000L) {
             throw new MyException("El CUIT debe tener 11 digitos");
         }
-        
+
         if (direccion.isEmpty() || direccion == null) {
             throw new MyException("La dirección no puede ser nula.");
         }
@@ -210,6 +216,11 @@ public class UsuarioServicio implements UserDetailsService{
 
         if (email.isEmpty() || email == null) {
             throw new MyException("El email no puede ser nulo.");
+        } else if (email != null) {
+            Usuario usuario = usuarioRepo.buscarPorEmail(email);
+            if (usuario != null) {
+                throw new MyException("El email ya fue registrado.");
+            }
         }
 
         if (pass.isEmpty() || pass == null) {
@@ -238,18 +249,16 @@ public class UsuarioServicio implements UserDetailsService{
             GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + usuario.getRol().toString());
 
             permisos.add(p);
-            
+
             ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-            
+
             HttpSession session = attr.getRequest().getSession(true);
-            
+
             session.setAttribute("usuariosession", usuario);
-            
+
             return new User(usuario.getEmail(), usuario.getPass(), permisos);
         } else {
             return null;
         }
     }
 }
-
-

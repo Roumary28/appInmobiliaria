@@ -1,7 +1,6 @@
 package Uegg.appInmobiliaria.controladores;
 
 import Uegg.appInmobiliaria.entidades.Inmueble;
-import Uegg.appInmobiliaria.entidades.Usuario;
 import Uegg.appInmobiliaria.enums.Tipo;
 import Uegg.appInmobiliaria.excepciones.MyException;
 import Uegg.appInmobiliaria.servicios.inmuebleServicio;
