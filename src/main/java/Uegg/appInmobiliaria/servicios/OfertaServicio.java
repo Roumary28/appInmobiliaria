@@ -107,6 +107,11 @@ public class OfertaServicio {
     public Oferta mejorOferta(String id) {
         return ofertaRepositorio.buscarOfertaMayor(id);
     }
+    
+    @Transactional
+    public Oferta contarOfertas(String id){
+        return ofertaRepositorio.contarOfertasPorInmueble(id);
+    }
 
     public Oferta getOne(String idOferta) {
         return ofertaRepositorio.getOne(idOferta);
