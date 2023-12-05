@@ -38,18 +38,18 @@ public class Inmueble {
     private Boolean disponibildad;
     private String tipoOferta;
 
+   // @ManyToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "imagen_id")
     @OneToOne
-    @JoinColumn(name = "imagen_id")
     private Imagen imagen;
 
-    //@ManyToOne
-    //Revisar si es que va OneToOne
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ente_id")
     private Usuario usuarioEnte;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "inmueble", cascade = CascadeType.ALL)
     private List<Oferta> ofertas;
+    
     @Temporal(TemporalType.DATE)
     private Date fechaAlta;
 
