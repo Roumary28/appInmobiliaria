@@ -101,7 +101,7 @@ public class InmuebleControlador {
 
     @GetMapping("/lista/casaVenta") //localhost:8080/inmueble/lista/
     public String listarCasaVenta(ModelMap modelo) {
-
+        
         List<Inmueble> inmuebles = inmuebleServicio.listarTipoInmueble(Tipo.CASA, "venta");
 
         modelo.addAttribute("inmuebles", inmuebles);
