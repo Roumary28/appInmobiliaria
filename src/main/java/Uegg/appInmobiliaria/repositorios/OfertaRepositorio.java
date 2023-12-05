@@ -26,5 +26,8 @@ public interface OfertaRepositorio extends JpaRepository<Oferta, String>{
     //Buscar todas las ofertas hechas por un cliente
     @Query("SELECT o FROM Oferta o WHERE o.usuarioCliente.id = :id")
     public List<Oferta> buscarPorCliente(@Param("id") String id);
+    
+    @Query("SELECT COUNT(o.inmueble) FROM Oferta o WHERE o.inmueble.id = :id")
+    public Oferta contarOfertasPorInmueble(@Param("id") String id);
 
 }
