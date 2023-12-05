@@ -33,6 +33,7 @@
         method="POST"
         enctype="multipart/form-data"
       >
+          <div hidden> <input hidden th:value="${session.usuariosession.id} " name=" idUsuarioEnte"> </div>
         <div class="col-1-general"></div>
         <div class="col-2-general">
           <div class="form-row1">
@@ -129,7 +130,7 @@
                 type="file"
                 class="form-control"
                 id="archivos"
-                name="archivos"
+                name="archivo"
               />
             </div>
           </div>

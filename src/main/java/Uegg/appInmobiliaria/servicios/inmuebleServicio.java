@@ -5,6 +5,7 @@ import Uegg.appInmobiliaria.entidades.Inmueble;
 import Uegg.appInmobiliaria.entidades.Usuario;
 import Uegg.appInmobiliaria.enums.Tipo;
 import Uegg.appInmobiliaria.excepciones.MyException;
+import Uegg.appInmobiliaria.repositorios.ImagenRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import Uegg.appInmobiliaria.repositorios.InmuebleRepositorio;
@@ -23,19 +24,19 @@ public class inmuebleServicio {
     @Autowired
     private ImagenServicio imagenServicio;
     @Autowired
+    private ImagenRepositorio imagenRepositorio;
+    @Autowired
     private UsuarioRepositorio usuarioRepositorio;
 
     @Transactional
-    public void crearInmueble(MultipartFile archivo,String idUsuarioEnte, Tipo tipo, String ubicacion, Double superficie, Integer ambientes, String descripcion, Double precioVenta, Double precioAlquiler,
+    public void crearInmueble(MultipartFile archivo, String idUsuarioEnte, Tipo tipo, String ubicacion, Double superficie, Integer ambientes, String descripcion, Double precioVenta, Double precioAlquiler,
             String tipoOferta) throws MyException {
 
         validar(tipo, ubicacion, superficie, ambientes, descripcion, precioVenta, precioAlquiler, tipoOferta);
 
-        Inmueble inmueble = new Inmueble();
-        Imagen imagen = imagenServicio.guardar(archivo);
         Optional<Usuario> respuesta = usuarioRepositorio.findById(idUsuarioEnte);
+        Inmueble inmueble = new Inmueble();
         Usuario usuarioEnte = respuesta.get();
-
         inmueble.setUsuarioEnte(usuarioEnte);
         inmueble.setTipo(tipo);
         inmueble.setUbicacion(ubicacion);
@@ -46,9 +47,9 @@ public class inmuebleServicio {
         inmueble.setPrecioAlquiler(precioAlquiler);
         inmueble.setDisponibildad(true);
         inmueble.setTipoOferta(tipoOferta);
+        Imagen imagen = imagenServicio.guardar(archivo);
         inmueble.setImagen(imagen);
         inmueble.setFechaAlta(new Date());
-        //    agregar   Ente
         inmuebleRepositorio.save(inmueble);
 
     }
@@ -163,7 +164,7 @@ public class inmuebleServicio {
 
             throw new MyException("El tipo de oferta no puede ser nulo");
 
-        } 
+        }
 
     }
 

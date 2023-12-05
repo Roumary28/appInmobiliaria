@@ -43,7 +43,7 @@ public class UsuarioServicio implements UserDetailsService {
 
         // Crear una instancia de Usuario
         Usuario usuario = new Usuario();
-        Imagen imagen = imagenServicio.guardarImagenUsuario(archivo);
+        Imagen imagen = imagenServicio.guardar(archivo);
         usuario.setImagen(imagen);
         usuario.setDenominacion(denominacion);
         usuario.setDni(dni);
@@ -65,7 +65,7 @@ public class UsuarioServicio implements UserDetailsService {
 
         // Crear una instancia de Usuario
         Usuario usuario = new Usuario();
-        Imagen imagen = imagenServicio.guardarImagenUsuario(archivo);
+        Imagen imagen = imagenServicio.guardar(archivo);
         usuario.setImagen(imagen);
         usuario.setDenominacion(denominacion);
         usuario.setCuit(cuit);
