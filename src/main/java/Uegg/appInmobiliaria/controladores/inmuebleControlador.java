@@ -32,18 +32,18 @@ public class inmuebleControlador {
     }
 
     @PostMapping("/creado")
-    public String creado( @RequestParam(required = false) MultipartFile archivo, @RequestParam(required = false) String idEnte, @RequestParam Tipo tipo, @RequestParam String ubicacion, @RequestParam (required = false) Double superficie, @RequestParam (required = false) Integer ambientes,
+    public String creado(@RequestParam(required = false)  MultipartFile archivo , @RequestParam String idUsuarioEnte, @RequestParam Tipo tipo, @RequestParam String ubicacion, @RequestParam (required = false) Double superficie, @RequestParam (required = false) Integer ambientes,
             @RequestParam String descripcion, @RequestParam (required = false) Double precio, @RequestParam (required = false) String tipoOferta, ModelMap modelo) {
 
         try {
             if (tipoOferta.equals("venta")) {
                 Double precioVenta = precio;
                 Double precioAlquiler = null;
-                inmuebleServicio.crearInmueble(archivo, idEnte, tipo, ubicacion, superficie, ambientes, descripcion, precioVenta, precioAlquiler, tipoOferta);
+                inmuebleServicio.crearInmueble(archivo, idUsuarioEnte, tipo, ubicacion, superficie, ambientes, descripcion, precioVenta, precioAlquiler, tipoOferta);
             } else if (tipoOferta.equals( "alquiler")) {
                 Double precioAlquiler  = precio;
                 Double precioVenta = null;
-                inmuebleServicio.crearInmueble(archivo, idEnte, tipo, ubicacion, superficie, ambientes, descripcion, precioVenta, precioAlquiler, tipoOferta);
+                inmuebleServicio.crearInmueble(archivo, idUsuarioEnte, tipo, ubicacion, superficie, ambientes, descripcion, precioVenta, precioAlquiler, tipoOferta);
             }
             
             modelo.put("exito", "inmueble creado con exito");

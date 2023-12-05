@@ -38,9 +38,10 @@ public class Inmueble {
     private Boolean disponibildad;
     private String tipoOferta;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    //@ManyToOne(cascade = CascadeType.ALL)
+    //@JoinColumn(name = "inmueble")
+    @OneToOne
     @JoinColumn(name = "imagen_id")
-    //@OneToOne
     private Imagen imagen;
 
     @ManyToOne(fetch = FetchType.LAZY)
