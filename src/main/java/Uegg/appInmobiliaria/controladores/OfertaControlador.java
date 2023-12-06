@@ -26,7 +26,7 @@ public class OfertaControlador {
     
 
     @PreAuthorize("hasAnyRole('ROLE_CLIENTE')")
-    @PostMapping("/hacer")
+    @PostMapping("/crear")
     public String hacerOferta() {
         return "oferta_form";
     }
@@ -60,7 +60,9 @@ public class OfertaControlador {
     ) {
         List<Oferta> ofertas = ofertaServicio.lsitarOfertasInmueble(idInmueble);
         Oferta oferta = ofertaServicio.mejorOferta(idInmueble);
+        Oferta ofertaContar = ofertaServicio.contarOfertas(idInmueble);
         modelo.addAttribute("oferta", oferta);
+        modelo.addAttribute("ofertaContar", ofertaContar);
         modelo.addAttribute("ofertas", ofertas);
         return "/oferta_inmueble_list.html";
     }
