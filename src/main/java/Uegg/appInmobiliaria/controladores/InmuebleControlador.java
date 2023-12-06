@@ -10,6 +10,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -101,7 +102,7 @@ public class InmuebleControlador {
 
     @GetMapping("/lista/casaVenta") //localhost:8080/inmueble/lista/
     public String listarCasaVenta(ModelMap modelo) {
-        
+
         List<Inmueble> inmuebles = inmuebleServicio.listarTipoInmueble(Tipo.CASA, "venta");
 
         modelo.addAttribute("inmuebles", inmuebles);
@@ -137,6 +138,65 @@ public class InmuebleControlador {
         modelo.addAttribute("inmuebles", inmuebles);
 
         return "inmuebleList.html";
+    }
+    
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @GetMapping("/listaGeneral") //localhost:8080/inmueble/listaGeneral
+    public String listarGeneral(ModelMap modelo) {
+
+        List<Inmueble> inmuebles = inmuebleServicio.listarInmuebles();
+
+        modelo.addAttribute("inmuebles", inmuebles);
+
+        return "inmuebleList.html";
+    }
+
+    @GetMapping("/modificar/{id}")
+    public String modificarInmueble(@PathVariable String id, ModelMap modelo) {
+
+        modelo.put("inmueble", inmuebleServicio.getOne(id));
+        modelo.addAttribute("tipos", Tipo.values());
+
+        return "inmuebleModificar.html";
+    }
+
+    @PostMapping("/modificar/{id}")
+    public String modificarInmueble(@PathVariable String id, @RequestParam(required = false) List<MultipartFile> archivos, @RequestParam Tipo tipo, @RequestParam String ubicacion, @RequestParam(required = false) Double superficie, @RequestParam(required = false) Integer ambientes,
+            @RequestParam String descripcion, @RequestParam(required = false) Double precio, @RequestParam(required = false) String tipoOferta, ModelMap modelo) {
+
+        try {
+            if (tipoOferta.equals("venta")) {
+                Double precioVenta = precio;
+                Double precioAlquiler = null;
+                inmuebleServicio.modificarInmueble(id, archivos, tipo, ubicacion, superficie, ambientes, descripcion, precioVenta, precioAlquiler, tipoOferta);
+            } else if (tipoOferta.equals("alquiler")) {
+                Double precioAlquiler = precio;
+                Double precioVenta = null;
+                inmuebleServicio.modificarInmueble(id, archivos, tipo, ubicacion, superficie, ambientes, descripcion, precioVenta, precioAlquiler, tipoOferta);
+            }
+            modelo.put("exito", "inmueble creado con exito");
+            
+            return "redirect:../listaGeneral";
+            
+        } catch (MyException ex) {
+            modelo.put("error", ex.getMessage());
+            modelo.addAttribute("tipos", Tipo.values());
+            
+            return "inmuebleModificar.html";
+        }
+
+    }
+    
+    @GetMapping("/eliminar/{id}")
+    public String eliminar(@PathVariable String id, ModelMap modelo) {
+        
+        try {
+            inmuebleServicio.borrarInmueble(id);
+            return  "redirect:../listaGeneral"; // Redirige a la lista después de eliminar
+        } catch (MyException ex) {
+           modelo.put("error", ex.getMessage());
+           return "redirect:/listaGeneral"; // Redirige a la lista
+        }
     }
 
 }

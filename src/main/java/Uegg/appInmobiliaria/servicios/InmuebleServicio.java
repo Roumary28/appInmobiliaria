@@ -63,10 +63,18 @@ public class InmuebleServicio {
     }
     
     @Transactional
-    public void modificarInmueble(String id, Tipo tipo, String ubicacion, Double superficie, Integer ambientes, String descripcion, Double precioVenta, Double precioAlquiler,
+    public void modificarInmueble(String id, List<MultipartFile> archivos, Tipo tipo, String ubicacion, Double superficie, Integer ambientes, String descripcion, Double precioVenta, Double precioAlquiler,
             String tipoOferta) throws MyException {
         
         validar(tipo, ubicacion, superficie, ambientes, descripcion, precioVenta, precioAlquiler, tipoOferta);
+
+        borrarImagenesDeInmueble(id);
+        
+        List<Imagen> imagenes = new ArrayList();
+        for (MultipartFile archivo : archivos) {
+            Imagen imagen = imagenServicio.guardar(archivo);
+            imagenes.add(imagen);
+        }
         
         Optional<Inmueble> respuesta = inmuebleRepositorio.findById(id);
         
@@ -81,6 +89,7 @@ public class InmuebleServicio {
             inmueble.setPrecioVenta(precioVenta);
             inmueble.setPrecioAlquiler(precioAlquiler);
             inmueble.setTipoOferta(tipoOferta);
+            inmueble.setImagenes(imagenes);
             
             inmuebleRepositorio.save(inmueble);
         }
@@ -125,6 +134,16 @@ public class InmuebleServicio {
             inmuebleRepositorio.deleteById(id);
             
         }
+    }
+    
+    @Transactional
+     public void borrarImagenesDeInmueble(String Id) {
+        Optional<Inmueble> optionalInmueble = inmuebleRepositorio.findById(Id);
+        if (optionalInmueble.isPresent()) {
+            Inmueble inmueble = optionalInmueble.get();
+            inmueble.getImagenes().clear(); // Limpiar la lista de imágenes
+            inmuebleRepositorio.save(inmueble); // Guardar el inmueble actualizado
+        }      
     }
     
     public Inmueble getOne(String id) {
