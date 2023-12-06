@@ -2,11 +2,9 @@ package Uegg.appInmobiliaria.controladores;
 
 import Uegg.appInmobiliaria.entidades.Inmueble;
 import Uegg.appInmobiliaria.entidades.Usuario;
-import Uegg.appInmobiliaria.excepciones.MyException;
 import Uegg.appInmobiliaria.repositorios.InmuebleRepositorio;
 import Uegg.appInmobiliaria.servicios.UsuarioServicio;
 import java.util.List;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -26,7 +24,7 @@ public class AdminControlador {
 
     @GetMapping("/dashboard")
     public String panelAdministrativo() {
-        return "index.html";
+        return "panel.html";
     }
 
     @GetMapping("/usuarios")
@@ -34,7 +32,7 @@ public class AdminControlador {
         List<Usuario> usuarios = usuarioServicio.listar();
         modelo.addAttribute("usuarios", usuarios);
 
-        return "panel.html";
+        return "usuarioList.html";
     }
 
     @GetMapping("/modificarRol/{id}")

@@ -43,17 +43,14 @@
                         Perfil
                     </a>
                     <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" sec:authorize="hasRole ('ADMIN')" th:href="@{/admin/dashboard}">Panel Admin</a></li>
+                        <li><a class="dropdown-item" sec:authorize="hasRole ('ADMIN')" th:href="@{/inmueble/crear}">Ofrecer propiedad</a></li>
                         <li><a class="dropdown-item" sec:authorize="hasRole ('ENTE')" th:href="@{/inmueble/crear}">Ofrecer propiedad</a></li>
                         <li><a class="dropdown-item" th:href="@{/logout}">Cerrar Sesión</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Contactanos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" th:href="@{/admin/dashboard}">
-                        Listar Usuarios
-                    </a>
                 </li>
                 
             </ul>
