@@ -102,12 +102,16 @@ public class UsuarioServicio implements UserDetailsService {
     }
 
     @Transactional
-    public void modificarRol(String id, String rol) {
+    public void modificarRol(String id) {
         Optional<Usuario> respuesta = usuarioRepo.findById(id);
         if (respuesta.isPresent()) {
             // Obtener la instancia existente
             Usuario usuario = respuesta.get();
-            usuario.setRol(Rol.valueOf(rol));
+            if(usuario.getRol() == Rol.CLIENTE){
+                usuario.setRol(Rol.ENTE);
+            } else {
+                usuario.setRol(Rol.CLIENTE);
+            }
             usuarioRepo.save(usuario);
         }
     }
