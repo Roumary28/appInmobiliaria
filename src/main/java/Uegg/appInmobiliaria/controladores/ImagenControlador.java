@@ -45,14 +45,13 @@ public class ImagenControlador {
     }
     
 /*
-    @GetMapping("/inmueble/{inmueble_id}")
-    public String mostrarCarouselInmueble(@PathVariable String inmueble_id, ModelMap model) {
+    @GetMapping("/lista/inmueble/{inmueble_id}")
+    public List<Imagen> listaImagenesPorIdInmueble(@PathVariable String inmueble_id, ModelMap model) {
         List<Imagen> imagenes = imagenServicio.obtenerImagenesPorInmueble(inmueble_id);
         model.addAttribute("imagenes", imagenes);
-
-        return "inmuebleList.html";
+        return imagenes;
     }
-    */
+*/
     
     @GetMapping("/inmueble/{id}")
     public ResponseEntity<byte[]> imagenInmueble(@PathVariable String id) {
