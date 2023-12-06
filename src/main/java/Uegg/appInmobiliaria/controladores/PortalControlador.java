@@ -1,8 +1,6 @@
-
 package Uegg.appInmobiliaria.controladores;
 
 import Uegg.appInmobiliaria.entidades.Usuario;
-import Uegg.appInmobiliaria.excepciones.MyException;
 import Uegg.appInmobiliaria.servicios.UsuarioServicio;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/") 
-public class portalControlador {
+public class PortalControlador {
     
     @Autowired
     private UsuarioServicio usuarioServicio;

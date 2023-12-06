@@ -10,9 +10,6 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import org.hibernate.annotations.GenericGenerator;
 
-/**
- * @author Gimenez Victor
- */
 @Entity
 public class Imagen {
 
@@ -25,6 +22,9 @@ public class Imagen {
     
     @Lob @Basic(fetch = FetchType.LAZY)
     private byte [] contenido;
+    
+    @ManyToOne
+    private Inmueble inmueble;
     
     public Imagen() {
     }

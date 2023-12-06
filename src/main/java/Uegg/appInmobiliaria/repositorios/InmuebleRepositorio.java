@@ -2,6 +2,7 @@
 package Uegg.appInmobiliaria.repositorios;
 
 import Uegg.appInmobiliaria.entidades.Inmueble;
+import Uegg.appInmobiliaria.entidades.Usuario;
 import Uegg.appInmobiliaria.enums.Tipo;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,6 +19,9 @@ public interface InmuebleRepositorio extends JpaRepository<Inmueble, String>{
     
     @Query("SELECT l FROM Inmueble l WHERE l.ambientes = :ambientes")
     public List<Inmueble> buscarPorAmbientes(@Param("ambientes") Integer ambientes);
+    
+    @Query("SELECT l FROM Inmueble l WHERE l.usuarioEnte = :usuarioEnte")
+    public List<Inmueble> buscarPorEnte(@Param("usuarioEnte") String usuarioEnte);
 
 }
 

@@ -3,7 +3,6 @@ package Uegg.appInmobiliaria.controladores;
 import Uegg.appInmobiliaria.entidades.Oferta;
 import Uegg.appInmobiliaria.excepciones.MyException;
 import Uegg.appInmobiliaria.servicios.OfertaServicio;
-import Uegg.appInmobiliaria.servicios.inmuebleServicio;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;

@@ -27,7 +27,7 @@ public class OfertaServicio {
     @Autowired
     private InmuebleRepositorio inmuebleRepositorio;
     @Autowired
-    private inmuebleServicio inmuebleSer;
+    private InmuebleServicio inmuebleSer;
 
     @Transactional
     public void crearOfertaCliente(Double monto, String idInmueble, String idCliente) throws MyException {
