@@ -23,9 +23,8 @@
                         <th scope="col">Email</th>
                         <th scope="col">Rol</th>
                         <th scope="col" sec:authorize="hasRole('ADMIN')">Editar Rol</th>
-                        <th scope="col" sec:authorize="hasRole('ADMIN')">Eliminar</th>
-                        
-
+                        <th scope="col">Estado</th>
+                        <th scope="col" sec:authorize="hasRole('ADMIN')">Baja / Alta</th>
                     </tr>
                 </thead>
                 <tbody th:each="usuario : ${usuarios}"> 
@@ -33,6 +32,10 @@
                         <th scope="row" th:text="${usuario.id}"></th>
                         <td th:text="${usuario.denominacion}"></td>
                         <td th:text="${usuario.email}"></td>
+                        <td  >
+                            <span th:if="${usuario.activo} == true"> Activo </span>
+                            <span th:if="${usuario.activo} == false"> De Baja </span>
+                        </td>
                         <td th:text="${usuario.rol}"></td>
                         <!--
                         <td>
@@ -40,11 +43,13 @@
                         </td>
                         -->
                         <td>
-                            <button type="button" class="btn btn-outline-primary me-2"><a th:href= "@{/admin/modificarRol/__${usuario.id}__}"><i class="fas fa-feather-alt"></i>Cambiar Rol</a></button>
+                             <button type="button" class="btn btn-outline-primary me-2"><a th:href="@{/admin/modificarRol/__${usuario.id}__}" class="nav-link px-2"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Cambiar Rol</font></font></a></button>
                         </td>
 
-                        <td>
-                            <button type="button" class="btn btn-outline-primary me-2"><a th:href= "@{/admin/eliminar/__${usuario.id}__}"><i class="fas fa-feather-alt"></i> Eliminar</a></button>
+                         <td>
+                            <p><a th:if="${usuario.activo} == true" th:href="@{/admin/darBaja/__${usuario.id}__}" class="link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">DAR BAJA</a>
+                            <a th:if="${usuario.activo} == false" th:href="@{/admin/darAlta/__${usuario.id}__}" class="link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">DAR ALTA</a></p>
+
                         </td>
 
                     </tr>
