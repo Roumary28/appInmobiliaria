@@ -12,4 +12,5 @@ public interface ImagenRepositorio extends JpaRepository<Imagen, String> {
     
     @Query("SELECT i FROM Imagen i WHERE i.inmueble.id = :inmueble_id")
     public List<Imagen> buscarPorIdInmueble(@Param("inmueble_id") String inmueble_id);
+    
 }
