@@ -42,6 +42,18 @@ public class AdminControlador {
 
         return "redirect:/admin/usuarios";
     }
+    
+    @GetMapping("/darAlta/{id}")
+    public String darAlta(@PathVariable String id) {
+        usuarioServicio.alta(id);
+        return "redirect:/admin/usuarios";
+    }
+    
+    @GetMapping("/darBaja/{id}")
+    public String darBaja(@PathVariable String id) {
+        usuarioServicio.baja(id);
+        return "redirect:/admin/usuarios";
+    }
 
     @GetMapping("/eliminar/{id}")
     public String eliminarUsuario(@PathVariable String id) {

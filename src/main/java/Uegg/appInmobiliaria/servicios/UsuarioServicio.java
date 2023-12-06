@@ -130,7 +130,7 @@ public class UsuarioServicio implements UserDetailsService {
     }
 
     @Transactional
-    public void baja(String id) {
+    public void borrar(String id) {
         Optional<Usuario> respuesta = usuarioRepo.findById(id);
         if (respuesta.isPresent()) {
             Usuario usuario = respuesta.get();
@@ -139,6 +139,15 @@ public class UsuarioServicio implements UserDetailsService {
         }
     }
 
+    @Transactional
+    public void baja(String id) {
+        Optional<Usuario> respuesta = usuarioRepo.findById(id);
+        if (respuesta.isPresent()) {
+            Usuario usuario = respuesta.get();
+            usuario.setActivo(false);
+            usuarioRepo.save(usuario);
+        }
+    }
     @Transactional
     public void alta(String id) {
         Optional<Usuario> respuesta = usuarioRepo.findById(id);
