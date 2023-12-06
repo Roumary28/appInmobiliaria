@@ -129,10 +129,9 @@ public class UsuarioServicio implements UserDetailsService {
     public void baja(String id) {
         Optional<Usuario> respuesta = usuarioRepo.findById(id);
         if (respuesta.isPresent()) {
-            // Obtener la instancia existente
             Usuario usuario = respuesta.get();
-            usuario.setActivo(false);
-            usuarioRepo.save(usuario);
+            
+            usuarioRepo.delete(usuario);
         }
     }
 

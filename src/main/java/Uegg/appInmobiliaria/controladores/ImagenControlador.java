@@ -44,7 +44,7 @@ public class ImagenControlador {
         return new ResponseEntity<>(imagen, headers, HttpStatus.OK);
     }
     
-
+/*
     @GetMapping("/inmueble/{inmueble_id}")
     public String mostrarCarouselInmueble(@PathVariable String inmueble_id, ModelMap model) {
         List<Imagen> imagenes = imagenServicio.obtenerImagenesPorInmueble(inmueble_id);
@@ -52,7 +52,7 @@ public class ImagenControlador {
 
         return "inmuebleList.html";
     }
-    
+    */
     
     @GetMapping("/inmueble/{id}")
     public ResponseEntity<byte[]> imagenInmueble(@PathVariable String id) {
