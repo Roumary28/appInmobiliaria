@@ -168,11 +168,11 @@ public class InmuebleControlador {
             if (tipoOferta.equals("venta")) {
                 Double precioVenta = precio;
                 Double precioAlquiler = null;
-                inmuebleServicio.modificarInmueble(id, tipo, ubicacion, superficie, ambientes, descripcion, precioVenta, precioAlquiler, tipoOferta);
+                inmuebleServicio.modificarInmueble(id, archivos, tipo, ubicacion, superficie, ambientes, descripcion, precioVenta, precioAlquiler, tipoOferta);
             } else if (tipoOferta.equals("alquiler")) {
                 Double precioAlquiler = precio;
                 Double precioVenta = null;
-                inmuebleServicio.modificarInmueble(id, tipo, ubicacion, superficie, ambientes, descripcion, precioVenta, precioAlquiler, tipoOferta);
+                inmuebleServicio.modificarInmueble(id, archivos, tipo, ubicacion, superficie, ambientes, descripcion, precioVenta, precioAlquiler, tipoOferta);
             }
             modelo.put("exito", "inmueble creado con exito");
             

@@ -66,5 +66,7 @@ public class ImagenControlador {
 
         return new ResponseEntity<>(imagen, headers, HttpStatus.OK);
     }
+    
+    
 
 }
