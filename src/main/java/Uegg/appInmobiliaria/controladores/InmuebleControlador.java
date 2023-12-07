@@ -1,10 +1,15 @@
 package Uegg.appInmobiliaria.controladores;
 
+import Uegg.appInmobiliaria.entidades.Imagen;
 import Uegg.appInmobiliaria.entidades.Inmueble;
 import Uegg.appInmobiliaria.enums.Tipo;
 import Uegg.appInmobiliaria.excepciones.MyException;
+import Uegg.appInmobiliaria.repositorios.InmuebleRepositorio;
+import Uegg.appInmobiliaria.servicios.ImagenServicio;
 import Uegg.appInmobiliaria.servicios.InmuebleServicio;
+import java.util.ArrayList;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -22,6 +27,12 @@ public class InmuebleControlador {
 
     @Autowired
     private InmuebleServicio inmuebleServicio;
+
+    @Autowired
+    private ImagenServicio imagenServicio;
+    
+    @Autowired
+    private InmuebleRepositorio inmuebleRepositorio;
 
     @PreAuthorize("hasAnyRole('ROLE_ENTE', 'ROLE_ADMIN')")
     @GetMapping("/crear")
@@ -139,7 +150,7 @@ public class InmuebleControlador {
 
         return "inmuebleList.html";
     }
-    
+
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/listaGeneral") //localhost:8080/inmueble/listaGeneral
     public String listarGeneral(ModelMap modelo) {
@@ -154,9 +165,9 @@ public class InmuebleControlador {
     @GetMapping("/modificar/{id}")
     public String modificarInmueble(@PathVariable String id, ModelMap modelo) {
 
-        modelo.put("inmueble", inmuebleServicio.getOne(id));       
+        modelo.put("inmueble", inmuebleServicio.getOne(id));
         modelo.addAttribute("tipos", Tipo.values());
-        
+
         return "inmuebleModificar.html";
     }
 
@@ -175,27 +186,71 @@ public class InmuebleControlador {
                 inmuebleServicio.modificarInmueble(id, tipo, ubicacion, superficie, ambientes, descripcion, precioVenta, precioAlquiler, tipoOferta);
             }
             modelo.put("exito", "inmueble creado con exito");
-            
+
             return "redirect:../listaGeneral";
-            
+
         } catch (MyException ex) {
             modelo.put("error", ex.getMessage());
             modelo.addAttribute("tipos", Tipo.values());
-            
+
             return "inmuebleModificar.html";
         }
 
     }
-    
+
     @GetMapping("/eliminar/{id}")
     public String eliminar(@PathVariable String id, ModelMap modelo) {
-        
+
         try {
             inmuebleServicio.borrarInmueble(id);
-            return  "redirect:../listaGeneral"; // Redirige a la lista después de eliminar
+            return "redirect:../listaGeneral"; // Redirige a la lista después de eliminar
         } catch (MyException ex) {
-           modelo.put("error", ex.getMessage());
-           return "redirect:/listaGeneral"; // Redirige a la lista
+            modelo.put("error", ex.getMessage());
+            return "redirect:/listaGeneral"; // Redirige a la lista
+        }
+    }
+
+    @GetMapping("/listarimagenes/{inmueble_id}")
+    public String listarImagenesPorIdInmueble(@PathVariable String inmueble_id, ModelMap modelo) {
+        Inmueble inmueble = inmuebleServicio.getOne(inmueble_id);
+
+        modelo.addAttribute("inmueble", inmueble);
+
+        return "InmuebleModificarImagen.html";
+    }
+
+    @PostMapping("/eliminar/imagen/{imagen_id}")
+    public String eliminarImagenInmueble(@PathVariable String imagen_id, ModelMap modelo, HttpServletRequest request) {
+
+        try {
+            Imagen imagen = imagenServicio.getOne(imagen_id);
+
+            Inmueble inmueble = inmuebleServicio.getOne(imagen.getInmueble().getId());
+
+            List<Imagen> imagenes = new ArrayList<>(inmueble.getImagenes());
+            int indexToRemove = -1;
+
+            for (int i = 0; i < imagenes.size(); i++) {
+                if (imagenes.get(i).getId().equals(imagen_id)) {
+                    indexToRemove = i;
+                    break;
+                }
+            }
+
+            if (indexToRemove != -1) {
+                imagenes.remove(indexToRemove);
+                inmueble.setImagenes(imagenes);
+                // Guarda el inmueble actualizado en la base de datos o realiza cualquier otra operación necesaria
+                inmuebleRepositorio.save(inmueble);
+            }
+                    
+            imagenServicio.eliminar(imagen_id);
+            //return  "redirect:" + request.getRequestURI(); // Redirige a la lista después de eliminar
+            return "index.html";
+        } catch (MyException ex) {
+            modelo.put("error", ex.getMessage());
+            //return "redirect:" + request.getRequestURI(); // Redirige a la lista
+            return "index.html";
         }
     }
 
