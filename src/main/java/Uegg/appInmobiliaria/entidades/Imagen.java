@@ -28,11 +28,12 @@ public class Imagen {
     public Imagen() {
     }
 
-    public Imagen(String id, String mime, String nombre, byte[] contenido) {
+    public Imagen(String id, String mime, String nombre, byte[] contenido, Inmueble inmueble) {
         this.id = id;
         this.mime = mime;
         this.nombre = nombre;
         this.contenido = contenido;
+        this.inmueble = inmueble;
     }
 
     public String getId() {
