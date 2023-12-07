@@ -22,8 +22,8 @@
                         <th scope="col">Denominación</th>                      
                         <th scope="col">Email</th>
                         <th scope="col">Rol</th>
-                        <th scope="col" sec:authorize="hasRole('ADMIN')">Editar Rol</th>
                         <th scope="col">Estado</th>
+                        <th scope="col" sec:authorize="hasRole('ADMIN')">Editar Rol</th>
                         <th scope="col" sec:authorize="hasRole('ADMIN')">Baja / Alta</th>
                     </tr>
                 </thead>
@@ -32,11 +32,11 @@
                         <th scope="row" th:text="${usuario.id}"></th>
                         <td th:text="${usuario.denominacion}"></td>
                         <td th:text="${usuario.email}"></td>
+                        <td th:text="${usuario.rol}"></td>
                         <td  >
                             <span th:if="${usuario.activo} == true"> Activo </span>
                             <span th:if="${usuario.activo} == false"> De Baja </span>
                         </td>
-                        <td th:text="${usuario.rol}"></td>
                         <!--
                         <td>
                             <a><img th:if="${usuario.imagen != null}" class="logo" th:src="@{/imagen/perfil/__${usuario.id}__}" ></a>
