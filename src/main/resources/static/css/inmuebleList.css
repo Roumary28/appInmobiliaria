@@ -11,6 +11,15 @@ main {
 .card {
     border-radius: 0.7em;
 }
+
+.editImagenes {
+    display: flex;
+    justify-content: end;
+    position: relative;
+    top: -73%;
+    left: -4%;
+}
+
 .carousel-item img {
     border-radius: 0.7em;
 }
