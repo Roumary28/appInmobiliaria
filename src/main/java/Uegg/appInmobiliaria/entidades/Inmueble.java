@@ -37,13 +37,6 @@ public class Inmueble {
     private Boolean disponibildad;
     private String tipoOferta;
 
-    //@ManyToOne(cascade = CascadeType.ALL)
-    //@JoinColumn(name = "inmueble")
-    
-    //@OneToOne
-    //@JoinColumn(name = "imagen_id")
-   // private Imagen imagen;
-    
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "inmueble_id")
     private List<Imagen> imagenes;

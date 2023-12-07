@@ -4,11 +4,8 @@ import Uegg.appInmobiliaria.entidades.Imagen;
 import Uegg.appInmobiliaria.entidades.Usuario;
 import Uegg.appInmobiliaria.enums.Rol;
 import Uegg.appInmobiliaria.excepciones.MyException;
+import Uegg.appInmobiliaria.repositorios.ImagenRepositorio;
 import Uegg.appInmobiliaria.repositorios.UsuarioRepositorio;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -39,28 +36,23 @@ public class UsuarioServicio implements UserDetailsService {
     private UsuarioRepositorio usuarioRepo;
     @Autowired
     private ImagenServicio imagenServicio;
+    @Autowired
+    ImagenRepositorio imagenRepositorio;
 
     @Transactional
     public void crearCliente(MultipartFile archivo, String denominacion, Long dni, String direccion, Integer codigoPostal, Long telefono,
-            String email, String pass, String pass2) throws MyException, IOException {
+            String email, String pass, String pass2) throws MyException {
+
         validarCliente(denominacion, dni, direccion, codigoPostal, telefono, email, pass, pass2);
 
-        // Crear una instancia de Usuario
         Usuario usuario = new Usuario();
-        if (archivo == null) {
-            String rutaImagenPredeterminada = "static/img/foto.jpg";
 
-            // Obtener la ruta completa del archivo
-            Path path = Paths.get(rutaImagenPredeterminada);
-
-            // Leer bytes desde el archivo
-            byte[] contenido = Files.readAllBytes(path);
-
-            // Crear la instancia de Imagen
-            Imagen imagen = new Imagen();
-            imagen.setContenido(contenido);
+        if (archivo.isEmpty()) {
+            System.out.println("null : " + archivo);
+            Imagen imagen = null;
             usuario.setImagen(imagen);
         } else {
+            System.out.println("no null : " + archivo);
             Imagen imagen = imagenServicio.guardar(archivo);
             usuario.setImagen(imagen);
         }
@@ -83,10 +75,18 @@ public class UsuarioServicio implements UserDetailsService {
             String email, String pass, String pass2) throws MyException {
         validarEnte(denominacion, cuit, direccion, codigoPostal, telefono, email, pass, pass2);
 
-        // Crear una instancia de Usuario
         Usuario usuario = new Usuario();
-        Imagen imagen = imagenServicio.guardar(archivo);
-        usuario.setImagen(imagen);
+        
+        if (archivo.isEmpty()) {
+            System.out.println("null : " + archivo);
+            Imagen imagen = null;
+            usuario.setImagen(imagen);
+        } else {
+            System.out.println("no null : " + archivo);
+            Imagen imagen = imagenServicio.guardar(archivo);
+            usuario.setImagen(imagen);
+        }
+
         usuario.setDenominacion(denominacion);
         usuario.setCuit(cuit);
         usuario.setDireccion(direccion);

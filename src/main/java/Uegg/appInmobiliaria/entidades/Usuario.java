@@ -27,9 +27,11 @@ public class Usuario {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
+    
     @OneToOne
     @JoinColumn(name = "imagen_id")
     private Imagen imagen;
+    
     private String denominacion;
     private Long cuit;
     private Long dni;
