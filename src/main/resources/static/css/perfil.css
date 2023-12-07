@@ -1,0 +1,40 @@
+body {
+    background-color: #f8f9fa;
+}
+
+.perfil-container {
+    border: 5px solid #168AAD;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #ffffff;
+    margin-top: 50px;
+}
+
+.perfil-img {
+    border-radius: 50%;
+    border: 3px solid #3f3f3f;
+    max-width: 250px;
+    margin-top: 20px;
+    margin-bottom: auto;
+}
+
+h1{
+    padding: 30px;
+    color:#34A0A4;
+    margin-top: auto;
+}
+ .tabla{
+    margin-top: 20px;
+ }
+
+ .botonM {
+    background-color: #34A0A4;
+    color: #ffffff;
+    border: 1px solid #34A0A4;
+}
+
+.botonE {
+    background-color: #FF6347;
+    color: #ffffff;
+    border: 1px solid #FF6347;
+}
