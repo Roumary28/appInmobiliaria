@@ -219,39 +219,18 @@ public class InmuebleControlador {
         return "InmuebleModificarImagen.html";
     }
 
-    @PostMapping("/eliminar/imagen/{imagen_id}")
-    public String eliminarImagenInmueble(@PathVariable String imagen_id, ModelMap modelo, HttpServletRequest request) {
+    @GetMapping("/eliminar/imagen/{imagen_id}")
+    public String eliminarImagenInmueble(@PathVariable String imagen_id, ModelMap modelo) {
 
-        try {
-            Imagen imagen = imagenServicio.getOne(imagen_id);
-
-            Inmueble inmueble = inmuebleServicio.getOne(imagen.getInmueble().getId());
-
-            List<Imagen> imagenes = new ArrayList<>(inmueble.getImagenes());
-            int indexToRemove = -1;
-
-            for (int i = 0; i < imagenes.size(); i++) {
-                if (imagenes.get(i).getId().equals(imagen_id)) {
-                    indexToRemove = i;
-                    break;
-                }
-            }
-
-            if (indexToRemove != -1) {
-                imagenes.remove(indexToRemove);
-                inmueble.setImagenes(imagenes);
-                // Guarda el inmueble actualizado en la base de datos o realiza cualquier otra operación necesaria
-                inmuebleRepositorio.save(inmueble);
-            }
-                    
-            imagenServicio.eliminar(imagen_id);
-            //return  "redirect:" + request.getRequestURI(); // Redirige a la lista después de eliminar
-            return "index.html";
-        } catch (MyException ex) {
-            modelo.put("error", ex.getMessage());
-            //return "redirect:" + request.getRequestURI(); // Redirige a la lista
-            return "index.html";
-        }
+        Imagen imagen = imagenServicio.getOne(imagen_id);
+        
+        Inmueble inmueble = imagen.getInmueble();
+       
+        inmueble.getImagenes().remove(imagen);
+    
+        inmuebleRepositorio.save(inmueble);
+        return "redirect:/inmueble/listarimagenes/" + inmueble.getId();
+       
     }
 
 }
