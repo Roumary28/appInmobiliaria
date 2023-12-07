@@ -47,7 +47,7 @@
                                     <div class="col2">
                                         <p class="tipoOferta" th:if="${inmueble.tipoOferta == 'alquiler'}">ALQUILER</p>
                                         <p class="tipoOferta" th:if="${inmueble.tipoOferta == 'venta'}">VENTA</p>
-                                        <div class="editImagenes">
+                                        <div sec:authorize="hasRole ('ADMIN')" class="editImagenes">
                                             <a th:href="@{/inmueble/listarimagenes/__${inmueble.id}__}">
                                                 <img height="15px" width="15px" src="https://cdn.icon-icons.com/icons2/1904/PNG/512/edit_121277.png">
                                             </a>
