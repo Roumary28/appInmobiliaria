@@ -139,3 +139,12 @@ h1 {
 div#footer {
     margin-top: 1em;
 }
+
+.logo {
+    
+    top: 60px; /* Distancia desde la parte superior */
+    margin-right: 10px; /* Distancia desde el borde derecho */
+    right: 0;
+  }
+  
+  

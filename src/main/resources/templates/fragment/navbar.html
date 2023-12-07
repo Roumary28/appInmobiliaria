@@ -39,7 +39,7 @@
                     </ul>
                 </li>               
                 <li>
-                     <img class="logo" th:if="${session.usuariosession != null}" th:src="@{/imagen/perfil/__${session.usuariosession.id}__}" alt="Foto Perfil" width="55px" height="40px">
+                     <img class="logo img-fluid rounded-circle" width="50" height="50" th:if="${session.usuariosession != null}" th:src="@{/imagen/perfil/__${session.usuariosession.id}__}" alt="Foto Perfil" >
                 </li>
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" th:if="${session.usuariosession != null}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
