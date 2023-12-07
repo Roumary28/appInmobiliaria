@@ -44,6 +44,16 @@
           </a>
           
         </div>
+        <form th:action="@{../anadir/imagen/__${inmueble.id}__}" method="post" enctype="multipart/form-data">
+          <input
+                type="file"               
+                id="archivos"
+                name="archivos"
+                multiple accept="image/*"
+              />
+          <button style="border: none;" type="submit"> <img style="border-radius: 50%;" height="50px" width="50px" src="https://cdn-icons-png.flaticon.com/512/4436/4436415.png" alt=""></button>
+        </form>
+       
       </div>
     </div>
 
