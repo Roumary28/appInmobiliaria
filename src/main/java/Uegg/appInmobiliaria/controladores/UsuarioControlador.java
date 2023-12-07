@@ -3,6 +3,7 @@ package Uegg.appInmobiliaria.controladores;
 import Uegg.appInmobiliaria.entidades.Usuario;
 import Uegg.appInmobiliaria.excepciones.MyException;
 import Uegg.appInmobiliaria.servicios.UsuarioServicio;
+import java.io.IOException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -43,7 +44,7 @@ public class UsuarioControlador {
             @RequestParam String pass,
             @RequestParam String pass2,
             ModelMap modelo
-    ) throws MyException {
+    ) throws MyException, IOException {
         try {
 
             usuarioServicio.crearCliente(archivo, denominacion, dni, direccion, codigoPostal, telefono, email, pass, pass2);
