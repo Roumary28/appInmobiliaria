@@ -154,25 +154,25 @@ public class InmuebleControlador {
     @GetMapping("/modificar/{id}")
     public String modificarInmueble(@PathVariable String id, ModelMap modelo) {
 
-        modelo.put("inmueble", inmuebleServicio.getOne(id));
+        modelo.put("inmueble", inmuebleServicio.getOne(id));       
         modelo.addAttribute("tipos", Tipo.values());
-
+        
         return "inmuebleModificar.html";
     }
 
     @PostMapping("/modificar/{id}")
-    public String modificarInmueble(@PathVariable String id, @RequestParam(required = false) List<MultipartFile> archivos, @RequestParam Tipo tipo, @RequestParam String ubicacion, @RequestParam(required = false) Double superficie, @RequestParam(required = false) Integer ambientes,
+    public String modificarInmueble(@PathVariable String id, @RequestParam Tipo tipo, @RequestParam String ubicacion, @RequestParam(required = false) Double superficie, @RequestParam(required = false) Integer ambientes,
             @RequestParam String descripcion, @RequestParam(required = false) Double precio, @RequestParam(required = false) String tipoOferta, ModelMap modelo) {
 
         try {
             if (tipoOferta.equals("venta")) {
                 Double precioVenta = precio;
                 Double precioAlquiler = null;
-                inmuebleServicio.modificarInmueble(id, archivos, tipo, ubicacion, superficie, ambientes, descripcion, precioVenta, precioAlquiler, tipoOferta);
+                inmuebleServicio.modificarInmueble(id, tipo, ubicacion, superficie, ambientes, descripcion, precioVenta, precioAlquiler, tipoOferta);
             } else if (tipoOferta.equals("alquiler")) {
                 Double precioAlquiler = precio;
                 Double precioVenta = null;
-                inmuebleServicio.modificarInmueble(id, archivos, tipo, ubicacion, superficie, ambientes, descripcion, precioVenta, precioAlquiler, tipoOferta);
+                inmuebleServicio.modificarInmueble(id, tipo, ubicacion, superficie, ambientes, descripcion, precioVenta, precioAlquiler, tipoOferta);
             }
             modelo.put("exito", "inmueble creado con exito");
             

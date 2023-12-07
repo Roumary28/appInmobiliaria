@@ -5,6 +5,10 @@ import Uegg.appInmobiliaria.entidades.Usuario;
 import Uegg.appInmobiliaria.enums.Rol;
 import Uegg.appInmobiliaria.excepciones.MyException;
 import Uegg.appInmobiliaria.repositorios.UsuarioRepositorio;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -38,13 +42,29 @@ public class UsuarioServicio implements UserDetailsService {
 
     @Transactional
     public void crearCliente(MultipartFile archivo, String denominacion, Long dni, String direccion, Integer codigoPostal, Long telefono,
-            String email, String pass, String pass2) throws MyException {
+            String email, String pass, String pass2) throws MyException, IOException {
         validarCliente(denominacion, dni, direccion, codigoPostal, telefono, email, pass, pass2);
 
         // Crear una instancia de Usuario
         Usuario usuario = new Usuario();
-        Imagen imagen = imagenServicio.guardar(archivo);
-        usuario.setImagen(imagen);
+        if (archivo == null) {
+            String rutaImagenPredeterminada = "static/img/foto.jpg";
+
+            // Obtener la ruta completa del archivo
+            Path path = Paths.get(rutaImagenPredeterminada);
+
+            // Leer bytes desde el archivo
+            byte[] contenido = Files.readAllBytes(path);
+
+            // Crear la instancia de Imagen
+            Imagen imagen = new Imagen();
+            imagen.setContenido(contenido);
+            usuario.setImagen(imagen);
+        } else {
+            Imagen imagen = imagenServicio.guardar(archivo);
+            usuario.setImagen(imagen);
+        }
+
         usuario.setDenominacion(denominacion);
         usuario.setDni(dni);
         usuario.setDireccion(direccion);
@@ -107,7 +127,7 @@ public class UsuarioServicio implements UserDetailsService {
         if (respuesta.isPresent()) {
             // Obtener la instancia existente
             Usuario usuario = respuesta.get();
-            if(usuario.getRol() == Rol.CLIENTE){
+            if (usuario.getRol() == Rol.CLIENTE) {
                 usuario.setRol(Rol.ENTE);
             } else {
                 usuario.setRol(Rol.CLIENTE);
@@ -134,7 +154,7 @@ public class UsuarioServicio implements UserDetailsService {
         Optional<Usuario> respuesta = usuarioRepo.findById(id);
         if (respuesta.isPresent()) {
             Usuario usuario = respuesta.get();
-            
+
             usuarioRepo.delete(usuario);
         }
     }
@@ -148,6 +168,7 @@ public class UsuarioServicio implements UserDetailsService {
             usuarioRepo.save(usuario);
         }
     }
+
     @Transactional
     public void alta(String id) {
         Optional<Usuario> respuesta = usuarioRepo.findById(id);

@@ -31,7 +31,6 @@
         class="formCrearInmueble fondo"
         th:action="@{/inmueble/modificar/__${inmueble.id}__}"
         method="POST"
-        enctype="multipart/form-data"
       >
           <div hidden> <input hidden th:value="${session.usuariosession.id} " name=" idUsuarioEnte"> </div>
         <div class="col-1-general"></div>
@@ -55,6 +54,7 @@
                 id="ubicacion"
                 name="ubicacion"
                 placeholder="Ingrese la ubicación"
+                 th:value="${inmueble.ubicacion}"
               />
             </div>
           </div>
@@ -67,6 +67,7 @@
                 id="superficie"
                 name="superficie"
                 placeholder="Tamaño de la superficie"
+                th:value="${inmueble.superficie}"
               />
             </div>
             <div class="form-col2">
@@ -77,6 +78,7 @@
                 id="ambientes"
                 name="ambientes"
                 placeholder="Cantidad de ambientes"
+                th:value="${inmueble.ambientes}"
               />
             </div>
           </div>
@@ -88,6 +90,7 @@
                 id="descripcion"
                 name="descripcion"
                 placeholder="Ingrese la descripción"
+                th:text="${inmueble.descripcion}"
               ></textarea>
             </div>
           </div>
@@ -100,6 +103,7 @@
                   name="tipoOferta"
                   value="venta"
                   id="venta"
+                  th:value="${inmueble.tipoOferta}"
                 />
                 <label class="form-check-label" for="venta">Venta</label>
               </div>
@@ -110,6 +114,7 @@
                   name="tipoOferta"
                   value="alquiler"
                   id="alquiler"
+                  th:value="${inmueble.tipoOferta}"
                 />
                 <label class="form-check-label" for="alquiler">Alquiler</label>
               </div>
@@ -121,9 +126,10 @@
                 class="form-control"
                 id="precio"
                 name="precio"
-                placeholder="Ingrese el precio"
+                placeholder="Ingrese el precio"              
               />
             </div>
+              <!--
                 <div class="form-col2">
               <label for="archivos" class="form-label">Inserte las imagenes</label>
               <input
@@ -134,6 +140,7 @@
                 multiple accept="image/*"
               />
             </div>
+              -->
           </div>
           <div class="form-row5">
             <button type="submit" class="button-79" role="button">
