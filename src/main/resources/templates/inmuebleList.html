@@ -40,13 +40,15 @@
 
                                 <h3 th:text="${inmueble.ubicacion}"></h3>
                                 <p class="card-text" th:text="${inmueble.descripcion}"></p>
-                                <p class="card-text">Ambientes:</p>
-                                <p class="card-text" th:text="${inmueble.ambientes}"></p>
-                                <p class="card-text">Superficie:</p>
-                                <p class="card-text" th:text="${inmueble.superficie}"> m2</p>
-                                <p class="card-text">Precio:</p>
-                                <p class="card-text" th:if="${inmueble.tipoOferta == 'alquiler'}" th:text="${inmueble.precioAlquiler}"></p>
-                                <p class="card-text" th:if="${inmueble.tipoOferta == 'venta'}" th:text="${inmueble.precioVenta}"></p>
+                                <p class="card-text" style="display: inline;">Ambientes: </p>
+                                <p class="card-text" th:text="${inmueble.ambientes}" style="display: inline;"></p>
+                                <br> 
+                                <p class="card-text" style="display: inline;">Superficie:</p>
+                                <p class="card-text" th:text="${inmueble.superficie}" style="display: inline;"> m2</p>
+                                <br> 
+                                <p class="card-text" style="display: inline;">Precio:</p>
+                                <p class="card-text" th:if="${inmueble.tipoOferta == 'alquiler'}" th:text="${inmueble.precioAlquiler}" style="display: inline;"></p>
+                                <p class="card-text" th:if="${inmueble.tipoOferta == 'venta'}" th:text="${inmueble.precioVenta}" style="display: inline;"></p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
                                         <!--
