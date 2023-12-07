@@ -232,5 +232,22 @@ public class InmuebleControlador {
         return "redirect:/inmueble/listarimagenes/" + inmueble.getId();
        
     }
+    
+    @PostMapping("/anadir/imagen/{inmueble_id}")
+    public String anadirImagenInmueble(@PathVariable String inmueble_id, List<MultipartFile> archivos, ModelMap modelo) throws MyException {
+        
+        Inmueble inmueble = inmuebleServicio.getOne(inmueble_id);
+        
+        List<Imagen> imagenes = inmueble.getImagenes();
+        
+        for (MultipartFile archivo : archivos) {
+            Imagen imagen = imagenServicio.guardar(archivo);
+            inmueble.getImagenes().add(imagen);
+        }         
+       
+        inmuebleRepositorio.save(inmueble);
+        return "redirect:/inmueble/listarimagenes/" + inmueble.getId();
+       
+    }
 
 }
