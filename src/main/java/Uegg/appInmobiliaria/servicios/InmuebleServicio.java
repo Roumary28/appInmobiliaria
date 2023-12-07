@@ -87,6 +87,21 @@ public class InmuebleServicio {
         
     }
     
+    @Transactional
+    public void modificarImagenInmueble (String id, List<Imagen> imagenes) {
+    
+        Optional<Inmueble> respuesta = inmuebleRepositorio.findById(id);
+        
+        if (respuesta.isPresent()) {
+            
+            Inmueble inmueble = respuesta.get();
+            inmueble.setImagenes(imagenes);
+                   
+            inmuebleRepositorio.save(inmueble);
+        }
+        
+}
+    
     public void NoDisponible(String id) {
         
         Optional<Inmueble> respuesta = inmuebleRepositorio.findById(id);
