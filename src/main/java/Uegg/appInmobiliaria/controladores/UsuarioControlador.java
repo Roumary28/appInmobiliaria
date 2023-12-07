@@ -139,4 +139,12 @@ public class UsuarioControlador {
 
     }
 
+    @GetMapping("/perfil/{id}")
+    public String perfil (@PathVariable String id, ModelMap modelo) {
+        Usuario usuario = usuarioServicio.getOne(id);
+        
+        modelo.addAttribute("usuario", usuario);
+        
+        return "perfil.html";
+    }
 }
