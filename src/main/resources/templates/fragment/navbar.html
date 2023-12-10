@@ -53,6 +53,7 @@
                         <li><a class="dropdown-item" sec:authorize="hasRole ('ADMIN')" th:href="@{/admin/dashboard}">Panel Admin</a></li>
                         <li><a class="dropdown-item" sec:authorize="hasRole ('ADMIN')" th:href="@{/inmueble/crear}">Ofrecer propiedad</a></li>
                         <li><a class="dropdown-item" sec:authorize="hasRole ('ENTE')" th:href="@{/inmueble/crear}">Ofrecer propiedad</a></li>
+                        <li><a class="dropdown-item" sec:authorize="hasRole ('ENTE')" th:href="@{/inmueble/listar/__${session.usuariosession.id}__}">Ver mis ropiedades</a></li>
                         <li><a class="dropdown-item" th:href="@{/logout}">Cerrar Sesión</a></li>
                     </ul>
                 </li>

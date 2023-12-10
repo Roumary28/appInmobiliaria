@@ -35,7 +35,7 @@ public class InmuebleServicio {
         
         validar(tipo, ubicacion, superficie, ambientes, descripcion, precioVenta, precioAlquiler, tipoOferta);
         
-        List<Imagen> imagenes = new ArrayList();
+        List<Imagen> imagenes = new ArrayList<>();
         for (MultipartFile archivo : archivos) {
             Imagen imagen = imagenServicio.guardar(archivo);
             imagenes.add(imagen);
@@ -163,7 +163,11 @@ public class InmuebleServicio {
         List<Inmueble> inmuebleAmbiente = inmuebleRepositorio.buscarPorAmbientes(ambientes);
         return inmuebleAmbiente;
     }
-    
+    public List<Inmueble> listarInmuebleEnte(String id) {
+        
+        List<Inmueble> inmueblesEnte = inmuebleRepositorio.buscarPorEnte(id);
+        return inmueblesEnte;
+    }
     public void validar(Tipo tipo, String ubicacion, Double superficie, Integer ambientes, String descripcion, Double precioVenta, Double precioAlquiler,
             String tipoOferta) throws MyException {
         
