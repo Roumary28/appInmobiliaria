@@ -27,6 +27,7 @@ public class Oferta {
     private Inmueble inmueble;
 
     @ManyToOne
+     @JoinColumn(name = "usuario_id")
     private Usuario usuarioCliente;
 
     @Temporal(TemporalType.DATE)
@@ -39,6 +40,10 @@ public class Oferta {
 
     public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public Double getMontoOferta() {
