@@ -84,7 +84,7 @@ public class OfertaServicio {
     }
 
     @Transactional
-    public List<Oferta> lisitarOfertasInmueble(String id) {
+    public List<Oferta> listarOfertasInmueble(String id) {
         return ofertaRepositorio.buscarPorInmueble(id);
     }
 
