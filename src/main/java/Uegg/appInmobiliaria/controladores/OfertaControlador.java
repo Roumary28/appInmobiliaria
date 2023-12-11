@@ -79,7 +79,7 @@ public class OfertaControlador {
             @PathVariable String idInmueble,
             ModelMap modelo
     ) {
-        List<Oferta> ofertas = ofertaServicio.lsitarOfertasInmueble(idInmueble);
+        List<Oferta> ofertas = ofertaServicio.listarOfertasInmueble(idInmueble);
         Oferta oferta = ofertaServicio.mejorOferta(idInmueble);
         modelo.addAttribute("oferta", oferta);
         modelo.addAttribute("ofertas", ofertas);
