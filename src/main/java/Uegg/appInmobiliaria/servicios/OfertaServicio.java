@@ -39,9 +39,16 @@ public class OfertaServicio {
         oferta.setMontoOferta(monto);
         oferta.setInmueble(inmueble);
         oferta.setFechaOferta(new Date());
-        oferta.setEstadoOferta(null);
+        oferta.setEstadoOferta("PENDIENTE");
         oferta.setVigente(true);
         ofertaRepositorio.save(oferta);
+    }
+    
+    @Transactional
+    public void eliminarOferta (String id) {
+        Oferta oferta = ofertaRepositorio.getOne(id);
+        
+        ofertaRepositorio.delete(oferta);
     }
 
     @Transactional
