@@ -45,9 +45,9 @@ public class Usuario {
     @Temporal(TemporalType.DATE)
     private Date fechaAlta;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usuarioCliente", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usuarioCliente", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Oferta> ofertas;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usuarioEnte", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usuarioEnte", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Inmueble> inmuebles;
     private Boolean activo;
 

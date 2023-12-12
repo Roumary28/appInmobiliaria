@@ -62,7 +62,7 @@ public class OfertaControlador {
 
             modelo.put("exito", "Oferta enviada. Espere respuesta del Dueño de la propiedad");
             System.out.println("Enviado");
-            return "index";
+            return "redirect:/";
         } catch (MyException ex) {
             modelo.put("error", ex.getMessage());
             modelo.put("montoOferta", montoOferta);
@@ -83,7 +83,7 @@ public class OfertaControlador {
         Oferta oferta = ofertaServicio.mejorOferta(idInmueble);
         modelo.addAttribute("oferta", oferta);
         modelo.addAttribute("ofertas", ofertas);
-        return "/oferta_inmueble_list.html";
+        return "oferta_inmueble_list.html";
     }
 
     @PreAuthorize("hasAnyRole('ROLE_CLIENTE', 'ROLE_ENTE', 'ROLE_ADMIN')")
@@ -94,6 +94,14 @@ public class OfertaControlador {
     ) {
         List<Oferta> ofertas = ofertaServicio.listarOfertaCliente(idCliente);
         modelo.addAttribute("ofertas", ofertas);
-        return "/oferta_cliente_list.html";
+        return "oferta_cliente_list.html";
     }
+    
+   @GetMapping("/eliminar/{id}")
+   public String eliminarOferta (@PathVariable String id, HttpSession session) {
+       ofertaServicio.eliminarOferta(id);
+       
+       return "redirect:/";
+   }
+   
 }
