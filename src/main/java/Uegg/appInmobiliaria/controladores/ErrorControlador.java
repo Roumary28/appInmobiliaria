@@ -35,6 +35,12 @@ public class ErrorControlador implements ErrorController {
                 errorMsg = "el recurso solicitado no fue encontrado";
                 break;
             }
+            
+            case 405: {
+                errorMsg = "operacion no admitida";
+                break;
+            }
+            
             case 500: {
                 errorMsg = "ocurrio un error interno";
                 break;
