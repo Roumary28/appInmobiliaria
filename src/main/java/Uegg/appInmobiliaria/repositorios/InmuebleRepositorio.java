@@ -22,6 +22,7 @@ public interface InmuebleRepositorio extends JpaRepository<Inmueble, String>{
     @Query("SELECT l FROM Inmueble l WHERE l.usuarioEnte.id = :id")
     public List<Inmueble> buscarPorEnte(@Param("id") String id);
 
+    
 }
 
     

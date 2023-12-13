@@ -61,14 +61,12 @@ public class OfertaControlador {
             ofertaServicio.crearOfertaCliente(montoOferta, idInmueble, idCliente);
 
             modelo.put("exito", "Oferta enviada. Espere respuesta del Dueño de la propiedad");
-            System.out.println("Enviado");
             return "redirect:/";
         } catch (MyException ex) {
             modelo.put("error", ex.getMessage());
             modelo.put("montoOferta", montoOferta);
             modelo.put("idInmueble", idInmueble);
             modelo.put("idCliente", idCliente);
-            System.out.println("Error");
             return "oferta_form";
         }
     }
@@ -80,12 +78,30 @@ public class OfertaControlador {
             ModelMap modelo
     ) {
         List<Oferta> ofertas = ofertaServicio.listarOfertasInmueble(idInmueble);
-        Oferta oferta = ofertaServicio.mejorOferta(idInmueble);
-        modelo.addAttribute("oferta", oferta);
+     //   Oferta oferta = ofertaServicio.mejorOferta(idInmueble);
+     //   modelo.addAttribute("oferta", oferta);
         modelo.addAttribute("ofertas", ofertas);
         return "oferta_inmueble_list.html";
     }
 
+     @GetMapping("/aceptar/{id}")
+    public String aceptarOferta(@PathVariable String id) {
+        
+        ofertaServicio.aceptarOferta(id);
+        return "redirect:/..";
+        
+        
+    }
+    
+    @GetMapping("/rechazar/{id}")
+    public String rechazarOferta(@PathVariable String id) {
+        
+        ofertaServicio.rechazarOferta(id);
+        return "redirect:/..";
+        
+        
+    }
+    
     @PreAuthorize("hasAnyRole('ROLE_CLIENTE', 'ROLE_ENTE', 'ROLE_ADMIN')")
     @GetMapping("/cliente/{idCliente}")
     public String listarOfertasClientes(
@@ -96,12 +112,12 @@ public class OfertaControlador {
         modelo.addAttribute("ofertas", ofertas);
         return "oferta_cliente_list.html";
     }
-    
-   @GetMapping("/eliminar/{id}")
-   public String eliminarOferta (@PathVariable String id, HttpSession session) {
-       ofertaServicio.eliminarOferta(id);
-       
-       return "redirect:/";
-   }
-   
+
+    @GetMapping("/eliminar/{id}")
+    public String eliminarOferta(@PathVariable String id, HttpSession session) {
+        ofertaServicio.eliminarOferta(id);
+
+        return "redirect:/";
+    }
+
 }

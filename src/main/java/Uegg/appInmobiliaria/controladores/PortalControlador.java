@@ -12,17 +12,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping("/") 
+@RequestMapping("/")
 public class PortalControlador {
-    
+
     @Autowired
     private UsuarioServicio usuarioServicio;
-    
-    @GetMapping("/")    
+
+    @GetMapping("/")
     public String index() {
         return "index.html";
     }
-    
+
     @GetMapping("/login")
     public String login(@RequestParam(required = false) String error, ModelMap modelo) {
         if (error != null) {
@@ -41,7 +41,9 @@ public class PortalControlador {
         return "index.html";
     }
 
-   
-}
-    
+    @GetMapping("/contactanos")
+    public String contactanos() {
+        return "direccionMaps.html";
+    }
 
+}
