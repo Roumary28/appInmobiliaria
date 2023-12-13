@@ -5,6 +5,7 @@ import Uegg.appInmobiliaria.entidades.Usuario;
 import Uegg.appInmobiliaria.repositorios.ComentarioRepositorio;
 import Uegg.appInmobiliaria.servicios.ComentarioServicio;
 import java.util.List;
+import java.util.Optional;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -27,7 +28,7 @@ public class ComentarioControlador {
     @Autowired
     ComentarioRepositorio comentarioRepositorio;
 
-    public String hacerComentario( ) {        
+    public String hacerComentario() {
         return "";
     }
 
@@ -47,16 +48,22 @@ public class ComentarioControlador {
     }
 
     @GetMapping("/listar_imnueble/{id}")
-    public String listarComentarioInmueble(@PathVariable String idInmueble,
-            ModelMap modelo) {
-        return "";
+    public String listarComentarioInmueble(@PathVariable String idInmueble, ModelMap modelo) {
+        List<Comentario> comentarios = comentarioRepositorio.buscarPorInmueble(idInmueble);
+        modelo.addAttribute("comentarios", comentarios);
+        return "comentario_list";
     }
 
-    public String listarComentarioUsuario() {
-        return "";
+    @GetMapping("/listar_usuario/{id}")
+    public String listarComentarioUsuario(@PathVariable String idUsuario, ModelMap modelo) {
+        List<Comentario> comentarios = comentarioRepositorio.buscarPorUsuario(idUsuario);
+        modelo.addAttribute("comentarios", comentarios);
+        return "comentario_list";
     }
 
-    public String borrarComentario() {
-        return "";
+    @PostMapping("/borrar/{id}")
+    public String borrarComentario(@PathVariable String id) {
+        comentarioServicio.borrarComentario(id);
+        return "redirect:/";
     }
 }
