@@ -1,6 +1,8 @@
 body{
+    position: relative;
     font-family: 'League Spartan' , sans-serif;
     overflow-x: hidden;
+    height: 100vh;
 }
 
 .nav-item.dropdown:hover .nav-link,
@@ -87,6 +89,9 @@ h1 {
 /* PANTALLA MEDIA QUERIES EXTRA-SM */
 
 @media(max-width: 576px) {
+    body {
+        height: 100%
+    }
     .icono-wrap{
         flex-wrap: wrap;
         justify-content: center !important;
