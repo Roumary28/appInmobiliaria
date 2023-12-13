@@ -14,27 +14,37 @@
         <nav th:replace="./fragment/navbar :: nav"></nav>
 
         <div class="container m-5" >
-
+         <div>
+                <table  class="table table-white">
+                    <thead class="align-items-center">
+                        <tr>
+                            <th  scope="col">Nombre Cliente</th>
+                            <th  scope="col">Monto Ofrecido</th>
+                            <th  scope="col">Aceptar / Rechazar</th>
+                        </tr>
+                    </thead>
+                    <tbody th:each="oferta : ${oferta}">
+                        <tr>
+                            <th scope="row">Nombre Cliente</th>
+                            <td>Monto Ofrecido</td>
+                            <td >
+                                <button  type="button" class="btn btn-outline-primary me-2 custom-button"><a th:href="@{/oferta/aceptar/__${oferta.id}__}"> <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Aceptar</font></font></a></button>
+                                <button type="button" class="btn btn-outline-primary me-2 custom-button"><a th:href="@{/oferta/rechazar/__${oferta.id}__}"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Rechazar</font></font></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             <table class="table table-white">
-                <thead class="align-items-center">
-                    <tr >
-                        <th scope="col">Id del oferta</th>
-                        <th scope="col">Monto</th>
-                        <th scope="col">Comentarios</th>
-                        <th scope="col">Aceptar/Rechazar</th>
-                    </tr>
-                </thead>
                 <tbody th:each="oferta : ${ofertas}"> 
                     <tr>
                         <th scope="row" th:text="${oferta.id}"></th>
                         <td th:text="${oferta.montoOferta}"></td>
                         <td></td>
-                               
-
+                        <td th:text="${oferta.estadoOferta}"></td>
                         <td >
                             <button type="button" class="btn btn-outline-primary me-2 custom-button"><a th:href="@{/oferta/aceptar/__${oferta.id}__}"> <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Aceptar</font></font></a></button>
-
-                            <button type="button" class="btn btn-outline-primary me-2 custom-button"><a th:href="@{/oferta/rechazar/__${oferta.id}__}"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Rechazar</font></font></button>
+                            <button type="button" class="btn btn-outline-primary me-2 custom-button"><a th:href="@{/oferta/rechazar/__${oferta.id}__}"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Rechazar</font></font></a></button>
                         </td>
 
                     </tr>

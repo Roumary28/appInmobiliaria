@@ -63,6 +63,20 @@ public class OfertaServicio {
         rechazarOfertas(inmueble.getId());
     }
 
+    //Falta descantar inmueble del ente
+    @Transactional
+    public void transaccionCompra(String idOferta){
+        Optional<Oferta> respuesta = ofertaRepositorio.findById(idOferta);
+        if(respuesta.isPresent()){
+            Oferta oferta = new Oferta();
+            oferta.setEstadoOferta("CONFIRMADA");
+            Usuario usuario = usuarioRepositorio.getOne(oferta.getUsuarioCliente().getId());
+            Usuario usuarioEnte = usuarioRepositorio.getOne(oferta.getInmueble().getUsuarioEnte().getId());
+            usuario.getInmuebles().add(oferta.getInmueble());
+            
+        }
+    }
+    
     @Transactional
     public void rechazarOferta(String idOferta) {
         Optional<Oferta> respuesta = ofertaRepositorio.findById(idOferta);
@@ -77,7 +91,7 @@ public class OfertaServicio {
     private void rechazarOfertas(String idInmueble) {
         List<Oferta> ofertas = ofertaRepositorio.buscarPorInmueble(idInmueble);
         for (Oferta oferta : ofertas) {
-            if (oferta.getEstadoOferta() == null) {
+            if (oferta.getEstadoOferta().equalsIgnoreCase("PENDIENTE")) {
                 oferta.setEstadoOferta("RECHAZADA");
                 oferta.setVigente(false);
                 ofertaRepositorio.save(oferta);

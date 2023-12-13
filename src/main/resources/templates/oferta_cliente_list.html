@@ -35,7 +35,11 @@
                         <td th:text="${oferta.estadoOferta}"> </td>
 
                         <td >
-                            <button th:if="${oferta.estadoOferta} == 'ACEPTADA'" type="button" class="btn btn-outline-primary me-2 custom-button"><a href="#" class="nav-link px-2"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Confirmar</font></font></a></button>
+                            <button th:if="${oferta.estadoOferta} == 'ACEPTADA'" type="button" class="btn btn-outline-primary me-2 custom-button">
+                                <a href="#" class="nav-link px-2">
+                                    <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Confirmar</font></font>
+                                </a>
+                            </button>
 
                             <button type="button" class="btn btn-outline-primary me-2 custom-button"><a th:href="@{/oferta/eliminar/__${oferta.id}__}" class="nav-link px-2"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Cancelar</font></font></a></button>
                         </td>

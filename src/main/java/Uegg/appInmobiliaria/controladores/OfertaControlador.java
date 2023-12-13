@@ -1,5 +1,6 @@
 package Uegg.appInmobiliaria.controladores;
 
+import Uegg.appInmobiliaria.entidades.Inmueble;
 import Uegg.appInmobiliaria.entidades.Oferta;
 import Uegg.appInmobiliaria.entidades.Usuario;
 import Uegg.appInmobiliaria.excepciones.MyException;
@@ -78,30 +79,26 @@ public class OfertaControlador {
             ModelMap modelo
     ) {
         List<Oferta> ofertas = ofertaServicio.listarOfertasInmueble(idInmueble);
-     //   Oferta oferta = ofertaServicio.mejorOferta(idInmueble);
-     //   modelo.addAttribute("oferta", oferta);
         modelo.addAttribute("ofertas", ofertas);
         return "oferta_inmueble_list.html";
     }
 
-     @GetMapping("/aceptar/{id}")
-    public String aceptarOferta(@PathVariable String id) {
-        
+    @GetMapping("/aceptar/{id}")
+    public String aceptarOferta(@PathVariable String id, ModelMap modelo) {
+        Oferta oferta = (Oferta) ofertaServicio.getOne(id);
+        String inmueble = oferta.getInmueble().getId();
         ofertaServicio.aceptarOferta(id);
-        return "redirect:/..";
-        
-        
+        return "redirect:/oferta/inmueble/" + inmueble;
     }
-    
+
     @GetMapping("/rechazar/{id}")
     public String rechazarOferta(@PathVariable String id) {
-        
+        Oferta oferta = (Oferta) ofertaServicio.getOne(id);
+        String inmueble = oferta.getInmueble().getId();
         ofertaServicio.rechazarOferta(id);
-        return "redirect:/..";
-        
-        
+        return "redirect:/oferta/inmueble/" + inmueble;
     }
-    
+
     @PreAuthorize("hasAnyRole('ROLE_CLIENTE', 'ROLE_ENTE', 'ROLE_ADMIN')")
     @GetMapping("/cliente/{idCliente}")
     public String listarOfertasClientes(
@@ -116,8 +113,11 @@ public class OfertaControlador {
     @GetMapping("/eliminar/{id}")
     public String eliminarOferta(@PathVariable String id, HttpSession session) {
         ofertaServicio.eliminarOferta(id);
-
-        return "redirect:/";
+        return "redirect:/oferta/cliente/" + session;
     }
 
+    @PostMapping("")
+    public String confirmar(){
+        return "";
+    }
 }
