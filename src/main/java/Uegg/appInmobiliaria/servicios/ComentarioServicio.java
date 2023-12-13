@@ -31,22 +31,29 @@ public class ComentarioServicio {
         comentario.setUsuario(usuario);
         comentario.setContenido(contenido);
         comentario.setFecha(new Date());
-        comentario.setEstado(Boolean.TRUE);
+        comentario.setEstado(true);
         comentarioRepositorio.save(comentario);
     }
     
-    public void modificarComentario(){
-        
+    public void modificarComentario(String id, String contenido){
+        Comentario comentario = comentarioRepositorio.getOne(id);
+        comentario.setContenido(contenido);
+        comentarioRepositorio.save(comentario);
     }
    
-    public void borrarComentario(){
-        
+    public void borrarComentario(String id){
+        Comentario comentario = comentarioRepositorio.getOne(id);
+        comentarioRepositorio.delete(comentario);
     }
     
-     public void bajaComentario(){
-        
+     public void bajaComentario(String id){
+        Comentario comentario = comentarioRepositorio.getOne(id);
+        comentario.setEstado(false);
+        comentarioRepositorio.save(comentario);
     }
     
+     //Trabajar con caducidad por fecha. Si el comentario
+     //tiene una antiguedad mayor a 100 dias es dado de baja. 
     public void bajaAutomatica(){
         
     }
