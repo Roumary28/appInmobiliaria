@@ -7,6 +7,7 @@ import Uegg.appInmobiliaria.repositorios.ComentarioRepositorio;
 import Uegg.appInmobiliaria.repositorios.InmuebleRepositorio;
 import Uegg.appInmobiliaria.repositorios.UsuarioRepositorio;
 import java.util.Date;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,7 @@ public class ComentarioServicio {
     @Autowired
     private ComentarioRepositorio comentarioRepositorio;
     
+    @Transactional
     public void crearComentario(String idInmueble, String idUsuario, String contenido){
         Inmueble inmueble = inmuebleRepositorio.getOne(idInmueble);
         Usuario usuario = usuarioRepositorio.getOne(idUsuario);
@@ -35,17 +37,20 @@ public class ComentarioServicio {
         comentarioRepositorio.save(comentario);
     }
     
+    @Transactional
     public void modificarComentario(String id, String contenido){
         Comentario comentario = comentarioRepositorio.getOne(id);
         comentario.setContenido(contenido);
         comentarioRepositorio.save(comentario);
     }
    
+    @Transactional
     public void borrarComentario(String id){
         Comentario comentario = comentarioRepositorio.getOne(id);
         comentarioRepositorio.delete(comentario);
     }
     
+    @Transactional
      public void bajaComentario(String id){
         Comentario comentario = comentarioRepositorio.getOne(id);
         comentario.setEstado(false);
@@ -54,6 +59,7 @@ public class ComentarioServicio {
     
      //Trabajar con caducidad por fecha. Si el comentario
      //tiene una antiguedad mayor a 100 dias es dado de baja. 
+     @Transactional
     public void bajaAutomatica(){
         
     }
