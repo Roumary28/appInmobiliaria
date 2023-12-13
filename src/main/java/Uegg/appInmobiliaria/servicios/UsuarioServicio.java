@@ -4,6 +4,7 @@ import Uegg.appInmobiliaria.entidades.Imagen;
 import Uegg.appInmobiliaria.entidades.Usuario;
 import Uegg.appInmobiliaria.enums.Rol;
 import Uegg.appInmobiliaria.excepciones.MyException;
+import Uegg.appInmobiliaria.repositorios.ImagenRepositorio;
 import Uegg.appInmobiliaria.repositorios.UsuarioRepositorio;
 import java.util.ArrayList;
 import java.util.Date;
@@ -35,16 +36,27 @@ public class UsuarioServicio implements UserDetailsService {
     private UsuarioRepositorio usuarioRepo;
     @Autowired
     private ImagenServicio imagenServicio;
+    @Autowired
+    ImagenRepositorio imagenRepositorio;
 
     @Transactional
     public void crearCliente(MultipartFile archivo, String denominacion, Long dni, String direccion, Integer codigoPostal, Long telefono,
             String email, String pass, String pass2) throws MyException {
+
         validarCliente(denominacion, dni, direccion, codigoPostal, telefono, email, pass, pass2);
 
-        // Crear una instancia de Usuario
         Usuario usuario = new Usuario();
-        Imagen imagen = imagenServicio.guardar(archivo);
-        usuario.setImagen(imagen);
+
+        if (archivo.isEmpty()) {
+            System.out.println("null : " + archivo);
+            Imagen imagen = null;
+            usuario.setImagen(imagen);
+        } else {
+            System.out.println("no null : " + archivo);
+            Imagen imagen = imagenServicio.guardar(archivo);
+            usuario.setImagen(imagen);
+        }
+
         usuario.setDenominacion(denominacion);
         usuario.setDni(dni);
         usuario.setDireccion(direccion);
@@ -63,10 +75,18 @@ public class UsuarioServicio implements UserDetailsService {
             String email, String pass, String pass2) throws MyException {
         validarEnte(denominacion, cuit, direccion, codigoPostal, telefono, email, pass, pass2);
 
-        // Crear una instancia de Usuario
         Usuario usuario = new Usuario();
-        Imagen imagen = imagenServicio.guardar(archivo);
-        usuario.setImagen(imagen);
+        
+        if (archivo.isEmpty()) {
+            System.out.println("null : " + archivo);
+            Imagen imagen = null;
+            usuario.setImagen(imagen);
+        } else {
+            System.out.println("no null : " + archivo);
+            Imagen imagen = imagenServicio.guardar(archivo);
+            usuario.setImagen(imagen);
+        }
+
         usuario.setDenominacion(denominacion);
         usuario.setCuit(cuit);
         usuario.setDireccion(direccion);
@@ -107,7 +127,7 @@ public class UsuarioServicio implements UserDetailsService {
         if (respuesta.isPresent()) {
             // Obtener la instancia existente
             Usuario usuario = respuesta.get();
-            if(usuario.getRol() == Rol.CLIENTE){
+            if (usuario.getRol() == Rol.CLIENTE) {
                 usuario.setRol(Rol.ENTE);
             } else {
                 usuario.setRol(Rol.CLIENTE);
@@ -130,12 +150,22 @@ public class UsuarioServicio implements UserDetailsService {
     }
 
     @Transactional
+    public void borrar(String id) {
+        Optional<Usuario> respuesta = usuarioRepo.findById(id);
+        if (respuesta.isPresent()) {
+            Usuario usuario = respuesta.get();
+
+            usuarioRepo.delete(usuario);
+        }
+    }
+
+    @Transactional
     public void baja(String id) {
         Optional<Usuario> respuesta = usuarioRepo.findById(id);
         if (respuesta.isPresent()) {
             Usuario usuario = respuesta.get();
-            
-            usuarioRepo.delete(usuario);
+            usuario.setActivo(false);
+            usuarioRepo.save(usuario);
         }
     }
 

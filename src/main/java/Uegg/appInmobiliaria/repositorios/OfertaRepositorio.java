@@ -20,7 +20,7 @@ public interface OfertaRepositorio extends JpaRepository<Oferta, String>{
     public List<Oferta> buscarPorInmueble(@Param("id") String id);
     
     //Buscar la oferta mayor hecha sobre un inmueble
-    @Query("SELECT (o.usuarioCliente.denominacion), MAX(o.montoOferta) FROM Oferta o WHERE o.inmueble.id =  :id")
+    @Query("SELECT MAX(o.montoOferta) FROM Oferta o WHERE o.inmueble.id =  :id")
     public Oferta buscarOfertaMayor(@Param("id") String id);
     
     //Buscar todas las ofertas hechas por un cliente

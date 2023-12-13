@@ -27,50 +27,56 @@ public class OfertaServicio {
     @Autowired
     private InmuebleRepositorio inmuebleRepositorio;
     @Autowired
-    private InmuebleServicio inmuebleSer;
+    private InmuebleServicio inmuebleServicio;
 
     @Transactional
     public void crearOfertaCliente(Double monto, String idInmueble, String idCliente) throws MyException {
         validar(monto);
-        Inmueble inmueble = new Inmueble();
-        Usuario usuario = new Usuario();
+        Inmueble inmueble = inmuebleRepositorio.getOne(idInmueble);
+        Usuario usuario = usuarioRepositorio.getOne(idCliente);
         Oferta oferta = new Oferta();
-        Optional<Inmueble> respuestaI = inmuebleRepositorio.findById(idInmueble);
-        Optional<Usuario> respuestaU = usuarioRepositorio.findById(idCliente);
-
-        if (respuestaI.isPresent()) {
-            inmueble = respuestaI.get();
-        }
-        if (respuestaU.isPresent()) {
-            usuario = respuestaU.get();
-        }
-
-        //Creo una oferta
         oferta.setUsuarioCliente(usuario);
         oferta.setMontoOferta(monto);
         oferta.setInmueble(inmueble);
         oferta.setFechaOferta(new Date());
-        oferta.setEstadoOferta(null);
+        oferta.setEstadoOferta("PENDIENTE");
         oferta.setVigente(true);
         ofertaRepositorio.save(oferta);
+    }
+    
+    @Transactional
+    public void eliminarOferta (String id) {
+        Oferta oferta = ofertaRepositorio.getOne(id);
+        
+        ofertaRepositorio.delete(oferta);
     }
 
     @Transactional
     public void aceptarOferta(String idOferta) {
-        Optional<Oferta> respuesta = ofertaRepositorio.findById(idOferta);
-        if (respuesta.isPresent()) {
-
-            Oferta oferta = new Oferta();
-            oferta.setEstadoOferta("ACEPTADA");
-            oferta.setVigente(false);
-            Inmueble inmueble = (Inmueble) ofertaRepositorio.buscarPorCliente(oferta.getInmueble().getId());
-            inmueble.setDisponibildad(false);
-            inmuebleRepositorio.save(inmueble);
-            ofertaRepositorio.save(oferta);
-            rechazarOfertas(oferta.getInmueble().getId());
-        }
+        Oferta oferta = ofertaRepositorio.getOne(idOferta);
+        oferta.setEstadoOferta("ACEPTADA");
+        oferta.setVigente(false);
+        Inmueble inmueble = oferta.getInmueble();
+        inmueble.setDisponibildad(false);
+        inmuebleRepositorio.save(inmueble);
+        ofertaRepositorio.save(oferta);
+        rechazarOfertas(inmueble.getId());
     }
 
+    //Falta descantar inmueble del ente
+    @Transactional
+    public void transaccionCompra(String idOferta){
+        Optional<Oferta> respuesta = ofertaRepositorio.findById(idOferta);
+        if(respuesta.isPresent()){
+            Oferta oferta = new Oferta();
+            oferta.setEstadoOferta("CONFIRMADA");
+            Usuario usuario = usuarioRepositorio.getOne(oferta.getUsuarioCliente().getId());
+            Usuario usuarioEnte = usuarioRepositorio.getOne(oferta.getInmueble().getUsuarioEnte().getId());
+            usuario.getInmuebles().add(oferta.getInmueble());
+            
+        }
+    }
+    
     @Transactional
     public void rechazarOferta(String idOferta) {
         Optional<Oferta> respuesta = ofertaRepositorio.findById(idOferta);
@@ -85,7 +91,7 @@ public class OfertaServicio {
     private void rechazarOfertas(String idInmueble) {
         List<Oferta> ofertas = ofertaRepositorio.buscarPorInmueble(idInmueble);
         for (Oferta oferta : ofertas) {
-            if (oferta.getEstadoOferta() == null) {
+            if (oferta.getEstadoOferta().equalsIgnoreCase("PENDIENTE")) {
                 oferta.setEstadoOferta("RECHAZADA");
                 oferta.setVigente(false);
                 ofertaRepositorio.save(oferta);
@@ -99,7 +105,7 @@ public class OfertaServicio {
     }
 
     @Transactional
-    public List<Oferta> lsitarOfertasInmueble(String id) {
+    public List<Oferta> listarOfertasInmueble(String id) {
         return ofertaRepositorio.buscarPorInmueble(id);
     }
 
@@ -107,9 +113,9 @@ public class OfertaServicio {
     public Oferta mejorOferta(String id) {
         return ofertaRepositorio.buscarOfertaMayor(id);
     }
-    
+
     @Transactional
-    public Oferta contarOfertas(String id){
+    public Oferta contarOfertas(String id) {
         return ofertaRepositorio.contarOfertasPorInmueble(id);
     }
 
@@ -118,7 +124,7 @@ public class OfertaServicio {
     }
 
     public void validar(Double montoOferta) throws MyException {
-        if (montoOferta >= 0 || montoOferta == null) {
+        if (montoOferta <= 0 || montoOferta == null) {
             throw new MyException("La oferta no puede ser vacia o  se rmenor a cero.");
         }
     }

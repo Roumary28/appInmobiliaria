@@ -2,10 +2,12 @@ package Uegg.appInmobiliaria.controladores;
 
 import Uegg.appInmobiliaria.entidades.Imagen;
 import Uegg.appInmobiliaria.entidades.Usuario;
+import Uegg.appInmobiliaria.excepciones.MyException;
 import Uegg.appInmobiliaria.servicios.ImagenServicio;
 import Uegg.appInmobiliaria.servicios.InmuebleServicio;
 import Uegg.appInmobiliaria.servicios.UsuarioServicio;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -67,6 +70,4 @@ public class ImagenControlador {
         return new ResponseEntity<>(imagen, headers, HttpStatus.OK);
     }
     
-    
-
 }

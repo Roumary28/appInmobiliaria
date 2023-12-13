@@ -15,17 +15,16 @@
         <nav th:replace="./fragment/navbar :: nav"></nav>
 
         <main>
-            <div class="container">
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            <div class="container my-4">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3">
 
                     <div class="col" th:each="inmueble : ${inmuebles}">
                         <div class="card shadow-sm">
-                            <div class="card-body">
-
+                            <div class="card-body">                                                    
                                 <div th:attr="id=${'carouselExample-' + inmueble.id}" class="carousel slide">
-                                    <div class="carousel-inner">
+                                    <div class="carousel-inner">                                     
                                         <div th:each="imagen : ${inmueble.imagenes}" class="carousel-item active">
-                                            <img th:src="@{/imagen/inmueble/__${imagen.id}__}" class="d-block w-100" height="200px" alt="...">
+                                            <img th:src="@{/imagen/inmueble/__${imagen.id}__}" class="d-block w-100" height="150px" alt="...">
                                         </div>
                                     </div>
                                     <button class="carousel-control-prev" type="button" th:data-bs-target="${'#carouselExample-' + inmueble.id}" data-bs-slide="prev">
@@ -38,15 +37,48 @@
                                     </button>
                                 </div>
 
+                                <div class="precio">
+                                    <div class="col1">
+                                        <p>$</p>
+                                        <p th:if="${inmueble.tipoOferta == 'alquiler'}" th:text="${inmueble.precioAlquiler}" style="display: inline;"></p>
+                                        <p th:if="${inmueble.tipoOferta == 'venta'}" th:text="${inmueble.precioVenta}" style="display: inline;"></p>  
+                                        
+                                    </div>
+                                    <div class="col2">
+                                        <p class="tipoOferta" th:if="${inmueble.tipoOferta == 'alquiler'}">ALQUILER</p>
+                                        <p class="tipoOferta" th:if="${inmueble.tipoOferta == 'venta'}">VENTA</p>
+                                        <div sec:authorize="hasRole ('ADMIN')" class="editImagenes">
+                                            <a th:href="@{/inmueble/listarimagenes/__${inmueble.id}__}">
+                                                <img height="15px" width="15px" src="https://cdn.icon-icons.com/icons2/1904/PNG/512/edit_121277.png">
+                                            </a>
+                                            
+                                        </div>    
+                                           
+                                    </div>
+                                                          
+                                </div>
+                                
                                 <h3 th:text="${inmueble.ubicacion}"></h3>
-                                <p class="card-text" th:text="${inmueble.descripcion}"></p>
-                                <p class="card-text">Ambientes:</p>
-                                <p class="card-text" th:text="${inmueble.ambientes}"></p>
-                                <p class="card-text">Superficie:</p>
-                                <p class="card-text" th:text="${inmueble.superficie}"> m2</p>
-                                <p class="card-text">Precio:</p>
-                                <p class="card-text" th:if="${inmueble.tipoOferta == 'alquiler'}" th:text="${inmueble.precioAlquiler}"></p>
-                                <p class="card-text" th:if="${inmueble.tipoOferta == 'venta'}" th:text="${inmueble.precioVenta}"></p>
+
+                                <p class="card-text descripcion" th:text="${inmueble.descripcion}"></p>
+                                <div class="datosInmueble">
+                                    <div class="col1">
+                                        <img src="https://cdn.icon-icons.com/icons2/930/PNG/512/maximize_icon-icons.com_72312.png" height="15px" width="15px">
+                                        <p class="card-text" style="display: inline;">Sup.</p>
+                                        <p class="card-text" th:text="${inmueble.superficie} + ' m2'" style="display: inline;"></p>
+                                      
+                                    </div>
+                                   <div class="col2">
+                                    <img src="https://static.vecteezy.com/system/resources/previews/020/973/944/non_2x/door-open-icon-in-trendy-outline-style-isolated-on-white-background-door-symbol-for-your-web-site-design-logo-app-ui-illustration-eps10-on-white-background-vector.jpg" height="20px" width="20px">
+                                    <p class="card-text" style="display: inline;">Amb. </p>
+                                    <p class="card-text" th:text="${inmueble.ambientes}" style="display: inline;"></p>
+                           
+                                   </div>
+                                           
+                                </div>
+                               
+                                <br> 
+                               
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
                                         <!--
@@ -55,6 +87,10 @@
                                         -->
                                         <a sec:authorize="hasRole ('ADMIN')" th:href="@{/inmueble/modificar/__${inmueble.id}__}" class="btn btn-sm btn-outline-secondary">Modificar</a> 
                                         <a sec:authorize="hasRole ('ADMIN')" th:href="@{/inmueble/eliminar/__${inmueble.id}__}" class="btn btn-sm btn-outline-secondary">Eliminar</a>
+                                        <a sec:authorize="hasRole ('CLIENTE')" th:href="@{/oferta/crear/__${inmueble.id}__}" class="btn btn-sm btn-outline-secondary">Hacer Oferta</a>
+                                        <a sec:authorize="hasRole ('ENTE')" th:href="@{/inmueble/modifica/__${inmueble.id}__}" class="btn btn-sm btn-outline-secondary">Modificar</a> 
+                                        <a sec:authorize="hasRole ('ENTE')" th:href="@{/inmueble/elimina/__${inmueble.id}__}" class="btn btn-sm btn-outline-secondary">Eliminar</a>
+                                        <a sec:authorize="hasRole ('ENTE')" th:href="@{/oferta/inmueble/__${inmueble.id}__}" class="btn btn-sm btn-outline-secondary">Ver Ofertas</a>
                                     </div>
                                     <small class="text-body-secondary" th:text="${inmueble.fechaAlta}"></small>
                                 </div>
@@ -65,25 +101,6 @@
                 </div>     
             </div>   
 
-            <!--
-                        <div  th:each="inmueble : ${inmuebles}">
-                            <div id="carouselExample" class="carousel slide">
-                                <div class="carousel-inner">
-                                    <div th:each="imagen : ${inmueble.imagenes}" class="carousel-item active">
-                                        <img th:src="@{/imagen/inmueble/__${imagen.id}__}" class="d-block w-100" height="200px" alt="...">
-                                    </div>
-                                </div>
-                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Previous</span>
-                                </button>
-                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Next</span>
-                                </button>
-                            </div>
-                        </div>
-            -->
         </main>
 
         <footer th:replace="./fragment/footer :: footer"></footer>

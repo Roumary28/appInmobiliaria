@@ -1,6 +1,8 @@
 body{
+    position: relative;
     font-family: 'League Spartan' , sans-serif;
     overflow-x: hidden;
+    height: 100vh;
 }
 
 .nav-item.dropdown:hover .nav-link,
@@ -10,6 +12,7 @@ body{
 
 div#footer {
     margin-top: 1em;
+    position: absolute;
 }
 
 .bg-custom-color {
@@ -86,6 +89,9 @@ h1 {
 /* PANTALLA MEDIA QUERIES EXTRA-SM */
 
 @media(max-width: 576px) {
+    body {
+        height: 100%
+    }
     .icono-wrap{
         flex-wrap: wrap;
         justify-content: center !important;
@@ -139,3 +145,28 @@ h1 {
 div#footer {
     margin-top: 1em;
 }
+
+.logo {
+    
+    top: 60px; /* Distancia desde la parte superior */
+    margin-right: 10px; /* Distancia desde el borde derecho */
+    right: 0;
+  }
+  
+  .custom-button {
+    background-color: #168AAD;
+    color: #f3f3f3;
+}
+
+.boton-usuariolist {
+    background-color: #52B69A;
+    color:#f3f3f3;
+}
+
+.boton-inmueblelist {
+    background-color: #184E77;
+    color: #f3f3f3;
+}
+
+
+

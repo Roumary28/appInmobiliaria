@@ -15,17 +15,16 @@
 
         <div class="container m-5" >
 
-            <table class="table table-dark">
-                <thead class="align-items-center">
-                    <tr >
+            <table class="table table-white">
+                <thead class="align-items-center ">
+                    <tr nombres-tabla>
                         <th scope="col">Id del Usuario</th>
                         <th scope="col">Denominación</th>                      
                         <th scope="col">Email</th>
                         <th scope="col">Rol</th>
-                        <th scope="col">Editar Rol</th>
-                        <th scope="col">Eliminar</th>
-                        
-
+                        <th scope="col">Estado</th>
+                        <th scope="col" sec:authorize="hasRole('ADMIN')">Editar Rol</th>
+                        <th scope="col" sec:authorize="hasRole('ADMIN')">Baja / Alta</th>
                     </tr>
                 </thead>
                 <tbody th:each="usuario : ${usuarios}"> 
@@ -34,17 +33,23 @@
                         <td th:text="${usuario.denominacion}"></td>
                         <td th:text="${usuario.email}"></td>
                         <td th:text="${usuario.rol}"></td>
+                        <td  >
+                            <span th:if="${usuario.activo} == true"> Activo </span>
+                            <span th:if="${usuario.activo} == false"> De Baja </span>
+                        </td>
                         <!--
                         <td>
                             <a><img th:if="${usuario.imagen != null}" class="logo" th:src="@{/imagen/perfil/__${usuario.id}__}" ></a>
                         </td>
                         -->
                         <td>
-                            <button type="button" class="btn btn-outline-primary me-2"><a th:href= "@{/admin/modificarRol/__${usuario.id}__}"><i class="fas fa-feather-alt"></i>Cambiar Rol</a></button>
+                             <button type="button" class="btn btn-outline-primary me-2"><a th:href="@{/admin/modificarRol/__${usuario.id}__}" class="nav-link px-2"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Cambiar Rol</font></font></a></button>
                         </td>
 
-                        <td>
-                            <button type="button" class="btn btn-outline-primary me-2"><a th:href= "@{/admin/eliminar/__${usuario.id}__}"><i class="fas fa-feather-alt"></i> Eliminar</a></button>
+                         <td>
+                            <p><a th:if="${usuario.activo} == true" th:href="@{/admin/darBaja/__${usuario.id}__}" class="link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">DAR BAJA</a>
+                            <a th:if="${usuario.activo} == false" th:href="@{/admin/darAlta/__${usuario.id}__}" class="link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">DAR ALTA</a></p>
+
                         </td>
 
                     </tr>
@@ -69,7 +74,7 @@
             <section class="py-5 text-center container">
                 <div class="row py-lg-5">
                     <div class="col-lg-6 col-md-8 mx-auto">
-                        <a th:href="@{/admin/dashboard }" class="btn btn-primary my-2">Volver</a>
+                        <a th:href="@{/admin/dashboard }" class="btn custom-button my-2">Volver</a>
                     </div>
                 </div>
             </section>

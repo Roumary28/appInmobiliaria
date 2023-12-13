@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary p-3" id="menu">
-    <div class="container-fluid">
+    <div class="container-fluid px-5">
         <a class="navbar-brand" th:href="@{/}">
             <span class=" fs-4 fw-bold"  style="color: #1A759F;"> MrHouse </span> 
         </a>
@@ -23,7 +23,6 @@
                         <li><a class="dropdown-item" th:href="@{/inmueble/lista/casaAlquiler}">Casa</a></li>
                         <li><a class="dropdown-item" th:href="@{/inmueble/lista/departamentoAlquiler}">Departamento</a></li>
                         <li><a class="dropdown-item" th:href="@{/inmueble/lista/localAlquiler}">Local</a></li>
-                        <li><a class="dropdown-item" th:href="@{/inmueble/lista/loteAlquiler}">Lote</a></li>
                     </ul>
                 </li>
 
@@ -37,26 +36,33 @@
                         <li><a class="dropdown-item" th:href="@{/inmueble/lista/localVenta}">Local</a></li>
                         <li><a class="dropdown-item" th:href="@{/inmueble/lista/loteVenta}">Lote</a></li>
                     </ul>
-                </li>               
-                  <li class="nav-item dropdown">
+                </li>        
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/contactanos}">Contactanos</a>
+                </li>
+
+            </ul>
+
+            <ul class="navbar-nav ml-auto">
+                
+                <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" th:if="${session.usuariosession != null}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Perfil
                     </a>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu">                        
                         <li><a class="dropdown-item" sec:authorize="hasRole ('ADMIN')" th:href="@{/admin/dashboard}">Panel Admin</a></li>
                         <li><a class="dropdown-item" sec:authorize="hasRole ('ADMIN')" th:href="@{/inmueble/crear}">Ofrecer propiedad</a></li>
                         <li><a class="dropdown-item" sec:authorize="hasRole ('ENTE')" th:href="@{/inmueble/crear}">Ofrecer propiedad</a></li>
+                        <li><a class="dropdown-item" sec:authorize="hasRole ('ENTE')" th:href="@{/inmueble/listar/__${session.usuariosession.id}__}">Ver mis ropiedades</a></li>
+                        <li><a class="dropdown-item" sec:authorize="hasRole ('CLIENTE')" th:href="@{/oferta/cliente/__${session.usuariosession.id}__}">Mis Ofertas</a></li>
                         <li><a class="dropdown-item" th:href="@{/logout}">Cerrar Sesión</a></li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contactanos</a>
+                <li>                
+                    <img class="logo img-fluid rounded-circle" width="50px" height="50px" th:if="${session.usuariosession != null && session.usuariosession.imagen != null}" th:src="@{/imagen/perfil/__${session.usuariosession.id}__}" alt="Foto Perfil">
+                    <img class="logo img-fluid rounded-circle" width="50px" height="50px" th:if="${session.usuariosession != null && session.usuariosession.imagen == null}" src="/img/fotoP.jpeg" alt="Foto Perfil">
                 </li>
-                
-            </ul>
-            
-            <ul class="navbar-nav ml-auto">
-                              
+
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" th:if="${session.usuariosession == null}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Registrarse
@@ -69,7 +75,7 @@
                 <li class="nav-item">
                     <a class="nav-link " th:if="${session.usuariosession == null}"  th:href="@{/login}">Ingresar</a>
                 </li>
-                
+
             </ul>
         </div>
     </div>

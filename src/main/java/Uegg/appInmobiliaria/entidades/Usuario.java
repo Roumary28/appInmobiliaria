@@ -27,9 +27,11 @@ public class Usuario {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
+    
     @OneToOne
     @JoinColumn(name = "imagen_id")
     private Imagen imagen;
+    
     private String denominacion;
     private Long cuit;
     private Long dni;
@@ -43,8 +45,9 @@ public class Usuario {
     @Temporal(TemporalType.DATE)
     private Date fechaAlta;
 
-    //@OneToMany
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usuarioEnte", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usuarioCliente", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Oferta> ofertas;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usuarioEnte", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Inmueble> inmuebles;
     private Boolean activo;
 
@@ -153,6 +156,14 @@ public class Usuario {
 
     public void setInmuebles(List<Inmueble> inmuebles) {
         this.inmuebles = inmuebles;
+    }
+
+    public List<Oferta> getOfertas() {
+        return ofertas;
+    }
+
+    public void setOfertas(List<Oferta> ofertas) {
+        this.ofertas = ofertas;
     }
 
     public Boolean getActivo() {

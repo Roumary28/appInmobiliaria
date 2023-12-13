@@ -63,18 +63,10 @@ public class InmuebleServicio {
     }
     
     @Transactional
-    public void modificarInmueble(String id, List<MultipartFile> archivos, Tipo tipo, String ubicacion, Double superficie, Integer ambientes, String descripcion, Double precioVenta, Double precioAlquiler,
+    public void modificarInmueble(String id, Tipo tipo, String ubicacion, Double superficie, Integer ambientes, String descripcion, Double precioVenta, Double precioAlquiler,
             String tipoOferta) throws MyException {
         
         validar(tipo, ubicacion, superficie, ambientes, descripcion, precioVenta, precioAlquiler, tipoOferta);
-
-        borrarImagenesDeInmueble(id);
-        
-        List<Imagen> imagenes = new ArrayList();
-        for (MultipartFile archivo : archivos) {
-            Imagen imagen = imagenServicio.guardar(archivo);
-            imagenes.add(imagen);
-        }
         
         Optional<Inmueble> respuesta = inmuebleRepositorio.findById(id);
         
@@ -89,12 +81,26 @@ public class InmuebleServicio {
             inmueble.setPrecioVenta(precioVenta);
             inmueble.setPrecioAlquiler(precioAlquiler);
             inmueble.setTipoOferta(tipoOferta);
-            inmueble.setImagenes(imagenes);
             
             inmuebleRepositorio.save(inmueble);
         }
         
     }
+    
+    @Transactional
+    public void modificarImagenInmueble (String id, List<Imagen> imagenes) {
+    
+        Optional<Inmueble> respuesta = inmuebleRepositorio.findById(id);
+        
+        if (respuesta.isPresent()) {
+            
+            Inmueble inmueble = respuesta.get();
+            inmueble.setImagenes(imagenes);
+                   
+            inmuebleRepositorio.save(inmueble);
+        }
+        
+}
     
     public void NoDisponible(String id) {
         
@@ -136,16 +142,6 @@ public class InmuebleServicio {
         }
     }
     
-    @Transactional
-     public void borrarImagenesDeInmueble(String Id) {
-        Optional<Inmueble> optionalInmueble = inmuebleRepositorio.findById(Id);
-        if (optionalInmueble.isPresent()) {
-            Inmueble inmueble = optionalInmueble.get();
-            inmueble.getImagenes().clear(); // Limpiar la lista de imágenes
-            inmuebleRepositorio.save(inmueble); // Guardar el inmueble actualizado
-        }      
-    }
-    
     public Inmueble getOne(String id) {
         return inmuebleRepositorio.getOne(id);
     }
@@ -167,6 +163,16 @@ public class InmuebleServicio {
         List<Inmueble> inmuebleAmbiente = inmuebleRepositorio.buscarPorAmbientes(ambientes);
         return inmuebleAmbiente;
     }
+    
+    
+    
+    public List<Inmueble> listarInmuebleEnte(String id) {
+       
+        List<Inmueble> inmueblesEnte = inmuebleRepositorio.buscarPorEnte(id);
+        return inmueblesEnte;
+    }
+    
+        
     
     public void validar(Tipo tipo, String ubicacion, Double superficie, Integer ambientes, String descripcion, Double precioVenta, Double precioAlquiler,
             String tipoOferta) throws MyException {
