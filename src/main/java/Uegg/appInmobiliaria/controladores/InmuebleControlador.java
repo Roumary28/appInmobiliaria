@@ -222,7 +222,7 @@ public class InmuebleControlador {
 
         modelo.addAttribute("inmuebles", inmuebles);
 
-        return "inmuebleAdminList.html";
+        return "inmuebleListAdm.html";
     }
 
     @GetMapping("/modificar/{id}")
