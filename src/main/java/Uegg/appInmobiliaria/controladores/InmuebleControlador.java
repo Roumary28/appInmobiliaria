@@ -31,7 +31,7 @@ public class InmuebleControlador {
 
     @Autowired
     private ImagenServicio imagenServicio;
-    
+
     @Autowired
     private InmuebleRepositorio inmuebleRepositorio;
 
@@ -152,14 +152,6 @@ public class InmuebleControlador {
         return "inmuebleList.html";
     }
 
-    @GetMapping("/detalle/{id}")
-    public String detalleInmueble(@PathVariable String id, ModelMap modelo){
-        Inmueble inmueble = inmuebleRepositorio.getOne(id);
-        
-        modelo.addAttribute("inmueble", inmueble);
-        
-        return "inmuebleDetalle.html";
-    }
     
         @PreAuthorize("hasAnyRole('ROLE_ENTE')")
     @GetMapping("/listar/{id}") 
@@ -171,17 +163,25 @@ public class InmuebleControlador {
 
         return "inmuebleList.html";
     }
-     @GetMapping("/modifica/{id}")
-    public String modificaInmueble(HttpSession session,@PathVariable String id, ModelMap modelo) {
+
+    @GetMapping("/compras/{idUsuario}")
+    public String listaCompra(ModelMap modelo, @PathVariable String idUsuario){
+        List<Inmueble> inmuebles = inmuebleServicio.listarInmuebleCliente(idUsuario);
+        modelo.addAttribute("inmuebles", inmuebles);
+        return "/inmuebleListCliente";
+    }
+    
+    @GetMapping("/modifica/{id}")
+    public String modificaInmueble(HttpSession session, @PathVariable String id, ModelMap modelo) {
 
         modelo.put("inmueble", inmuebleServicio.getOne(id));
         modelo.addAttribute("tipos", Tipo.values());
 
-         return "modificainmueble.html";
+        return "modificainmueble.html";
     }
 
     @PostMapping("/modifica/{id}")
-    public String modificaInmueble(HttpSession session,@PathVariable String id, @RequestParam Tipo tipo, @RequestParam String ubicacion, @RequestParam(required = false) Double superficie, @RequestParam(required = false) Integer ambientes,
+    public String modificaInmueble(HttpSession session, @PathVariable String id, @RequestParam Tipo tipo, @RequestParam String ubicacion, @RequestParam(required = false) Double superficie, @RequestParam(required = false) Integer ambientes,
             @RequestParam String descripcion, @RequestParam(required = false) Double precio, @RequestParam(required = false) String tipoOferta, ModelMap modelo) {
 
         try {
@@ -195,14 +195,14 @@ public class InmuebleControlador {
                 inmuebleServicio.modificarInmueble(id, tipo, ubicacion, superficie, ambientes, descripcion, precioVenta, precioAlquiler, tipoOferta);
             }
             modelo.put("exito", "inmueble modificado con exito");
-    
-         return "redirect:/";
+
+            return "redirect:/";
 
         } catch (MyException ex) {
             modelo.put("error", ex.getMessage());
             modelo.addAttribute("tipos", Tipo.values());
 
-    return "redirect:/";
+            return "redirect:/";
         }
 
     }
@@ -212,16 +212,13 @@ public class InmuebleControlador {
 
         try {
             inmuebleServicio.borrarInmueble(id);
-                 return "redirect:/"; // Redirige a la lista después de eliminar
+            return "redirect:/"; // Redirige a la lista después de eliminar
         } catch (MyException ex) {
             modelo.put("error", ex.getMessage());
-             return "redirect:/"; // Redirige a la lista
+            return "redirect:/"; // Redirige a la lista
         }
     }
-    
-    
-    
-    
+
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/listaGeneral") //localhost:8080/inmueble/listaGeneral
     public String listarGeneral(ModelMap modelo) {
@@ -294,31 +291,31 @@ public class InmuebleControlador {
     public String eliminarImagenInmueble(@PathVariable String imagen_id, ModelMap modelo) {
 
         Imagen imagen = imagenServicio.getOne(imagen_id);
-        
+
         Inmueble inmueble = imagen.getInmueble();
-       
+
         inmueble.getImagenes().remove(imagen);
-    
+
         inmuebleRepositorio.save(inmueble);
         return "redirect:/inmueble/listarimagenes/" + inmueble.getId();
-       
+
     }
-    
+
     @PostMapping("/anadir/imagen/{inmueble_id}")
     public String anadirImagenInmueble(@PathVariable String inmueble_id, List<MultipartFile> archivos, ModelMap modelo) throws MyException {
-        
+
         Inmueble inmueble = inmuebleServicio.getOne(inmueble_id);
-        
+
         List<Imagen> imagenes = inmueble.getImagenes();
-        
+
         for (MultipartFile archivo : archivos) {
             Imagen imagen = imagenServicio.guardar(archivo);
             inmueble.getImagenes().add(imagen);
-        }         
-       
+        }
+
         inmuebleRepositorio.save(inmueble);
         return "redirect:/inmueble/listarimagenes/" + inmueble.getId();
-       
+
     }
 
 }
