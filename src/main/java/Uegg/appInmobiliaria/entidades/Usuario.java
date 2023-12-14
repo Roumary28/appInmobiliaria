@@ -49,6 +49,8 @@ public class Usuario {
     private List<Oferta> ofertas;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "usuarioEnte", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Inmueble> inmuebles;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "inmueble", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comentario> comentarios;
     private Boolean activo;
 
     public Usuario() {
@@ -160,6 +162,14 @@ public class Usuario {
 
     public List<Oferta> getOfertas() {
         return ofertas;
+    }
+
+    public List<Comentario> getComentarios() {
+        return comentarios;
+    }
+
+    public void setComentarios(List<Comentario> comentarios) {
+        this.comentarios = comentarios;
     }
 
     public void setOfertas(List<Oferta> ofertas) {

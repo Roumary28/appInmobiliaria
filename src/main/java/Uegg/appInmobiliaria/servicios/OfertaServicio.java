@@ -63,6 +63,23 @@ public class OfertaServicio {
         rechazarOfertas(inmueble.getId());
     }
 
+    @Transactional
+    public void confirmarOferta(String id){
+        Oferta oferta = ofertaRepositorio.getOne(id);
+        if(oferta.getEstadoOferta().equalsIgnoreCase("ACEPTADA")){
+            oferta.setEstadoOferta("CONFIRMADA");
+            ofertaRepositorio.save(oferta);
+        }
+    }
+    
+    @Transactional
+    public void descartarOferta(String id){
+        Oferta oferta = ofertaRepositorio.getOne(id);
+        if(oferta.getEstadoOferta().equalsIgnoreCase("ACEPTADA")){
+            oferta.setEstadoOferta("DESCARTADA");
+            ofertaRepositorio.save(oferta);
+        }
+    }
     //Falta descantar inmueble del ente
     @Transactional
     public void transaccionCompra(String idOferta){
@@ -88,6 +105,7 @@ public class OfertaServicio {
         }
     }
 
+    @Transactional
     private void rechazarOfertas(String idInmueble) {
         List<Oferta> ofertas = ofertaRepositorio.buscarPorInmueble(idInmueble);
         for (Oferta oferta : ofertas) {
@@ -99,22 +117,22 @@ public class OfertaServicio {
         }
     }
 
-    @Transactional
+    
     public List<Oferta> listarOfertaCliente(String id) {
         return ofertaRepositorio.buscarPorCliente(id);
     }
 
-    @Transactional
+    
     public List<Oferta> listarOfertasInmueble(String id) {
         return ofertaRepositorio.buscarPorInmueble(id);
     }
 
-    @Transactional
+    
     public Oferta mejorOferta(String id) {
         return ofertaRepositorio.buscarOfertaMayor(id);
     }
 
-    @Transactional
+    
     public Oferta contarOfertas(String id) {
         return ofertaRepositorio.contarOfertasPorInmueble(id);
     }

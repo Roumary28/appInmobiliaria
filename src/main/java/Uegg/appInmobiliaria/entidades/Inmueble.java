@@ -48,6 +48,9 @@ public class Inmueble {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "inmueble", cascade = CascadeType.ALL)
     private List<Oferta> ofertas;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "inmueble", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comentario> comentarios;
+    
     @Temporal(TemporalType.DATE)
     private Date fechaAlta;
 
@@ -156,6 +159,14 @@ public class Inmueble {
 
     public void setOfertas(List<Oferta> ofertas) {
         this.ofertas = ofertas;
+    }
+
+    public List<Comentario> getComentarios() {
+        return comentarios;
+    }
+
+    public void setComentarios(List<Comentario> comentarios) {
+        this.comentarios = comentarios;
     }
 
     public Date getFechaAlta() {

@@ -3,6 +3,7 @@ package Uegg.appInmobiliaria.controladores;
 import Uegg.appInmobiliaria.entidades.Oferta;
 import Uegg.appInmobiliaria.entidades.Usuario;
 import Uegg.appInmobiliaria.excepciones.MyException;
+import Uegg.appInmobiliaria.repositorios.OfertaRepositorio;
 import Uegg.appInmobiliaria.servicios.InmuebleServicio;
 import Uegg.appInmobiliaria.servicios.OfertaServicio;
 import java.util.List;
@@ -28,6 +29,8 @@ public class OfertaControlador {
     private OfertaServicio ofertaServicio;
     @Autowired
     private InmuebleServicio inmuebleServicio;
+    @Autowired
+    private OfertaRepositorio ofertaRepositorio;
 
     @PreAuthorize("hasAnyRole('ROLE_CLIENTE')")
     @GetMapping("/crear/{id}")
@@ -104,13 +107,27 @@ public class OfertaControlador {
     }
 
     @GetMapping("/eliminar/{id}")
-    public String eliminarOferta(@PathVariable String id, HttpSession session) {
+    public String eliminarOferta(@PathVariable String id) {
+        Oferta oferta = (Oferta) ofertaServicio.getOne(id);
+        String idUsuario = oferta.getUsuarioCliente().getId();
         ofertaServicio.eliminarOferta(id);
-        return "redirect:/oferta/cliente/" + session;
+        return "redirect:/oferta/cliente/" + idUsuario;
     }
 
-    @PostMapping("")
-    public String confirmar(){
-        return "";
+    @GetMapping("/confirmar/{id}")
+    public String confirmar(@PathVariable String id) {
+        Oferta oferta = (Oferta) ofertaServicio.getOne(id);
+        String idUsuario = oferta.getUsuarioCliente().getId();
+        ofertaServicio.confirmarOferta(id);
+        return "redirect:/oferta/cliente/" + idUsuario;
     }
+
+    @GetMapping("/descartar/{id}")
+    public String descartar(@PathVariable String id) {
+        Oferta oferta = (Oferta) ofertaServicio.getOne(id);
+        String idUsuario = oferta.getUsuarioCliente().getId();
+        ofertaServicio.descartarOferta(id);
+        return "redirect:/oferta/cliente/" + idUsuario;
+    }
+
 }
