@@ -148,8 +148,8 @@ div#footer {
 
 .logo {
     
-    top: 60px; /* Distancia desde la parte superior */
-    margin-right: 10px; /* Distancia desde el borde derecho */
+    top: 60px; 
+    margin-right: 10px; 
     right: 0;
   }
   
@@ -157,6 +157,8 @@ div#footer {
     background-color: #168AAD;
     color: #f3f3f3;
 }
+
+/* PANEL ADMIN */
 
 .boton-usuariolist {
     background-color: #52B69A;
