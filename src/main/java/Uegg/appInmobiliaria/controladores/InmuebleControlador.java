@@ -152,9 +152,10 @@ public class InmuebleControlador {
         return "inmuebleList.html";
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ENTE')")
-    @GetMapping("/listar/{id}")
-    public String listarGeneral(HttpSession session, ModelMap modelo, @PathVariable String id) {
+    
+        @PreAuthorize("hasAnyRole('ROLE_ENTE')")
+    @GetMapping("/listar/{id}") 
+    public String listarGeneral(HttpSession session,ModelMap modelo,@PathVariable String id) {
 
         List<Inmueble> inmuebles = inmuebleServicio.listarInmuebleEnte(id);
 

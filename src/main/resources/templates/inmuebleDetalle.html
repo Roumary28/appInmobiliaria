@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>MrHouse</title>
+        <link rel="stylesheet" href="./css/main.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="/css/style.css">
+        <link rel="stylesheet" href="/css/inmuebleDetalle.css">
+
+    </head>
+    <body>
+        <nav th:replace="./fragment/navbar :: nav"></nav>
+
+        <main>
+            <div class="container my-4">
+                <div class="fila-general-1">
+                    <div class="columna-1">
+                        <div class="fila-1">
+                            <img id="imagenGrande" th:src="@{/imagen/inmueble/__${inmueble.imagenes[0].id}__}" alt="">
+                            <div sec:authorize="hasRole ('ENTE') or hasRole ('CLIENTE')" th:if="${inmueble.usuarioEnte.id == session.usuariosession.id}" class="editImagenes">
+                                <a th:href="@{/inmueble/listarimagenes/__${inmueble.id}__}">
+                                    <img src="https://cdn.icon-icons.com/icons2/2650/PNG/512/edit_object_icon_160911.png">
+                                </a>
+                                
+                            </div>
+                        </div>
+                        <div class="fila-2">
+                            <img th:each="imagen : ${inmueble.imagenes}"  th:src="@{/imagen/inmueble/__${imagen.id}__}" onclick="mostrarImagen(this)" alt="">
+                        </div>
+                        <div class="detalles">
+                            <div class="fila-3">
+                                <div class="col-1">
+                                    <p class="precio" th:if="${inmueble.tipoOferta == 'alquiler'}" th:text="'$' + ${inmueble.precioAlquiler}" style="display: inline;"></p>
+                                    <p class="precio" th:if="${inmueble.tipoOferta == 'venta'}" th:text="'$' + ${inmueble.precioVenta}" style="display: inline;"></p>
+                                </div>
+                                <div class="col-2">
+                                    <p class="tipoOferta" th:if="${inmueble.tipoOferta == 'alquiler'}">ALQUILER</p>
+                                    <p class="tipoOferta" th:if="${inmueble.tipoOferta == 'venta'}">VENTA</p>
+                                </div>
+                            </div>
+                            <div class="fila-4">
+                                <p class="ubicacion" th:text="${inmueble.ubicacion}"></p>
+                            </div>
+                            <div class="fila-5">
+                                <p class="descripcion" th:text="${inmueble.descripcion}"></p>
+                            </div>
+                            <div class="fila-6">
+                                <img src="https://cdn.icon-icons.com/icons2/930/PNG/512/maximize_icon-icons.com_72312.png" height="15px" width="15px">
+                                <p style="display: inline;" th:text="'Superficie:' + ${inmueble.superficie} + ' m2'"></p>
+                            </div>
+                            <div class="fila-7">
+                                <div class="col-1">
+                                    <img src="https://static.vecteezy.com/system/resources/previews/020/973/944/non_2x/door-open-icon-in-trendy-outline-style-isolated-on-white-background-door-symbol-for-your-web-site-design-logo-app-ui-illustration-eps10-on-white-background-vector.jpg" height="20px" width="20px">
+                                    <p style="display: inline;" th:text="'Ambientes:'+${inmueble.ambientes}"></p>
+                                </div>
+                                <div class="col-2">
+                                    <a sec:authorize="hasRole ('ADMIN')" th:href="@{/inmueble/modificar/__${inmueble.id}__}" class="btn btn-sm btn-outline-secondary">Modificar</a> 
+                                    <a sec:authorize="hasRole ('ADMIN')" th:href="@{/inmueble/eliminar/__${inmueble.id}__}" class="btn btn-sm btn-outline-secondary">Eliminar</a>
+                                    <a th:if="${!(#authorization.expression('isAuthenticated()') and inmueble.usuarioEnte.id == session?.usuariosession?.id)}" th:href="@{/oferta/crear/__${inmueble.id}__}" class="btn btn-sm btn-outline-secondary">Hacer Oferta</a>
+                                    <a sec:authorize="hasRole ('ENTE') or hasRole ('CLIENTE')" th:if="${inmueble.usuarioEnte.id == session.usuariosession.id}" th:href="@{/inmueble/modifica/__${inmueble.id}__}" class="btn btn-sm btn-outline-secondary">Modificar</a> 
+                                    <a sec:authorize="hasRole ('ENTE') or hasRole ('CLIENTE')" th:if="${inmueble.usuarioEnte.id == session.usuariosession.id}" th:href="@{/inmueble/elimina/__${inmueble.id}__}" class="btn btn-sm btn-outline-secondary">Eliminar</a>
+                                </div>
+                                </div>
+                        </div>
+
+                    </div>
+                    <div class="columna-2">
+                        <div class="fila-1">
+                            <form id="form">
+                                <input type="hidden" id="email_to" name="email_to" th:value="${inmueble.usuarioEnte.email}">
+                                <input type="hidden" id="oferta" name="oferta" th:value="${inmueble.tipoOferta}">
+                                <input type="hidden" id="id_inmueble" name="id_inmueble" th:value="${inmueble.id}">
+                                <input type="hidden" id="tipo" name="tipo" th:value="${inmueble.tipo}">
+                                <input type="hidden" id="ubicacion" name="ubicacion" th:value="${inmueble.ubicacion}">
+
+                                <label for="nombre">Nombre:</label>
+                                <input type="text" id="name" name="name" required>
+
+                                <br>
+
+                                <label for="email">Email:</label>
+                                <input type="email" id="email" name="email" required>
+
+                                <br>
+
+                                <label for="telefono">Número de Teléfono:</label>
+                                <input type="tel" id="phone" name="phone">
+
+                                <br>
+
+                                <label for="consulta">Consulta:</label>
+                                <textarea id="message" name="message" rows="4" required></textarea>
+
+                                <br>
+
+                                <input type="submit" id="button" value="Enviar Consulta" >
+
+                            </form>
+                        </div>
+                        <div class="fila-2">
+                            <div class="calendario">
+                                calendario
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="fila-general-2">
+                    <div class="columna-1">
+                        Comentarios
+                    </div>
+                </div>      
+
+
+
+            </div>   
+
+        </main>
+
+        <footer th:replace="./fragment/footer :: footer"></footer>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+        <script type="text/javascript">emailjs.init('PhSgmAahC60OtLD6s')</script>
+        <script src="/scripts/inmuebleDetalle.js"></script>
+
+    </body>
+</html>
+

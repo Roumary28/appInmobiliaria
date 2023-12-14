@@ -1,0 +1,236 @@
+body {
+    height: 100%;
+    box-sizing: border-box;
+}
+main {
+    height: 100%;
+}
+
+.fila-general-1 {
+    display: flex;
+    flex-direction: row;
+}
+
+.fila-general-1 .columna-1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 65%;
+}
+
+.fila-general-1 .columna-2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 35%;
+}
+
+/*COLUMNA 1*/
+
+.fila-general-1 .columna-1 .fila-1 {
+    width: 100%;
+    text-align: center;
+}
+.fila-general-1 .columna-1 .fila-1 img {
+    height: 380px;
+    width: 90%;
+    margin: 0.5em;
+}
+
+.fila-general-1 .columna-1 .fila-1 .editImagenes {
+    position: absolute;
+    top: 13%;
+    left: 56%;
+    padding: 0.2em;
+    border-radius: 1.2em;
+}
+.fila-general-1 .columna-1 .fila-1 .editImagenes:hover {
+    cursor: pointer;
+    background-color: #ada9a9;
+}
+
+.fila-general-1 .columna-1 .fila-1 .editImagenes img {
+    margin: 0.3em;
+    width: 28px;
+    height: 28px;
+    transition: 0.1s;
+}
+
+.fila-general-1 .columna-1 .fila-2 img {
+    width: 100px;
+    height: 80px;
+    margin-bottom: 0.2em;
+    padding: 0.2em;
+}
+
+.fila-general-1 .columna-1 .detalles{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 90%;
+    border: 2px solid gray;
+    border-radius: 0.5em;
+    margin: 0.5em 0;
+    padding-bottom: 0.5em;
+}
+
+.fila-general-1 .columna-1 .fila-3 {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.fila-general-1 .columna-1 .fila-3 .col-1 {
+    display: flex;
+    margin: 0.2em 0;
+    padding-left: 35px;
+    font-size: 2em;
+    font-family: fantasy;
+    width: 45%;
+}
+
+.fila-general-1 .columna-1 .fila-3 .col-1 .precio {
+    margin-bottom: 0;
+}
+
+.fila-general-1 .columna-1 .fila-3 .col-2 {
+    display: flex;
+    justify-content: flex-end;
+    width: 55%;
+    padding: 0.2em 0.5em;
+}
+
+.fila-general-1 .columna-1 .fila-3 .col-2 .tipoOferta {
+    font-size: 25px;
+    font-weight: 800;
+}
+
+.fila-general-1 .columna-1 .fila-4 .ubicacion{
+    margin-bottom: 0.2em;
+    padding-left: 35px;
+    font-size: 1.8em;
+    font-family: math;
+    font-weight: 800;
+}
+
+.fila-general-1 .columna-1 .fila-5 .descripcion{
+    margin: 0.2em 0;
+    padding-left: 35px;
+    font-size: 1em;
+}
+
+.fila-general-1 .columna-1 .fila-6{
+    margin: 0.2em 0;
+    padding-left: 35px;
+
+}
+
+.fila-general-1 .columna-1 .fila-7{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin: 0.2em 0;
+    padding-left: 35px;
+}
+
+.fila-general-1 .columna-1 .fila-7 .col-1 {
+    width: 50%;
+}
+
+.fila-general-1 .columna-1 .fila-7 .col-2 {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 0.5em;
+    width: 50%;
+}
+
+.fila-general-1 .columna-1 .fila-7 .col-2 a {
+    margin-left: 0.2em;
+}
+
+/*COLUMNA 2*/
+
+.fila-general-1 .columna-2 .fila-1 {
+    margin-top: 1em;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    text-align: center;
+}
+
+.fila-general-1 .columna-2 form {
+    padding: 1.5em;
+    width: 85%;
+    border: 3px solid  gray;
+    border-radius: 1em;
+}
+
+.fila-general-1 .columna-2 label {
+    display: block;
+    text-align: initial;
+    padding: 0.5em 0;
+}
+
+.fila-general-1 .columna-2 input {
+    width: 100%;
+    border: 2px solid  gray;
+    border-radius: 1.8em;
+    padding: 0.5rem;
+}
+
+.fila-general-1 .columna-2 input:focus {
+    border-color: #34A0A4;
+    outline: none;
+}
+
+.fila-general-1 .columna-2 textarea {
+    width: 100%;
+    border: 2px solid  gray;
+    border-radius: 1.5em;
+    padding: 0.5rem;
+}
+
+.fila-general-1 .columna-2 textarea:focus {
+    border-color: #34A0A4;
+    outline: none;
+}
+
+.fila-general-1 .columna-2 input#button {
+    width: 100%;
+    border: none;
+    border-radius: 0.5em;
+    margin: 0.5em 0;
+    padding: 0.5rem;
+    background-color: #168AAD;
+    color: #fff;
+    transition: all 0.3s;
+}
+
+.fila-general-1 .columna-2 input#button:hover {
+    cursor: pointer;
+    background-color: #34A0A4;
+    padding: 0.2em 0;
+    font-size: 1.2em;
+}
+
+.fila-general-1 .columna-2 .fila-2{
+    margin-top: 2em ;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    border: 2px solid gray;
+    border-radius: 0.5em;
+}
+
+
+@media screen and (max-width: 768px) {
+    main {
+        height: 100vh;
+    }
+    
+}
