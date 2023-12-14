@@ -198,7 +198,7 @@ main {
     outline: none;
 }
 
-.fila-general-1 .columna-2 .btn-consultar {
+.fila-general-1 .columna-2 input#button {
     width: 100%;
     border: none;
     border-radius: 0.5em;
@@ -209,7 +209,7 @@ main {
     transition: all 0.3s;
 }
 
-.fila-general-1 .columna-2 .btn-consultar:hover {
+.fila-general-1 .columna-2 input#button:hover {
     cursor: pointer;
     background-color: #34A0A4;
     padding: 0.2em 0;
