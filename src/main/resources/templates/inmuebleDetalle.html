@@ -60,7 +60,7 @@
                                 <div class="col-2">
                                     <a sec:authorize="hasRole ('ADMIN')" th:href="@{/inmueble/modificar/__${inmueble.id}__}" class="btn btn-sm btn-outline-secondary">Modificar</a> 
                                     <a sec:authorize="hasRole ('ADMIN')" th:href="@{/inmueble/eliminar/__${inmueble.id}__}" class="btn btn-sm btn-outline-secondary">Eliminar</a>
-                                    <a th:href="@{/oferta/crear/__${inmueble.id}__}" class="btn btn-sm btn-outline-secondary">Hacer Oferta</a>
+                                    <a th:if="${!(#authorization.expression('isAuthenticated()') and inmueble.usuarioEnte.id == session?.usuariosession?.id)}" th:href="@{/oferta/crear/__${inmueble.id}__}" class="btn btn-sm btn-outline-secondary">Hacer Oferta</a>
                                     <a sec:authorize="hasRole ('ENTE') or hasRole ('CLIENTE')" th:if="${inmueble.usuarioEnte.id == session.usuariosession.id}" th:href="@{/inmueble/modifica/__${inmueble.id}__}" class="btn btn-sm btn-outline-secondary">Modificar</a> 
                                     <a sec:authorize="hasRole ('ENTE') or hasRole ('CLIENTE')" th:if="${inmueble.usuarioEnte.id == session.usuariosession.id}" th:href="@{/inmueble/elimina/__${inmueble.id}__}" class="btn btn-sm btn-outline-secondary">Eliminar</a>
                                 </div>
