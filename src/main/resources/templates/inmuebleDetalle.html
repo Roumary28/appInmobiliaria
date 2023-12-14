@@ -21,14 +21,26 @@
                     <div class="columna-1">
                         <div class="fila-1">
                             <img id="imagenGrande" th:src="@{/imagen/inmueble/__${inmueble.imagenes[0].id}__}" alt="">
+                            <div th:if="${inmueble.usuarioEnte.id == session.usuariosession.id}" class="editImagenes">
+                                <a th:href="@{/inmueble/listarimagenes/__${inmueble.id}__}">
+                                    <img src="https://cdn.icon-icons.com/icons2/2650/PNG/512/edit_object_icon_160911.png">
+                                </a>
+                                
+                            </div>
                         </div>
                         <div class="fila-2">
                             <img th:each="imagen : ${inmueble.imagenes}"  th:src="@{/imagen/inmueble/__${imagen.id}__}" onclick="mostrarImagen(this)" alt="">
                         </div>
                         <div class="detalles">
                             <div class="fila-3">
-                                <p class="precio" th:if="${inmueble.tipoOferta == 'alquiler'}" th:text="'$' + ${inmueble.precioAlquiler}" style="display: inline;"></p>
-                                <p class="precio" th:if="${inmueble.tipoOferta == 'venta'}" th:text="'$' + ${inmueble.precioVenta}" style="display: inline;"></p>  
+                                <div class="col-1">
+                                    <p class="precio" th:if="${inmueble.tipoOferta == 'alquiler'}" th:text="'$' + ${inmueble.precioAlquiler}" style="display: inline;"></p>
+                                    <p class="precio" th:if="${inmueble.tipoOferta == 'venta'}" th:text="'$' + ${inmueble.precioVenta}" style="display: inline;"></p>
+                                </div>
+                                <div class="col-2">
+                                    <p class="tipoOferta" th:if="${inmueble.tipoOferta == 'alquiler'}">ALQUILER</p>
+                                    <p class="tipoOferta" th:if="${inmueble.tipoOferta == 'venta'}">VENTA</p>
+                                </div>
                             </div>
                             <div class="fila-4">
                                 <p class="ubicacion" th:text="${inmueble.ubicacion}"></p>
@@ -41,9 +53,18 @@
                                 <p style="display: inline;" th:text="'Superficie:' + ${inmueble.superficie} + ' m2'"></p>
                             </div>
                             <div class="fila-7">
-                                <img src="https://static.vecteezy.com/system/resources/previews/020/973/944/non_2x/door-open-icon-in-trendy-outline-style-isolated-on-white-background-door-symbol-for-your-web-site-design-logo-app-ui-illustration-eps10-on-white-background-vector.jpg" height="20px" width="20px">
-                                <p style="display: inline;" th:text="'Ambientes:'+${inmueble.ambientes}"></p>
-                            </div>
+                                <div class="col-1">
+                                    <img src="https://static.vecteezy.com/system/resources/previews/020/973/944/non_2x/door-open-icon-in-trendy-outline-style-isolated-on-white-background-door-symbol-for-your-web-site-design-logo-app-ui-illustration-eps10-on-white-background-vector.jpg" height="20px" width="20px">
+                                    <p style="display: inline;" th:text="'Ambientes:'+${inmueble.ambientes}"></p>
+                                </div>
+                                <div class="col-2">
+                                    <a sec:authorize="hasRole ('ADMIN')" th:href="@{/inmueble/modificar/__${inmueble.id}__}" class="btn btn-sm btn-outline-secondary">Modificar</a> 
+                                    <a sec:authorize="hasRole ('ADMIN')" th:href="@{/inmueble/eliminar/__${inmueble.id}__}" class="btn btn-sm btn-outline-secondary">Eliminar</a>
+                                    <a th:if="${inmueble.usuarioEnte.id != session.usuariosession.id}" th:href="@{/oferta/crear/__${inmueble.id}__}" class="btn btn-sm btn-outline-secondary">Hacer Oferta</a>
+                                    <a th:if="${inmueble.usuarioEnte.id == session.usuariosession.id}" th:href="@{/inmueble/modifica/__${inmueble.id}__}" class="btn btn-sm btn-outline-secondary">Modificar</a> 
+                                    <a th:if="${inmueble.usuarioEnte.id == session.usuariosession.id}" th:href="@{/inmueble/elimina/__${inmueble.id}__}" class="btn btn-sm btn-outline-secondary">Eliminar</a>
+                                </div>
+                                </div>
                         </div>
 
                     </div>
