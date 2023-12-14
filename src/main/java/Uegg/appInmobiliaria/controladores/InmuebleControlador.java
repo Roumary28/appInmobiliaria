@@ -152,6 +152,14 @@ public class InmuebleControlador {
         return "inmuebleList.html";
     }
 
+    @GetMapping("/detalle/{id}")
+    public String detalleInmueble(@PathVariable String id, ModelMap modelo){
+        Inmueble inmueble = inmuebleRepositorio.getOne(id);
+        
+        modelo.addAttribute("inmueble", inmueble);
+        
+        return "inmuebleDetalle.html";
+    }
     
         @PreAuthorize("hasAnyRole('ROLE_ENTE')")
     @GetMapping("/listar/{id}") 
