@@ -11,6 +11,22 @@ body {
 main {
     height: 100%; 
 }
+
+.titulo-sin-contenido {
+    text-align: center;
+}
+
+.titulo-sin-contenido p {
+    color: #168AAD;
+    width: 85vw;
+    height: 100vh;
+    font-size: 1.5em;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .card {
     border-radius: 0.7em;
 }
