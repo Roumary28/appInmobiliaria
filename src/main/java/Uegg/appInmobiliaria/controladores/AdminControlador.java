@@ -54,19 +54,5 @@ public class AdminControlador {
         usuarioServicio.baja(id);
         return "redirect:/admin/usuarios";
     }
-
-    @GetMapping("/eliminar/{id}")
-    public String eliminarUsuario(@PathVariable String id) {
-
-        List<Inmueble> respuesta = inmuebleRepositorio.buscarPorPropietario(id);
-        if (respuesta.isEmpty()) {
-            usuarioServicio.baja(id);
-            return "redirect:/admin/usuarios";
-        }else {
-            return "redirect:/inmueble/eliminar";
-        }
-
-        
-    }
-
+    
 }
