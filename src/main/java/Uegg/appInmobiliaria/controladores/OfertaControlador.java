@@ -58,13 +58,13 @@ public class OfertaControlador {
             ofertaServicio.crearOfertaCliente(montoOferta, idInmueble, idCliente);
 
             modelo.put("exito", "Oferta enviada. Espere respuesta del Dueño de la propiedad");
-            return "redirect:/";
+            return "redirect:/inmueble/detalle/" + idInmueble;
         } catch (MyException ex) {
             modelo.put("error", ex.getMessage());
             modelo.put("montoOferta", montoOferta);
             modelo.put("idInmueble", idInmueble);
             modelo.put("idCliente", idCliente);
-            return "oferta_form";
+           return "redirect:/inmueble/detalle/" + idInmueble;
         }
     }
 
