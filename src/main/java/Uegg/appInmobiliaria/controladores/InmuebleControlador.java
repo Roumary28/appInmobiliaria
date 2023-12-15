@@ -161,6 +161,91 @@ public class InmuebleControlador {
         return "inmuebleDetalle.html";
     }
     
+    
+    @GetMapping("/lista/busquedaVenta") //localhost:8080/inmueble/lista/
+    public String listarbúsquedaVenta(ModelMap modelo) {
+
+       modelo.addAttribute("tipos", Tipo.values());
+        
+
+        return "busqueda.html";
+    }
+     @PostMapping("/lista/busquedaVenta") //localhost:8080/inmueble/lista/
+    public String búsquedaVenta(@RequestParam Tipo tipo,@RequestParam(required = false) Double superficie,
+            @RequestParam(required = false) Integer ambientes,@RequestParam(required = false) Double precio,
+               @RequestParam(required = false) Double precioM, ModelMap modelo)
+    {
+
+        List<Inmueble> inmuebles = inmuebleServicio.listarXPVenta(tipo, ambientes, precio, precioM);
+
+        modelo.addAttribute("inmuebles", inmuebles);
+
+        return "inmuebleList.html";
+    }
+
+     @GetMapping("/lista/ventasPorPrecio") //localhost:8080/inmueble/lista/
+    public String listarbusquedaVentaXP(ModelMap modelo) {
+
+       modelo.addAttribute("tipos", Tipo.values());
+        
+
+        return "ventasPorPrecio.html";
+    }
+     @PostMapping("/lista/ventasPorPrecio") //localhost:8080/inmueble/lista/
+    public String busquedaVentaXP(@RequestParam Tipo tipo,
+            @RequestParam(required = false) Integer ambientes, ModelMap modelo)
+    {
+
+        List<Inmueble> inmuebles = inmuebleServicio.listarBusquedaVenta(tipo, ambientes);
+
+        modelo.addAttribute("inmuebles", inmuebles);
+
+        return "inmuebleList.html";
+    }
+    
+     @GetMapping("/lista/busquedaAlquiler") //localhost:8080/inmueble/lista/
+    public String listarbusquedaAlquiler(ModelMap modelo) {
+
+       modelo.addAttribute("tipos", Tipo.values());
+        
+
+        return "busquedaA.html";
+    }
+     @PostMapping("/lista/busquedaAlquiler") //localhost:8080/inmueble/lista/
+    public String busquedaAlquiler(@RequestParam Tipo tipo,@RequestParam(required = false) Double superficie,
+            @RequestParam(required = false) Integer ambientes,
+            @RequestParam(required = false) Double precio,
+               @RequestParam(required = false) Double precioM,
+            ModelMap modelo)
+    {
+
+        List<Inmueble> inmuebles = inmuebleServicio.listarXPAlquiler(tipo, ambientes, precio, precioM);
+
+        modelo.addAttribute("inmuebles", inmuebles);
+
+        return "inmuebleList.html";
+    }
+     @GetMapping("/lista/alquilerPorPrecio") //localhost:8080/inmueble/lista/
+    public String listarAlquilerXP(ModelMap modelo) {
+
+       modelo.addAttribute("tipos", Tipo.values());
+        
+
+        return "alquilerPorPrecio.html";
+    }
+     @PostMapping("/lista/alquilerPorPrecio") //localhost:8080/inmueble/lista/
+    public String busquedaAlquilerXP (@RequestParam Tipo tipo,
+            @RequestParam(required = false) Integer ambientes,
+            ModelMap modelo)
+    {
+
+        List<Inmueble> inmuebles = inmuebleServicio.listarBusquedaAlquiler(tipo, ambientes);
+
+        modelo.addAttribute("inmuebles", inmuebles);
+
+        return "inmuebleList.html";
+    }
+    
         @PreAuthorize("hasAnyRole('ROLE_ENTE')")
     @GetMapping("/listar/{id}") 
     public String listarGeneral(HttpSession session,ModelMap modelo,@PathVariable String id) {
