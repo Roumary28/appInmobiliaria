@@ -99,7 +99,7 @@ public class InmuebleServicio {
         }
         
 }
-    
+    @Transactional
     public void NoDisponible(String id) {
         
         Optional<Inmueble> respuesta = inmuebleRepositorio.findById(id);
@@ -114,6 +114,7 @@ public class InmuebleServicio {
         
     }
     
+    @Transactional
     public void Disponible(String id) {
         
         Optional<Inmueble> respuesta = inmuebleRepositorio.findById(id);
@@ -161,9 +162,9 @@ public class InmuebleServicio {
         return inmuebleAmbiente;
     }
     
-    public List<Inmueble> listarInmueblePropietario(String id) {
+    public List<Inmueble> listarInmueblePropietarioYInquilino(String id) {
        
-        List<Inmueble> inmueblesEnte = inmuebleRepositorio.buscarPorProp(id);
+        List<Inmueble> inmueblesEnte = inmuebleRepositorio.buscarPorPropYInq(id);
         return inmueblesEnte;
     }
     

@@ -250,7 +250,7 @@ public class InmuebleControlador {
     @GetMapping("/listar/{id}") 
     public String listarGeneral(HttpSession session,ModelMap modelo,@PathVariable String id) {
 
-        List<Inmueble> inmuebles = inmuebleServicio.listarInmueblePropietario(id);
+        List<Inmueble> inmuebles = inmuebleServicio.listarInmueblePropietarioYInquilino(id);
 
         modelo.addAttribute("inmuebles", inmuebles);
 
