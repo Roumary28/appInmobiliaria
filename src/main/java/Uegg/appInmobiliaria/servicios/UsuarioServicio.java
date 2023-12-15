@@ -239,7 +239,7 @@ public class UsuarioServicio implements UserDetailsService {
         }
 
         if (!pass.equals(pass2)) {
-            throw new MyException("Las contraseñas deben ser iguales.");
+            throw new MyException("Las contraseñas no coinciden.");
         }
 
     }
@@ -283,7 +283,7 @@ public class UsuarioServicio implements UserDetailsService {
         }
 
         if (!pass.equals(pass2)) {
-            throw new MyException("Las contraseñas deben ser iguales");
+            throw new MyException("Las contraseñas no coinciden");
         }
     }
 
