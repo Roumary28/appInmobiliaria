@@ -112,6 +112,14 @@ public class OfertaControlador {
         ofertaServicio.eliminarOferta(id);
         return "redirect:/oferta/cliente/" + idUsuario;
     }
+    
+    @GetMapping("/cancelar/{id}")
+    public String cancelar(@PathVariable String id) {
+        Oferta oferta = ofertaServicio.getOne(id);
+        String idUsuario = oferta.getUsuarioCliente().getId();
+        ofertaServicio.cancelarOferta(id);
+        return "redirect:/oferta/cliente/" + idUsuario;
+    }
 
     @GetMapping("/confirmar/{id}")
     public String confirmar(@PathVariable String id) {
