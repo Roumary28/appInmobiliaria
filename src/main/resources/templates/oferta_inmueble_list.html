@@ -59,48 +59,6 @@
                     </tbody>
                 </table>
 
-
-                <!--
-                <div>
-                      <table  class="table table-white">
-                          <thead class="align-items-center">
-                              <tr>
-                                  <th  scope="col">Nombre Cliente</th>
-                                  <th  scope="col">Monto Ofrecido</th>
-                                  <th  scope="col">Aceptar / Rechazar</th>
-                              </tr>
-                          </thead>
-                          <tbody th:each="oferta : ${oferta}">
-                              <tr>
-                                  <th scope="row">Nombre Cliente</th>
-                                  <td>Monto Ofrecido</td>
-                                  <td >
-                                      <button type="button" class="btn custom-button my-2"><a th:href="@{/oferta/aceptar/__${oferta.id}__}" class="btn custom-button my-2"> <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Aceptar</font></font></a></button>
-                                      <button type="button" class="btn custom-button my-2"><a th:href="@{/oferta/rechazar/__${oferta.id}__}" class="btn custom-button my-2"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Rechazar</font></font></a></button>
-                                  </td>
-                              </tr>
-                          </tbody>
-                      </table>
-                  </div>
-                <table class="table table-white">
-                      <tbody th:each="oferta : ${ofertas}"> 
-                          <tr>
-                              <th scope="row" th:text="${oferta.id}"></th>
-                              <td th:text="${oferta.montoOferta}"></td>
-                              <td></td>
-                              <td th:text="${oferta.estadoOferta}"></td>
-                              <td >
-                                  <button type="button" class="btn custom-button my-2"><a th:href="@{/oferta/aceptar/__${oferta.id}__}" class="btn custom-button my-2"> <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Aceptar</font></font></a></button>
-                                  <button type="button" class="btn custom-button my-2"><a th:href="@{/oferta/rechazar/__${oferta.id}__}" class="btn custom-button my-2"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Rechazar</font></font></a></button>
-                              </td>
-                          </tr>
-                      </tbody>
-                  </table>
-                -->
-
-
-
-
                 <div th:if="${exito}!=null" class="card text-white bg-success mb-3 mt-3 mensajeExito" >
                     <div class="card-body">
                         <h5 class="card-title">Exito </h5>
