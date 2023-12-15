@@ -153,10 +153,11 @@ public class InmuebleControlador {
     }
 
     @GetMapping("/detalle/{id}")
-    public String detalleInmueble(@PathVariable String id, ModelMap modelo){
+    public String detalleInmueble(@PathVariable String id, ModelMap modelo, HttpSession session){
         Inmueble inmueble = inmuebleRepositorio.getOne(id);
         
         modelo.addAttribute("inmueble", inmueble);
+        modelo.addAttribute("session", session);
         
         return "inmuebleDetalle.html";
     }

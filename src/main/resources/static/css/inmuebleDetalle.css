@@ -152,6 +152,19 @@ main {
 
 /*COLUMNA 2*/
 
+.fila-general-1 .columna-2 .titulo-form p{
+    font-size: larger;
+    font-weight: 700;
+}
+
+.fila-general-1 .columna-2 .titulo-form p span {
+    color: #168AAD;
+}
+
+.fila-general-1 .columna-2 .titulo-form p span:hover {
+    color: #34A0A4;
+}
+
 .fila-general-1 .columna-2 .fila-1 {
     margin-top: 1em;
     display: flex;
@@ -217,16 +230,29 @@ main {
 }
 
 .fila-general-1 .columna-2 .fila-2{
-    margin-top: 2em ;
+    margin-top: 1em ;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
     width: 100%;
-    border: 2px solid gray;
     border-radius: 0.5em;
 }
 
+.fila-general-1 .columna-2 .fila-2 p {
+    font-size: 1em;
+    font-weight: 600;
+    margin-bottom: 0.2em;
+}
+
+.fila-general-1 .columna-2 .fila-2 p a {
+    text-decoration: none;
+    font-weight: 800;
+    color: #168AAD;
+}
+.fila-general-1 .columna-2 .fila-2 p a:hover {
+    color: #34A0A4;
+}
 
 @media screen and (max-width: 768px) {
     main {
