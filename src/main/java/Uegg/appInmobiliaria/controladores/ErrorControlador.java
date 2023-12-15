@@ -20,29 +20,29 @@ public class ErrorControlador implements ErrorController {
 
         switch (httpErrorCode) {
             case 400: {
-                errorMsg = "el recurso solicitado no existe";
+                errorMsg = "El recurso solicitado no existe.";
                 break;
             }
             case 403: {
-                errorMsg = "no tiene permisos para acceder al recurso";
+                errorMsg = "No tiene permisos para acceder al recurso.";
                 break;
             }
             case 401: {
-                errorMsg = "no se encuentra autorizado";
+                errorMsg = "No se encuentra autorizado.";
                 break;
             }
             case 404: {
-                errorMsg = "el recurso solicitado no fue encontrado";
+                errorMsg = "El recurso solicitado no fue encontrado.";
                 break;
             }
             
             case 405: {
-                errorMsg = "operacion no admitida";
+                errorMsg = "Operación no admitida.";
                 break;
             }
             
             case 500: {
-                errorMsg = "ocurrio un error interno";
+                errorMsg = "Ocurrió un error interno.";
                 break;
             }
         }
