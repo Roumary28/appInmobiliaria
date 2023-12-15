@@ -201,4 +201,33 @@ public class InmuebleServicio {
         
     }
     
+    
+    public List<Inmueble> listarBusquedaVenta(Tipo tipo, Integer ambientes) {
+
+        List<Inmueble> inmuebles = inmuebleRepositorio.busquedaPersonalizadaVenta(tipo, ambientes);
+        
+        return inmuebles;
+    }
+    public List<Inmueble> listarXPVenta(Tipo tipo, Integer ambientes, Double precio, Double precioM) {
+
+        List<Inmueble> inmuebles = inmuebleRepositorio.busquedaPorPrecioVenta(tipo, ambientes, precio, precioM);
+        
+        return inmuebles;
+    }
+
+    public List<Inmueble> listarBusquedaAlquiler(Tipo tipo, Integer ambientes) {
+
+        List<Inmueble> inmuebles = inmuebleRepositorio.busquedaPersonalizadaAlquiler(tipo, ambientes);
+
+        return inmuebles;
+    }
+    
+     public List<Inmueble> listarXPAlquiler(Tipo tipo, Integer ambientes, Double precio, Double precioM) {
+
+        List<Inmueble> inmuebles = inmuebleRepositorio.busquedaPorPrecioAlquiler(tipo, ambientes, precio, precioM);
+
+        return inmuebles;
+    }
+   
+    
 }
