@@ -1,4 +1,3 @@
-
 package Uegg.appInmobiliaria.controladores;
 
 import javax.servlet.http.HttpServletRequest;
@@ -35,22 +34,22 @@ public class ErrorControlador implements ErrorController {
                 errorMsg = "El recurso solicitado no fue encontrado.";
                 break;
             }
-            
+
             case 405: {
                 errorMsg = "Operación no admitida.";
                 break;
             }
-            
+
             case 500: {
                 errorMsg = "Ocurrió un error interno.";
                 break;
             }
         }
-        
+
         errorPage.addObject("codigo", httpErrorCode);
         errorPage.addObject("mensaje", errorMsg);
         return errorPage;
-        
+
     }
 
     private int getErrorCode(HttpServletRequest httpRequest) {

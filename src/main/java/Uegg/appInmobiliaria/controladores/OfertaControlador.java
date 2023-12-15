@@ -26,8 +26,6 @@ public class OfertaControlador {
     private OfertaServicio ofertaServicio;
     @Autowired
     private InmuebleServicio inmuebleServicio;
-    @Autowired
-    private OfertaRepositorio ofertaRepositorio;
 
     @PreAuthorize("hasAnyRole('ROLE_CLIENTE', 'ROLE_ENTE')")
     @GetMapping("/crear/{id}")
@@ -63,7 +61,7 @@ public class OfertaControlador {
             modelo.put("tipoOferta", tipoOferta);
             modelo.put("idInmueble", idInmueble);
             modelo.put("idCliente", idCliente);
-           return "redirect:/inmueble/detalle/" + idInmueble;
+            return "redirect:/inmueble/detalle/" + idInmueble;
         }
     }
 
@@ -112,7 +110,7 @@ public class OfertaControlador {
         ofertaServicio.eliminarOferta(id);
         return "redirect:/oferta/cliente/" + idUsuario;
     }
-    
+
     @GetMapping("/cancelar/{id}")
     public String cancelar(@PathVariable String id) {
         Oferta oferta = ofertaServicio.getOne(id);
