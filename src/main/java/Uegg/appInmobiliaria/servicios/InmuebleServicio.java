@@ -178,11 +178,11 @@ public class InmuebleServicio {
             String tipoOferta) throws MyException {
         
         if (tipo == null) {
-            throw new MyException("El tipo no puede ser nulo");
+            throw new MyException("El tipo de inmueble");
         }
         
         if (ubicacion == null || ubicacion.isEmpty()) {
-            throw new MyException("La ubicacion no puede ser nula");
+            throw new MyException("La ubicacion no puede estar vacia");
         }
         
         if (superficie == null) {
@@ -195,7 +195,7 @@ public class InmuebleServicio {
         
         if (tipoOferta == null || tipoOferta.isEmpty()) {
             
-            throw new MyException("El tipo de oferta no puede ser nulo");
+            throw new MyException("Debe elegir el tipo de oferta");
             
         }       
     }
