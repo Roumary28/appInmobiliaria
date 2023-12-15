@@ -117,9 +117,9 @@ public class UsuarioControlador {
     @PostMapping("/modificar/{id}")
     public String modificar(
             @PathVariable String id,
-            @RequestParam Long telefono,
+            @RequestParam(required = false) Long telefono,
             @RequestParam String direccion,
-            @RequestParam Integer codigoPostal,
+            @RequestParam(required = false) Integer codigoPostal,
             @RequestParam String email,
             @RequestParam String pass,
             @RequestParam String pass2,

@@ -88,3 +88,35 @@ main {
         height: -webkit-fill-available;
     }
 }
+
+/*Modificar*/
+
+.caja-grande {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5em;
+}
+
+.caja-1 {
+    width: 40%;
+}
+
+.caja-2 {
+    width: 40%;
+}
+
+label {
+    margin-bottom: 0.5em;
+    width: 70%;
+    text-align: start;
+}
+
+input {
+    margin-bottom: 0.5em;
+    padding: 0.4em;
+    outline: none;
+    border-radius: 1em;
+    border: 2px solid #34A0A4;
+}
+

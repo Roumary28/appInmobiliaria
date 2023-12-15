@@ -112,7 +112,7 @@ public class UsuarioServicio implements UserDetailsService {
             Integer codigoPostal,
             String email,
             String pass,
-            String pass2) {
+            String pass2) throws MyException {
         Optional<Usuario> respuesta = usuarioRepo.findById(id);
         if (respuesta.isPresent()) {
             // Obtener la instancia existente
@@ -120,7 +120,11 @@ public class UsuarioServicio implements UserDetailsService {
             usuario.setTelefono(telefono);
             usuario.setDireccion(direccion);
             usuario.setCodigoPostal(codigoPostal);
-
+            if (pass.equals(pass2)){
+                usuario.setPass(new BCryptPasswordEncoder().encode(pass));
+            } else {
+                throw new MyException("Las contraseñas no coinciden");
+            }
             usuarioRepo.save(usuario);
         }
     }
