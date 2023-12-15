@@ -246,16 +246,18 @@ public class InmuebleControlador {
         return "inmuebleList.html";
     }
     
-        @PreAuthorize("hasAnyRole('ROLE_ENTE')")
+    @PreAuthorize("hasAnyRole('ROLE_ENTE', 'ROLE_CLIENTE')")
     @GetMapping("/listar/{id}") 
     public String listarGeneral(HttpSession session,ModelMap modelo,@PathVariable String id) {
 
-        List<Inmueble> inmuebles = inmuebleServicio.listarInmuebleEnte(id);
+        List<Inmueble> inmuebles = inmuebleServicio.listarInmueblePropietario(id);
 
         modelo.addAttribute("inmuebles", inmuebles);
 
         return "inmuebleList.html";
     }
+    
+    /*
      @GetMapping("/modifica/{id}")
     public String modificaInmueble(HttpSession session,@PathVariable String id, ModelMap modelo) {
 
@@ -303,10 +305,9 @@ public class InmuebleControlador {
              return "redirect:/"; // Redirige a la lista
         }
     }
-    
-    
-    
-    
+
+*/
+
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/listaGeneral") //localhost:8080/inmueble/listaGeneral
     public String listarGeneral(ModelMap modelo) {
@@ -343,7 +344,7 @@ public class InmuebleControlador {
             }
             modelo.put("exito", "inmueble creado con exito");
 
-            return "redirect:../listaGeneral";
+            return "redirect:/";
 
         } catch (MyException ex) {
             modelo.put("error", ex.getMessage());
@@ -359,10 +360,10 @@ public class InmuebleControlador {
 
         try {
             inmuebleServicio.borrarInmueble(id);
-            return "redirect:../listaGeneral"; // Redirige a la lista después de eliminar
+            return "redirect:/"; // Redirige a la lista después de eliminar
         } catch (MyException ex) {
             modelo.put("error", ex.getMessage());
-            return "redirect:/listaGeneral"; // Redirige a la lista
+            return "redirect:/"; // Redirige a la lista
         }
     }
 

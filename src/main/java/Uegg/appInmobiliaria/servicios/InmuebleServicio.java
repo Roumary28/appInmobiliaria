@@ -44,7 +44,7 @@ public class InmuebleServicio {
         Optional<Usuario> respuesta = usuarioRepositorio.findById(idUsuarioEnte);
         Inmueble inmueble = new Inmueble();
         Usuario usuarioEnte = respuesta.get();
-        inmueble.setUsuarioEnte(usuarioEnte);
+        inmueble.setUsuarioPropietario(usuarioEnte);
         inmueble.setTipo(tipo);
         inmueble.setUbicacion(ubicacion);
         inmueble.setSuperficie(superficie);
@@ -54,8 +54,6 @@ public class InmuebleServicio {
         inmueble.setPrecioAlquiler(precioAlquiler);
         inmueble.setDisponibildad(true);
         inmueble.setTipoOferta(tipoOferta);
-        //Imagen imagen = imagenServicio.guardar(archivo);
-        //inmueble.setImagen(imagen);
         inmueble.setImagenes(imagenes);
         inmueble.setFechaAlta(new Date());
         inmuebleRepositorio.save(inmueble);
@@ -151,7 +149,6 @@ public class InmuebleServicio {
         return inmuebles;
     }
 
-    // los siguientes 2 metodos son para probar los query del repositorio
     public List<Inmueble> listarTipoInmueble(Tipo tipo, String tipoOferta) {
         
         List<Inmueble> tipoInmueble = inmuebleRepositorio.buscarPorTipo(tipo, tipoOferta);
@@ -164,15 +161,11 @@ public class InmuebleServicio {
         return inmuebleAmbiente;
     }
     
-    
-    
-    public List<Inmueble> listarInmuebleEnte(String id) {
+    public List<Inmueble> listarInmueblePropietario(String id) {
        
-        List<Inmueble> inmueblesEnte = inmuebleRepositorio.buscarPorEnte(id);
+        List<Inmueble> inmueblesEnte = inmuebleRepositorio.buscarPorPropietario(id);
         return inmueblesEnte;
     }
-    
-        
     
     public void validar(Tipo tipo, String ubicacion, Double superficie, Integer ambientes, String descripcion, Double precioVenta, Double precioAlquiler,
             String tipoOferta) throws MyException {
@@ -197,17 +190,16 @@ public class InmuebleServicio {
             
             throw new MyException("El tipo de oferta no puede ser nulo");
             
-        }
-        
+        }       
     }
-    
-    
+     
     public List<Inmueble> listarBusquedaVenta(Tipo tipo, Integer ambientes) {
 
         List<Inmueble> inmuebles = inmuebleRepositorio.busquedaPersonalizadaVenta(tipo, ambientes);
         
         return inmuebles;
     }
+    
     public List<Inmueble> listarXPVenta(Tipo tipo, Integer ambientes, Double precio, Double precioM) {
 
         List<Inmueble> inmuebles = inmuebleRepositorio.busquedaPorPrecioVenta(tipo, ambientes, precio, precioM);

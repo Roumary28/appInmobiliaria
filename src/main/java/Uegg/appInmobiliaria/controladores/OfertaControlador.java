@@ -32,7 +32,7 @@ public class OfertaControlador {
     @Autowired
     private OfertaRepositorio ofertaRepositorio;
 
-    @PreAuthorize("hasAnyRole('ROLE_CLIENTE')")
+    @PreAuthorize("hasAnyRole('ROLE_CLIENTE', 'ROLE_ENTE')")
     @GetMapping("/crear/{id}")
     public String hacerOferta(
             @PathVariable("id") String id,
