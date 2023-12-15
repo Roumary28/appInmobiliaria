@@ -163,7 +163,13 @@ public class InmuebleServicio {
     
     public List<Inmueble> listarInmueblePropietario(String id) {
        
-        List<Inmueble> inmueblesEnte = inmuebleRepositorio.buscarPorPropietario(id);
+        List<Inmueble> inmueblesEnte = inmuebleRepositorio.buscarPorProp(id);
+        return inmueblesEnte;
+    }
+    
+    public List<Inmueble> listarInmueblePropietarioYDisponibilidad(String id) {
+       
+        List<Inmueble> inmueblesEnte = inmuebleRepositorio.buscarPorPropietarioYDispo(id);
         return inmueblesEnte;
     }
     
