@@ -33,12 +33,17 @@ public class PortalControlador {
 
     @PreAuthorize("hasAnyRole('ROLE_CLIENTE', 'ROLE_ENTE', 'ROLE_ADMIN')")
     @GetMapping("/inicio")
-    public String inicio(HttpSession session) {
+    public String inicio(HttpSession session, ModelMap modelo) {
         Usuario logueado = (Usuario) session.getAttribute("usuariosession");
-        if (logueado.getRol().toString().equals("ADMIN")) {
+        if (logueado.getActivo() != true){
+            session.invalidate();
+            modelo.put("error", "Este usuario ha sido dado de baja!");
+            return "login.html";
+        }else if (logueado.getRol().toString().equals("ADMIN")) {
             return "redirect:/admin/dashboard";
+        } else {
+            return "index.html";
         }
-        return "index.html";
     }
 
     @GetMapping("/contactanos")
