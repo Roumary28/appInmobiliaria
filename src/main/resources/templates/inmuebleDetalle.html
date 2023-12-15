@@ -25,7 +25,7 @@
                                 <a th:href="@{/inmueble/listarimagenes/__${inmueble.id}__}">
                                     <img src="https://cdn.icon-icons.com/icons2/2650/PNG/512/edit_object_icon_160911.png">
                                 </a>
-                                
+
                             </div>
                         </div>
                         <div class="fila-2">
@@ -60,11 +60,46 @@
                                 <div class="col-2">
                                     <a sec:authorize="hasRole ('ADMIN')" th:href="@{/inmueble/modificar/__${inmueble.id}__}" class="btn btn-sm btn-outline-secondary">Modificar</a> 
                                     <a sec:authorize="hasRole ('ADMIN')" th:href="@{/inmueble/eliminar/__${inmueble.id}__}" class="btn btn-sm btn-outline-secondary">Eliminar</a>
-                                    <a th:if="${!(#authorization.expression('isAuthenticated()') and inmueble.usuarioPropietario.id == session?.usuariosession?.id)}" th:href="@{/oferta/crear/__${inmueble.id}__}" class="btn btn-sm btn-outline-secondary">Hacer Oferta</a>
+                                    <!--<a th:if="${!(#authorization.expression('isAuthenticated()') and inmueble.usuarioPropietario.id == session?.usuariosession?.id)}" th:href="@{/oferta/crear/__${inmueble.id}__}" class="btn btn-sm btn-outline-secondary">Hacer Oferta</a>-->
                                     <a sec:authorize="hasRole ('ENTE') or hasRole ('CLIENTE')" th:if="${inmueble.usuarioPropietario.id == session.usuariosession.id}" th:href="@{/inmueble/modificar/__${inmueble.id}__}" class="btn btn-sm btn-outline-secondary">Modificar</a> 
                                     <a sec:authorize="hasRole ('ENTE') or hasRole ('CLIENTE')" th:if="${inmueble.usuarioPropietario.id == session.usuariosession.id}" th:href="@{/inmueble/eliminar/__${inmueble.id}__}" class="btn btn-sm btn-outline-secondary">Eliminar</a>
+                                    <button  th:if="${!(#authorization.expression('isAuthenticated()') and inmueble.usuarioEnte.id == session?.usuariosession?.id)}" 
+                                             type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        Hacer oferta
+                                    </button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">[[${session.usuariosession.denominacion}]],  haz tu oferta aqui.</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="/oferta/enviar" method="POST">
+                                                        <div class="form-col2">
+                                                            <input hidden th:value="${inmueble.id}" name="idInmueble" id="idInmueble">
+                                                        </div>
+
+                                                        <div class="form-col2">
+                                                            <input hidden th:value="${session.usuariosession.id}"  name= "idCliente" id="idCliente">
+                                                        </div>
+
+                                                        <div class="form-col2">
+                                                            <label for="montoOferta" class="form-label">MONTO OFERTA: <input type="number"  class="form-control" th:value="${montoOferta}" name= "montoOferta" id="montoOferta"/></label>
+                                                        </div>
+
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="buttonC">Cancelar</button>
+                                                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" id="buttonE">Enviar oferta</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Fin Modal -->
                                 </div>
-                                </div>
+                            </div>
                         </div>
 
                     </div>
