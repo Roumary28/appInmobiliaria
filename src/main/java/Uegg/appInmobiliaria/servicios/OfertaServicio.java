@@ -27,7 +27,7 @@ public class OfertaServicio {
     private InmuebleServicio inmuebleServicio;
 
     @Transactional
-    public void crearOfertaCliente(Double monto, String tipoOferta ,String idInmueble, String idCliente) throws MyException {
+    public void crearOfertaCliente(Double monto, String tipoOferta, String idInmueble, String idCliente) throws MyException {
         validar(monto);
         Inmueble inmueble = inmuebleRepositorio.getOne(idInmueble);
         Usuario usuario = usuarioRepositorio.getOne(idCliente);
@@ -60,6 +60,15 @@ public class OfertaServicio {
         rechazarOfertas(inmueble.getId());
     }
 
+    //CANCELACION
+    @Transactional
+    public void cancelarOferta(String id) {
+        Oferta oferta = ofertaRepositorio.getOne(id);
+        oferta.setEstadoOferta("CANCELACION");
+        ofertaRepositorio.save(oferta);
+
+    }
+
     @Transactional
     public void confirmarOferta(String id) {
         Oferta oferta = ofertaRepositorio.getOne(id);
@@ -67,12 +76,19 @@ public class OfertaServicio {
         if (oferta.getEstadoOferta().equalsIgnoreCase("ACEPTADA")) {
             if (oferta.getTipoOferta().equalsIgnoreCase("venta")) {
                 inmueble.setUsuarioPropietario(oferta.getUsuarioCliente());
-                 inmuebleRepositorio.save(inmueble);
+                inmuebleRepositorio.save(inmueble);
             } else {
                 inmueble.setUsuarioInquilino(oferta.getUsuarioCliente());
                 inmuebleRepositorio.save(inmueble);
-            } 
+            }
             oferta.setEstadoOferta("CONFIRMADA");
+            ofertaRepositorio.save(oferta);
+        } else if (oferta.getEstadoOferta().equalsIgnoreCase("CANCELACION")) {
+            oferta.setEstadoOferta("CANCELADA");
+            oferta.setVigente(false);
+            inmueble.setUsuarioInquilino(null);
+            inmueble.setDisponibildad(true);
+            inmuebleRepositorio.save(inmueble);
             ofertaRepositorio.save(oferta);
         }
     }
