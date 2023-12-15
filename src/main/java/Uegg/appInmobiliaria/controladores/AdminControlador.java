@@ -50,7 +50,17 @@ public class AdminControlador {
     }
     
     @GetMapping("/darBaja/{id}")
-    public String darBaja(@PathVariable String id) {
+    public String darBaja(@PathVariable String id, ModelMap modelo) {
+        
+        List<Inmueble> inmuebles = inmuebleRepositorio.buscarPorProp(id);
+        if (inmuebles != null) {
+            for (Inmueble inmueble : inmuebles) {
+                if(inmueble.getUsuarioInquilino() != null) {
+                    modelo.put("error", "Este usuario tiene propiedades vinculadas a otros usuarios");
+                    return "redirect:/admin/usuarios";
+                }
+            }
+        }       
         usuarioServicio.baja(id);
         return "redirect:/admin/usuarios";
     }

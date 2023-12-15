@@ -27,13 +27,14 @@ public class OfertaServicio {
     private InmuebleServicio inmuebleServicio;
 
     @Transactional
-    public void crearOfertaCliente(Double monto, String idInmueble, String idCliente) throws MyException {
+    public void crearOfertaCliente(Double monto, String tipoOferta ,String idInmueble, String idCliente) throws MyException {
         validar(monto);
         Inmueble inmueble = inmuebleRepositorio.getOne(idInmueble);
         Usuario usuario = usuarioRepositorio.getOne(idCliente);
         Oferta oferta = new Oferta();
         oferta.setUsuarioCliente(usuario);
         oferta.setMontoOferta(monto);
+        oferta.setTipoOferta(tipoOferta);
         oferta.setInmueble(inmueble);
         oferta.setFechaOferta(new Date());
         oferta.setEstadoOferta("PENDIENTE");
@@ -64,10 +65,15 @@ public class OfertaServicio {
         Oferta oferta = ofertaRepositorio.getOne(id);
         Inmueble inmueble = oferta.getInmueble();
         if (oferta.getEstadoOferta().equalsIgnoreCase("ACEPTADA")) {
-            inmueble.setUsuarioPropietario(oferta.getUsuarioCliente());
+            if (oferta.getTipoOferta().equalsIgnoreCase("venta")) {
+                inmueble.setUsuarioPropietario(oferta.getUsuarioCliente());
+                 inmuebleRepositorio.save(inmueble);
+            } else {
+                inmueble.setUsuarioInquilino(oferta.getUsuarioCliente());
+                inmuebleRepositorio.save(inmueble);
+            } 
             oferta.setEstadoOferta("CONFIRMADA");
             ofertaRepositorio.save(oferta);
-            inmuebleRepositorio.save(inmueble);
         }
     }
 
@@ -84,26 +90,11 @@ public class OfertaServicio {
         }
     }
 
-    //Falta descantar inmueble del ente
-    /*
     @Transactional
-    public void transaccionCompra(String idOferta){
-        Optional<Oferta> respuesta = ofertaRepositorio.findById(idOferta);
-        if(respuesta.isPresent()){
-            Oferta oferta = new Oferta();
-            oferta.setEstadoOferta("CONFIRMADA");
-            Usuario usuario = usuarioRepositorio.getOne(oferta.getUsuarioCliente().getId());
-            Usuario usuarioEnte = usuarioRepositorio.getOne(oferta.getInmueble().getUsuarioPropietario().getId());
-            usuario.getInmuebles().add(oferta.getInmueble());
-            
-        }
-    }
-     */
-    @Transactional
-    public void rechazarOferta(String idOferta) {
-        Optional<Oferta> respuesta = ofertaRepositorio.findById(idOferta);
+    public void rechazarOferta(String id) {
+        Optional<Oferta> respuesta = ofertaRepositorio.findById(id);
         if (respuesta.isPresent()) {
-            Oferta oferta = new Oferta();
+            Oferta oferta = respuesta.get();
             oferta.setEstadoOferta("RECHAZADA");
             oferta.setVigente(false);
             ofertaRepositorio.save(oferta);
