@@ -63,7 +63,7 @@
                                     <!--<a th:if="${!(#authorization.expression('isAuthenticated()') and inmueble.usuarioPropietario.id == session?.usuariosession?.id)}" th:href="@{/oferta/crear/__${inmueble.id}__}" class="btn btn-sm btn-outline-secondary">Hacer Oferta</a>-->
                                     <a sec:authorize="hasRole ('ENTE') or hasRole ('CLIENTE')" th:if="${inmueble.usuarioPropietario.id == session.usuariosession.id}" th:href="@{/inmueble/modificar/__${inmueble.id}__}" class="btn btn-sm btn-outline-secondary">Modificar</a> 
                                     <a sec:authorize="hasRole ('ENTE') or hasRole ('CLIENTE')" th:if="${inmueble.usuarioPropietario.id == session.usuariosession.id}" th:href="@{/inmueble/eliminar/__${inmueble.id}__}" class="btn btn-sm btn-outline-secondary">Eliminar</a>
-                                    <button  th:if="${!(#authorization.expression('isAuthenticated()') and inmueble.usuarioEnte.id == session?.usuariosession?.id)}" 
+                                    <button  th:if="${!(#authorization.expression('isAuthenticated()') and inmueble.usuarioPropietario.id == session?.usuariosession?.id)}" 
                                              type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                         Hacer oferta
                                     </button>

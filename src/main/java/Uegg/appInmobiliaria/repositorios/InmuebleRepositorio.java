@@ -18,7 +18,7 @@ public interface InmuebleRepositorio extends JpaRepository<Inmueble, String> {
     public List<Inmueble> buscarPorAmbientes(@Param("ambientes") Integer ambientes);
 
     @Query("SELECT l FROM Inmueble l WHERE l.usuarioPropietario.id = :id AND l.disponibildad =true")
-    public List<Inmueble> buscarPorPropietario(@Param("id") String id);
+    public List<Inmueble> buscarPorPropietarioYDispo(@Param("id") String id);
     
     @Query("SELECT l FROM Inmueble l WHERE l.usuarioPropietario.id = :id")
     public List<Inmueble> buscarPorProp(@Param("id") String id);

@@ -40,11 +40,10 @@ public class OfertaServicio {
         oferta.setVigente(true);
         ofertaRepositorio.save(oferta);
     }
-    
+
     @Transactional
-    public void eliminarOferta (String id) {
+    public void eliminarOferta(String id) {
         Oferta oferta = ofertaRepositorio.getOne(id);
-        
         ofertaRepositorio.delete(oferta);
     }
 
@@ -61,25 +60,30 @@ public class OfertaServicio {
     }
 
     @Transactional
-    public void confirmarOferta(String id){
+    public void confirmarOferta(String id) {
         Oferta oferta = ofertaRepositorio.getOne(id);
         Inmueble inmueble = oferta.getInmueble();
-        if(oferta.getEstadoOferta().equalsIgnoreCase("ACEPTADA")){
+        if (oferta.getEstadoOferta().equalsIgnoreCase("ACEPTADA")) {
             inmueble.setUsuarioPropietario(oferta.getUsuarioCliente());
             oferta.setEstadoOferta("CONFIRMADA");
             ofertaRepositorio.save(oferta);
             inmuebleRepositorio.save(inmueble);
         }
     }
-    
+
     @Transactional
-    public void descartarOferta(String id){
+    public void descartarOferta(String id) {
         Oferta oferta = ofertaRepositorio.getOne(id);
-        if(oferta.getEstadoOferta().equalsIgnoreCase("ACEPTADA")){
+        if (oferta.getEstadoOferta().equalsIgnoreCase("ACEPTADA")) {
+            Inmueble inmueble = oferta.getInmueble();
+            inmueble.setDisponibildad(Boolean.TRUE);
+            inmuebleRepositorio.save(inmueble);
+
             oferta.setEstadoOferta("DESCARTADA");
             ofertaRepositorio.save(oferta);
         }
     }
+
     //Falta descantar inmueble del ente
     /*
     @Transactional
@@ -94,7 +98,7 @@ public class OfertaServicio {
             
         }
     }
-    */
+     */
     @Transactional
     public void rechazarOferta(String idOferta) {
         Optional<Oferta> respuesta = ofertaRepositorio.findById(idOferta);
@@ -118,22 +122,18 @@ public class OfertaServicio {
         }
     }
 
-    
     public List<Oferta> listarOfertaCliente(String id) {
         return ofertaRepositorio.buscarPorCliente(id);
     }
 
-    
     public List<Oferta> listarOfertasInmueble(String id) {
         return ofertaRepositorio.buscarPorInmueble(id);
     }
 
-    
     public Oferta mejorOferta(String id) {
         return ofertaRepositorio.buscarOfertaMayor(id);
     }
 
-    
     public Oferta contarOfertas(String id) {
         return ofertaRepositorio.contarOfertasPorInmueble(id);
     }
