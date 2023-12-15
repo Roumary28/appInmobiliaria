@@ -74,7 +74,7 @@ public class OfertaServicio {
         Oferta oferta = ofertaRepositorio.getOne(id);
         Inmueble inmueble = oferta.getInmueble();
         if (oferta.getEstadoOferta().equalsIgnoreCase("ACEPTADA")) {
-            if (oferta.getTipoOferta().equalsIgnoreCase("venta")) {
+            if (oferta.getTipoOferta().equalsIgnoreCase("VENTA")) {
                 inmueble.setUsuarioPropietario(oferta.getUsuarioCliente());
                 inmuebleRepositorio.save(inmueble);
             } else {
@@ -151,7 +151,7 @@ public class OfertaServicio {
 
     public void validar(Double montoOferta) throws MyException {
         if (montoOferta <= 0 || montoOferta == null) {
-            throw new MyException("La oferta no puede ser vacia o  se rmenor a cero.");
+            throw new MyException("La oferta no puede ser vacia o  ser menor a cero.");
         }
     }
 }
