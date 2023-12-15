@@ -75,7 +75,7 @@
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
                                         <a th:href="@{/inmueble/detalle/__${inmueble.id}__}" class="btn btn-sm btn-outline-secondary">Ver Detalles</a>
-                                        <a th:if="${(#authorization.expression('isAuthenticated()') and inmueble.usuarioEnte.id == session?.usuariosession?.id)}" th:href="@{/oferta/inmueble/__${inmueble.id}__}" class="btn btn-sm btn-outline-secondary">Ver Ofertas</a>
+                                        <a th:if="${(#authorization.expression('isAuthenticated()') and inmueble.usuarioPropietario.id == session?.usuariosession?.id)}" th:href="@{/oferta/inmueble/__${inmueble.id}__}" class="btn btn-sm btn-outline-secondary">Ver Ofertas</a>
                                     </div>
                                     
                                 </div>

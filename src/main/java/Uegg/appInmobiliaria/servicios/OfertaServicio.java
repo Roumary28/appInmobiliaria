@@ -14,9 +14,6 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
- * @author Gimenez Victor
- */
 @Service
 public class OfertaServicio {
 
@@ -66,9 +63,12 @@ public class OfertaServicio {
     @Transactional
     public void confirmarOferta(String id){
         Oferta oferta = ofertaRepositorio.getOne(id);
+        Inmueble inmueble = oferta.getInmueble();
         if(oferta.getEstadoOferta().equalsIgnoreCase("ACEPTADA")){
+            inmueble.setUsuarioPropietario(oferta.getUsuarioCliente());
             oferta.setEstadoOferta("CONFIRMADA");
             ofertaRepositorio.save(oferta);
+            inmuebleRepositorio.save(inmueble);
         }
     }
     
@@ -81,6 +81,7 @@ public class OfertaServicio {
         }
     }
     //Falta descantar inmueble del ente
+    /*
     @Transactional
     public void transaccionCompra(String idOferta){
         Optional<Oferta> respuesta = ofertaRepositorio.findById(idOferta);
@@ -88,12 +89,12 @@ public class OfertaServicio {
             Oferta oferta = new Oferta();
             oferta.setEstadoOferta("CONFIRMADA");
             Usuario usuario = usuarioRepositorio.getOne(oferta.getUsuarioCliente().getId());
-            Usuario usuarioEnte = usuarioRepositorio.getOne(oferta.getInmueble().getUsuarioEnte().getId());
+            Usuario usuarioEnte = usuarioRepositorio.getOne(oferta.getInmueble().getUsuarioPropietario().getId());
             usuario.getInmuebles().add(oferta.getInmueble());
             
         }
     }
-    
+    */
     @Transactional
     public void rechazarOferta(String idOferta) {
         Optional<Oferta> respuesta = ofertaRepositorio.findById(idOferta);
