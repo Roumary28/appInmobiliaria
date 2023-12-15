@@ -119,7 +119,6 @@ public class OfertaControlador {
         Oferta oferta = (Oferta) ofertaServicio.getOne(id);
         String idUsuario = oferta.getUsuarioCliente().getId();
         ofertaServicio.confirmarOferta(id);
-        ofertaServicio.transaccionCompra(id);
         return "redirect:/oferta/cliente/" + idUsuario;
     }
 
